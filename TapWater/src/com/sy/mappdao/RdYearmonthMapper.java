@@ -27,4 +27,6 @@ public interface RdYearmonthMapper {
     int updateByPrimaryKeySelective(RdYearmonth record);
 
     int updateByPrimaryKey(RdYearmonth record);
+
+	List<RdYearmonth> selAll();
 }

@@ -40,8 +40,18 @@ public class RdRead {
     private Integer auditEmpId;
 
     private Date auditDate;
+    
+    private UsUser usUser;
+    
+    public UsUser getUsUser() {
+		return usUser;
+	}
 
-    public Integer getId() {
+	public void setUsUser(UsUser usUser) {
+		this.usUser = usUser;
+	}
+
+	public Integer getId() {
         return id;
     }
 

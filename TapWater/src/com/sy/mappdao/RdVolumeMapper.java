@@ -27,4 +27,6 @@ public interface RdVolumeMapper {
     int updateByPrimaryKeySelective(RdVolume record);
 
     int updateByPrimaryKey(RdVolume record);
+
+	List<RdVolume> selAll();
 }

@@ -194,4 +194,8 @@
       area_disabled = #{areaDisabled,jdbcType=BIT}
     where area_id = #{areaId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selAll" resultMap="BaseResultMap">
+  	select * from sy_area
+  </select>
 </mapper>

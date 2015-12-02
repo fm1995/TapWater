@@ -241,4 +241,8 @@
       end_date = #{endDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selAll" resultMap="BaseResultMap">
+  	select * from rd_yearmonth order by init_date desc
+  </select>
 </mapper>

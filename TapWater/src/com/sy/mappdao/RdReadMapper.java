@@ -2,7 +2,11 @@ package com.sy.mappdao;
 
 import com.sy.entity.RdRead;
 import com.sy.entity.RdReadExample;
+import com.sy.entity.ReadView;
+import com.sy.projectUtils.cbgl.TermUtil;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RdReadMapper {
@@ -28,7 +32,8 @@ public interface RdReadMapper {
 
     int updateByPrimaryKey(RdRead record);
 
-    
-    
-	Integer selectAmountsByYearAndMonth(@Param("ymonth")String ymonth);
+
+	List<ReadView> selByYearAndMonth(RdRead read);
+
+	List<RdRead> selReadByTerm(@Param("term")TermUtil term, @Param("read")RdRead read);
 }

@@ -224,4 +224,8 @@
       disabled = #{disabled,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selAll" resultMap="BaseResultMap">
+  	select * from rd_volume
+  </select>
 </mapper>
