@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sy.mappdao.RdReadMapper" >
+  <resultMap id="BaseResultMap" type="com.sy.entity.RdRead" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="read_year" property="readYear" jdbcType="INTEGER" />
+    <result column="read_month" property="readMonth" jdbcType="INTEGER" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="meter_no" property="meterNo" jdbcType="VARCHAR" />
+    <result column="max_value" property="maxValue" jdbcType="INTEGER" />
+    <result column="volume_id" property="volumeId" jdbcType="INTEGER" />
+    <result column="volume_index" property="volumeIndex" jdbcType="INTEGER" />
+    <result column="read_emp_id" property="readEmpId" jdbcType="INTEGER" />
+    <result column="read_date" property="readDate" jdbcType="TIMESTAMP" />
+    <result column="pre_value" property="preValue" jdbcType="INTEGER" />
+    <result column="enter" property="enter" jdbcType="BIT" />
+    <result column="cur_value" property="curValue" jdbcType="INTEGER" />
+    <result column="dial" property="dial" jdbcType="BIT" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="formula" property="formula" jdbcType="VARCHAR" />
+    <result column="audit" property="audit" jdbcType="BIT" />
+    <result column="audit_emp_id" property="auditEmpId" jdbcType="INTEGER" />
+    <result column="audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, read_year, read_month, user_no, meter_no, max_value, volume_id, volume_index, 
+    read_emp_id, read_date, pre_value, enter, cur_value, dial, amount, formula, audit, 
+    audit_emp_id, audit_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sy.entity.RdReadExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from rd_read
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rd_read
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rd_read
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sy.entity.RdReadExample" >
+    delete from rd_read
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sy.entity.RdRead" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into rd_read (read_year, read_month, user_no, 
+      meter_no, max_value, volume_id, 
+      volume_index, read_emp_id, read_date, 
+      pre_value, enter, cur_value, 
+      dial, amount, formula, 
+      audit, audit_emp_id, audit_date
+      )
+    values (#{readYear,jdbcType=INTEGER}, #{readMonth,jdbcType=INTEGER}, #{userNo,jdbcType=VARCHAR}, 
+      #{meterNo,jdbcType=VARCHAR}, #{maxValue,jdbcType=INTEGER}, #{volumeId,jdbcType=INTEGER}, 
+      #{volumeIndex,jdbcType=INTEGER}, #{readEmpId,jdbcType=INTEGER}, #{readDate,jdbcType=TIMESTAMP}, 
+      #{preValue,jdbcType=INTEGER}, #{enter,jdbcType=BIT}, #{curValue,jdbcType=INTEGER}, 
+      #{dial,jdbcType=BIT}, #{amount,jdbcType=INTEGER}, #{formula,jdbcType=VARCHAR}, 
+      #{audit,jdbcType=BIT}, #{auditEmpId,jdbcType=INTEGER}, #{auditDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sy.entity.RdRead" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into rd_read
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="readYear != null" >
+        read_year,
+      </if>
+      <if test="readMonth != null" >
+        read_month,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="meterNo != null" >
+        meter_no,
+      </if>
+      <if test="maxValue != null" >
+        max_value,
+      </if>
+      <if test="volumeId != null" >
+        volume_id,
+      </if>
+      <if test="volumeIndex != null" >
+        volume_index,
+      </if>
+      <if test="readEmpId != null" >
+        read_emp_id,
+      </if>
+      <if test="readDate != null" >
+        read_date,
+      </if>
+      <if test="preValue != null" >
+        pre_value,
+      </if>
+      <if test="enter != null" >
+        enter,
+      </if>
+      <if test="curValue != null" >
+        cur_value,
+      </if>
+      <if test="dial != null" >
+        dial,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="formula != null" >
+        formula,
+      </if>
+      <if test="audit != null" >
+        audit,
+      </if>
+      <if test="auditEmpId != null" >
+        audit_emp_id,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="readYear != null" >
+        #{readYear,jdbcType=INTEGER},
+      </if>
+      <if test="readMonth != null" >
+        #{readMonth,jdbcType=INTEGER},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="meterNo != null" >
+        #{meterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="maxValue != null" >
+        #{maxValue,jdbcType=INTEGER},
+      </if>
+      <if test="volumeId != null" >
+        #{volumeId,jdbcType=INTEGER},
+      </if>
+      <if test="volumeIndex != null" >
+        #{volumeIndex,jdbcType=INTEGER},
+      </if>
+      <if test="readEmpId != null" >
+        #{readEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="readDate != null" >
+        #{readDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preValue != null" >
+        #{preValue,jdbcType=INTEGER},
+      </if>
+      <if test="enter != null" >
+        #{enter,jdbcType=BIT},
+      </if>
+      <if test="curValue != null" >
+        #{curValue,jdbcType=INTEGER},
+      </if>
+      <if test="dial != null" >
+        #{dial,jdbcType=BIT},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="formula != null" >
+        #{formula,jdbcType=VARCHAR},
+      </if>
+      <if test="audit != null" >
+        #{audit,jdbcType=BIT},
+      </if>
+      <if test="auditEmpId != null" >
+        #{auditEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sy.entity.RdReadExample" resultType="java.lang.Integer" >
+    select count(*) from rd_read
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rd_read
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.readYear != null" >
+        read_year = #{record.readYear,jdbcType=INTEGER},
+      </if>
+      <if test="record.readMonth != null" >
+        read_month = #{record.readMonth,jdbcType=INTEGER},
+      </if>
+      <if test="record.userNo != null" >
+        user_no = #{record.userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meterNo != null" >
+        meter_no = #{record.meterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxValue != null" >
+        max_value = #{record.maxValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.volumeId != null" >
+        volume_id = #{record.volumeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.volumeIndex != null" >
+        volume_index = #{record.volumeIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.readEmpId != null" >
+        read_emp_id = #{record.readEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="record.readDate != null" >
+        read_date = #{record.readDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.preValue != null" >
+        pre_value = #{record.preValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.enter != null" >
+        enter = #{record.enter,jdbcType=BIT},
+      </if>
+      <if test="record.curValue != null" >
+        cur_value = #{record.curValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.dial != null" >
+        dial = #{record.dial,jdbcType=BIT},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.formula != null" >
+        formula = #{record.formula,jdbcType=VARCHAR},
+      </if>
+      <if test="record.audit != null" >
+        audit = #{record.audit,jdbcType=BIT},
+      </if>
+      <if test="record.auditEmpId != null" >
+        audit_emp_id = #{record.auditEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditDate != null" >
+        audit_date = #{record.auditDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rd_read
+    set id = #{record.id,jdbcType=INTEGER},
+      read_year = #{record.readYear,jdbcType=INTEGER},
+      read_month = #{record.readMonth,jdbcType=INTEGER},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      meter_no = #{record.meterNo,jdbcType=VARCHAR},
+      max_value = #{record.maxValue,jdbcType=INTEGER},
+      volume_id = #{record.volumeId,jdbcType=INTEGER},
+      volume_index = #{record.volumeIndex,jdbcType=INTEGER},
+      read_emp_id = #{record.readEmpId,jdbcType=INTEGER},
+      read_date = #{record.readDate,jdbcType=TIMESTAMP},
+      pre_value = #{record.preValue,jdbcType=INTEGER},
+      enter = #{record.enter,jdbcType=BIT},
+      cur_value = #{record.curValue,jdbcType=INTEGER},
+      dial = #{record.dial,jdbcType=BIT},
+      amount = #{record.amount,jdbcType=INTEGER},
+      formula = #{record.formula,jdbcType=VARCHAR},
+      audit = #{record.audit,jdbcType=BIT},
+      audit_emp_id = #{record.auditEmpId,jdbcType=INTEGER},
+      audit_date = #{record.auditDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.RdRead" >
+    update rd_read
+    <set >
+      <if test="readYear != null" >
+        read_year = #{readYear,jdbcType=INTEGER},
+      </if>
+      <if test="readMonth != null" >
+        read_month = #{readMonth,jdbcType=INTEGER},
+      </if>
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="meterNo != null" >
+        meter_no = #{meterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="maxValue != null" >
+        max_value = #{maxValue,jdbcType=INTEGER},
+      </if>
+      <if test="volumeId != null" >
+        volume_id = #{volumeId,jdbcType=INTEGER},
+      </if>
+      <if test="volumeIndex != null" >
+        volume_index = #{volumeIndex,jdbcType=INTEGER},
+      </if>
+      <if test="readEmpId != null" >
+        read_emp_id = #{readEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="readDate != null" >
+        read_date = #{readDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preValue != null" >
+        pre_value = #{preValue,jdbcType=INTEGER},
+      </if>
+      <if test="enter != null" >
+        enter = #{enter,jdbcType=BIT},
+      </if>
+      <if test="curValue != null" >
+        cur_value = #{curValue,jdbcType=INTEGER},
+      </if>
+      <if test="dial != null" >
+        dial = #{dial,jdbcType=BIT},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="formula != null" >
+        formula = #{formula,jdbcType=VARCHAR},
+      </if>
+      <if test="audit != null" >
+        audit = #{audit,jdbcType=BIT},
+      </if>
+      <if test="auditEmpId != null" >
+        audit_emp_id = #{auditEmpId,jdbcType=INTEGER},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sy.entity.RdRead" >
+    update rd_read
+    set read_year = #{readYear,jdbcType=INTEGER},
+      read_month = #{readMonth,jdbcType=INTEGER},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      meter_no = #{meterNo,jdbcType=VARCHAR},
+      max_value = #{maxValue,jdbcType=INTEGER},
+      volume_id = #{volumeId,jdbcType=INTEGER},
+      volume_index = #{volumeIndex,jdbcType=INTEGER},
+      read_emp_id = #{readEmpId,jdbcType=INTEGER},
+      read_date = #{readDate,jdbcType=TIMESTAMP},
+      pre_value = #{preValue,jdbcType=INTEGER},
+      enter = #{enter,jdbcType=BIT},
+      cur_value = #{curValue,jdbcType=INTEGER},
+      dial = #{dial,jdbcType=BIT},
+      amount = #{amount,jdbcType=INTEGER},
+      formula = #{formula,jdbcType=VARCHAR},
+      audit = #{audit,jdbcType=BIT},
+      audit_emp_id = #{auditEmpId,jdbcType=INTEGER},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  
+  
+  <select id="selectAmountsByYearAndMonth" parameterType="map" resultType="java.lang.Integer">
+		SELECT sum(amount) FROM rd_read
+			where  date_format(read_date,'%Y%m%d') like  '%'#{ymonth}'%'  
+  </select>
+</mapper>

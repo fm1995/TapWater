@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sy.mappdao.SyCostTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.sy.entity.SyCostType" >
+    <id column="costtype_id" property="costtypeId" jdbcType="INTEGER" />
+    <result column="costtype_kind" property="costtypeKind" jdbcType="INTEGER" />
+    <result column="costtype_code" property="costtypeCode" jdbcType="VARCHAR" />
+    <result column="cost_type_name" property="costTypeName" jdbcType="VARCHAR" />
+    <result column="costtype_full_name" property="costtypeFullName" jdbcType="VARCHAR" />
+    <result column="costtype_price" property="costtypePrice" jdbcType="DECIMAL" />
+    <result column="costtype_surcharge_text" property="costtypeSurchargeText" jdbcType="VARCHAR" />
+    <result column="costtype_remark" property="costtypeRemark" jdbcType="VARCHAR" />
+    <result column="costtype_disabled" property="costtypeDisabled" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    costtype_id, costtype_kind, costtype_code, cost_type_name, costtype_full_name, costtype_price, 
+    costtype_surcharge_text, costtype_remark, costtype_disabled
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sy.entity.SyCostTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sy_cost_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy_cost_type
+    where costtype_id = #{costtypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy_cost_type
+    where costtype_id = #{costtypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sy.entity.SyCostTypeExample" >
+    delete from sy_cost_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sy.entity.SyCostType" >
+    insert into sy_cost_type (costtype_id, costtype_kind, costtype_code, 
+      cost_type_name, costtype_full_name, costtype_price, 
+      costtype_surcharge_text, costtype_remark, 
+      costtype_disabled)
+    values (#{costtypeId,jdbcType=INTEGER}, #{costtypeKind,jdbcType=INTEGER}, #{costtypeCode,jdbcType=VARCHAR}, 
+      #{costTypeName,jdbcType=VARCHAR}, #{costtypeFullName,jdbcType=VARCHAR}, #{costtypePrice,jdbcType=DECIMAL}, 
+      #{costtypeSurchargeText,jdbcType=VARCHAR}, #{costtypeRemark,jdbcType=VARCHAR}, 
+      #{costtypeDisabled,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sy.entity.SyCostType" >
+    insert into sy_cost_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="costtypeId != null" >
+        costtype_id,
+      </if>
+      <if test="costtypeKind != null" >
+        costtype_kind,
+      </if>
+      <if test="costtypeCode != null" >
+        costtype_code,
+      </if>
+      <if test="costTypeName != null" >
+        cost_type_name,
+      </if>
+      <if test="costtypeFullName != null" >
+        costtype_full_name,
+      </if>
+      <if test="costtypePrice != null" >
+        costtype_price,
+      </if>
+      <if test="costtypeSurchargeText != null" >
+        costtype_surcharge_text,
+      </if>
+      <if test="costtypeRemark != null" >
+        costtype_remark,
+      </if>
+      <if test="costtypeDisabled != null" >
+        costtype_disabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="costtypeId != null" >
+        #{costtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="costtypeKind != null" >
+        #{costtypeKind,jdbcType=INTEGER},
+      </if>
+      <if test="costtypeCode != null" >
+        #{costtypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="costTypeName != null" >
+        #{costTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="costtypeFullName != null" >
+        #{costtypeFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="costtypePrice != null" >
+        #{costtypePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="costtypeSurchargeText != null" >
+        #{costtypeSurchargeText,jdbcType=VARCHAR},
+      </if>
+      <if test="costtypeRemark != null" >
+        #{costtypeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="costtypeDisabled != null" >
+        #{costtypeDisabled,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sy.entity.SyCostTypeExample" resultType="java.lang.Integer" >
+    select count(*) from sy_cost_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sy_cost_type
+    <set >
+      <if test="record.costtypeId != null" >
+        costtype_id = #{record.costtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.costtypeKind != null" >
+        costtype_kind = #{record.costtypeKind,jdbcType=INTEGER},
+      </if>
+      <if test="record.costtypeCode != null" >
+        costtype_code = #{record.costtypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costTypeName != null" >
+        cost_type_name = #{record.costTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costtypeFullName != null" >
+        costtype_full_name = #{record.costtypeFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costtypePrice != null" >
+        costtype_price = #{record.costtypePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costtypeSurchargeText != null" >
+        costtype_surcharge_text = #{record.costtypeSurchargeText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costtypeRemark != null" >
+        costtype_remark = #{record.costtypeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costtypeDisabled != null" >
+        costtype_disabled = #{record.costtypeDisabled,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sy_cost_type
+    set costtype_id = #{record.costtypeId,jdbcType=INTEGER},
+      costtype_kind = #{record.costtypeKind,jdbcType=INTEGER},
+      costtype_code = #{record.costtypeCode,jdbcType=VARCHAR},
+      cost_type_name = #{record.costTypeName,jdbcType=VARCHAR},
+      costtype_full_name = #{record.costtypeFullName,jdbcType=VARCHAR},
+      costtype_price = #{record.costtypePrice,jdbcType=DECIMAL},
+      costtype_surcharge_text = #{record.costtypeSurchargeText,jdbcType=VARCHAR},
+      costtype_remark = #{record.costtypeRemark,jdbcType=VARCHAR},
+      costtype_disabled = #{record.costtypeDisabled,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.SyCostType" >
+    update sy_cost_type
+    <set >
+      <if test="costtypeKind != null" >
+        costtype_kind = #{costtypeKind,jdbcType=INTEGER},
+      </if>
+      <if test="costtypeCode != null" >
+        costtype_code = #{costtypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="costTypeName != null" >
+        cost_type_name = #{costTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="costtypeFullName != null" >
+        costtype_full_name = #{costtypeFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="costtypePrice != null" >
+        costtype_price = #{costtypePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="costtypeSurchargeText != null" >
+        costtype_surcharge_text = #{costtypeSurchargeText,jdbcType=VARCHAR},
+      </if>
+      <if test="costtypeRemark != null" >
+        costtype_remark = #{costtypeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="costtypeDisabled != null" >
+        costtype_disabled = #{costtypeDisabled,jdbcType=BIT},
+      </if>
+    </set>
+    where costtype_id = #{costtypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sy.entity.SyCostType" >
+    update sy_cost_type
+    set costtype_kind = #{costtypeKind,jdbcType=INTEGER},
+      costtype_code = #{costtypeCode,jdbcType=VARCHAR},
+      cost_type_name = #{costTypeName,jdbcType=VARCHAR},
+      costtype_full_name = #{costtypeFullName,jdbcType=VARCHAR},
+      costtype_price = #{costtypePrice,jdbcType=DECIMAL},
+      costtype_surcharge_text = #{costtypeSurchargeText,jdbcType=VARCHAR},
+      costtype_remark = #{costtypeRemark,jdbcType=VARCHAR},
+      costtype_disabled = #{costtypeDisabled,jdbcType=BIT}
+    where costtype_id = #{costtypeId,jdbcType=INTEGER}
+  </update>
+</mapper>
