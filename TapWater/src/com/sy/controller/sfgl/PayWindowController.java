@@ -19,7 +19,7 @@ public class PayWindowController extends PyController{
 	
 	@RequestMapping("/selectUser")
 	public String selectUser(HttpServletRequest request,HttpServletResponse response,UsUser user,SfglDto dto) throws IOException{
-		System.out.println("分页的数据："+dto);
+		System.out.println("分页的数据....."+dto);
 		Map<String, Object> map = usUserService.selectUser(user,dto.getPage(),dto.getRows());
 		request.getSession().setAttribute("map", map);
 		response.getOutputStream().print("ok");
