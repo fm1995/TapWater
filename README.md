@@ -1,6 +1,6 @@
 # TapWater
 自来水项目
-SpringMVC+MyBatis(SY)
+SpringMVC+MyBatis(TapWater)
 
 =========================
 ============
