@@ -487,6 +487,38 @@
    	 	and a.volume_id=#{read.volumeId} 
     </if>
     and a.audit=#{read.audit}
-    limit #{term.startIndex},#{term.endIndex};
+    limit #{term.startIndex},#{term.rows};
+  </select>
+  
+  <select id="selReadByTermCount" resultType="int" parameterType="map">
+  	select count(*)
+  	from rd_read a 
+	inner join us_user b 
+	on b.user_no=a.user_no 
+	where enter=0
+	and a.pre_value=a.cur_value 
+	and a.read_year between #{term.startYear} and #{term.endYear}
+    and a.read_month between #{term.startMonth} and #{term.endMonth}
+    <if test="read.volumeId !=0 ">
+   	 	and a.volume_id=#{read.volumeId} 
+    </if>
+    and a.audit=#{read.audit}
+  </select>
+  
+  <select id="selReadByTermUserCount" resultType="int" parameterType="map">
+  	select count(*) from 
+  		(select a.*
+  		from rd_read a 
+		inner join us_user b 
+		on b.user_no=a.user_no 
+		where enter=0
+		and a.pre_value=a.cur_value 
+		and a.read_year between #{term.startYear} and #{term.endYear}
+    	and a.read_month between #{term.startMonth} and #{term.endMonth}
+    	<if test="read.volumeId !=0 ">
+   	 		and a.volume_id=#{read.volumeId} 
+    	</if>
+    	and a.audit=#{read.audit}
+    	group by a.user_no) c
   </select>
 </mapper>
