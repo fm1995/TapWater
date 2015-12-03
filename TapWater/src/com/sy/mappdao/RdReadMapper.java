@@ -40,4 +40,6 @@ public interface RdReadMapper {
 	int selReadByTermCount(@Param("term")TermUtil term, @Param("read")RdRead read);
 
 	int selReadByTermUserCount(@Param("term")TermUtil term, @Param("read")RdRead read);
+
+	Integer selectAmountsByYearAndMonth(String ymonth);
 }
