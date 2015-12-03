@@ -2,7 +2,10 @@ package com.sy.mappdao;
 
 import com.sy.entity.RdChangemaxvalue;
 import com.sy.entity.RdChangemaxvalueExample;
+import com.sy.projectUtils.cbgl.TermUtil;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RdChangemaxvalueMapper {
@@ -27,4 +30,6 @@ public interface RdChangemaxvalueMapper {
     int updateByPrimaryKeySelective(RdChangemaxvalue record);
 
     int updateByPrimaryKey(RdChangemaxvalue record);
+
+	List<RdChangemaxvalue> selByTerm(@Param("term")TermUtil term, @Param("chang")RdChangemaxvalue chang);
 }

@@ -36,4 +36,8 @@ public interface RdReadMapper {
 	List<ReadView> selByYearAndMonth(RdRead read);
 
 	List<RdRead> selReadByTerm(@Param("term")TermUtil term, @Param("read")RdRead read);
+
+	int selReadByTermCount(@Param("term")TermUtil term, @Param("read")RdRead read);
+
+	int selReadByTermUserCount(@Param("term")TermUtil term, @Param("read")RdRead read);
 }
