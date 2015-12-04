@@ -241,4 +241,8 @@
       emp_disabled = #{empDisabled,jdbcType=BIT}
     where emp_id = #{empId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selEmpByDeptId" resultMap="BaseResultMap" parameterType="int">
+  	select * from sy_emp where dept_id=#{deptId}
+  </select>
 </mapper>

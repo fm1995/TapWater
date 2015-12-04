@@ -27,4 +27,6 @@ public interface SyAreaMapper {
     int updateByPrimaryKeySelective(SyArea record);
 
     int updateByPrimaryKey(SyArea record);
+
+	List<SyArea> selAll();
 }

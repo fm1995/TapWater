@@ -27,4 +27,6 @@ public interface SyEmpMapper {
     int updateByPrimaryKeySelective(SyEmp record);
 
     int updateByPrimaryKey(SyEmp record);
+
+	List<SyEmp> selEmpByDeptId(int deptId);
 }
