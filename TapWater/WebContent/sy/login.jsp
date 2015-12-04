@@ -7,15 +7,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>湖南省自来水公司营销管理信息系统 - 员工登陆</title>
 
-<link rel="stylesheet" href="/SyProject/SY/css/reset.css" type="text/css"
+<link rel="stylesheet" href="/TapWater/sy/css/reset.css" type="text/css"
 	media="screen" title="no title" />
-<link rel="stylesheet" href="/SyProject/SY/css/text.css" type="text/css"
+<link rel="stylesheet" href="/TapWater/sy/css/text.css" type="text/css"
 	media="screen" title="no title" />
-<link rel="stylesheet" href="/SyProject/SY/css/form.css" type="text/css"
+<link rel="stylesheet" href="/TapWater/sy/css/form.css" type="text/css"
 	media="screen" title="no title" />
-<link rel="stylesheet" href="/SyProject/SY/css/buttons.css" type="text/css"
+<link rel="stylesheet" href="/TapWater/sy/css/buttons.css" type="text/css"
 	media="screen" title="no title" />
-<link rel="stylesheet" href="/SyProject/SY/css/login.css" type="text/css"
+<link rel="stylesheet" href="/TapWater/sy/css/login.css" type="text/css"
 	media="screen" title="no title" />
 <script type="text/javascript">
 	var mysubmit = function() {
@@ -39,16 +39,16 @@
 		<div id="login">
 			<h1>员工登陆</h1>
 			<div id="login_panel">
-				<form action="/SyProject/queryLogin" name="frm" method="post">
+				<form action="/TapWater/empctl/queryLogin" name="frm" method="post">
 					<div class="login_fields">
 						<div class="field">
 							<label for="email">员工工号：</label> <input type="text" name="empNo"
-								id="no" tabindex="1" placeholder="请输入您的员工编号" />
+								id="no" tabindex="1" placeholder="请输入您的员工编号" value="x001"/>
 						</div>
 
 						<div class="field">
 							<label for="password">登陆密码： </label> <input type="password"
-								name="empPwd" value="" id="pwd" tabindex="2"
+								name="empPwd" value="123456" id="pwd" tabindex="2" 
 								placeholder="请输入您的密码" />
 						</div>
 					</div>

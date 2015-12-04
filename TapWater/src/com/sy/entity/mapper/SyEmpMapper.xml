@@ -245,4 +245,34 @@
   <select id="selEmpByDeptId" resultMap="BaseResultMap" parameterType="int">
   	select * from sy_emp where dept_id=#{deptId}
   </select>
+  
+  
+  <!-- 自定义sql -->
+	<resultMap id="BaseResultMap1" type="com.sy.entity.SyEmp">
+		<id column="emp_id" property="empId" jdbcType="INTEGER" />
+		<result column="emp_name" property="empName" jdbcType="VARCHAR" />
+		<result column="emp_no" property="empNo" jdbcType="VARCHAR" />
+		<result column="emp_pwd" property="empPwd" jdbcType="VARCHAR" />
+		<result column="emp_remark" property="empRemark" jdbcType="VARCHAR" />
+		<result column="emp_disabled" property="empDisabled" jdbcType="BIT" />
+		<!-- property：关联属性的名称 -->
+		<association property="syDept" column="dept_id"
+			resultMap="com.sy.mappdao.SyDeptMapper.BaseResultMap"></association>
+	</resultMap>
+
+	<select id="selectAll" resultMap="BaseResultMap1">
+		select emp.*,dept.* from sy_emp emp,sy_dept dept where
+		emp.dept_id=dept.dept_id
+	</select>
+	<select id="selectSyEmp" resultMap="BaseResultMap1"
+		parameterType="int">
+		select emp.*,dept.* from sy_emp emp,sy_dept dept where
+		emp.dept_id=dept.dept_id and emp.dept_id=#{id}
+	</select>
+
+	<select id="selectLogin" resultMap="BaseResultMap"
+		parameterType="string">
+		select * from sy_emp where emp_no=#{empNo} and emp_pwd=#{empPwd} and
+		emp_disabled=0
+	</select>
 </mapper>

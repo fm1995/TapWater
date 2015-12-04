@@ -2,7 +2,9 @@ package com.sy.mappdao;
 
 import com.sy.entity.SyEmp;
 import com.sy.entity.SyEmpExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SyEmpMapper {
@@ -29,4 +31,10 @@ public interface SyEmpMapper {
     int updateByPrimaryKey(SyEmp record);
 
 	List<SyEmp> selEmpByDeptId(int deptId);
+
+	List<SyEmp> selectAll();
+
+	List<SyEmp> selectSyEmp(@Param("id")int id);
+
+	SyEmp selectLogin(@Param("empNo")String empNo,@Param("empPwd") String empPwd);
 }
