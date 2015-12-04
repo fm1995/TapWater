@@ -31,50 +31,116 @@ $(function(){ //查询用户
 				"docNum": $("input[name=docNum]").val(),		
 				"userName": $("input[name=userName]").val(),		
 				"address": $("input[name=address]").val(),		
+				"userMoney": 200		
 		};
-		$.get("/TapWater/paywindow/selectUser",args,function(x){
+		$.post("/TapWater/paywindow/selectUser",args,function(x){
 			var no=showWindow({url:'/TapWater/sy/page/sys_selectUser.jsp'});
 			if(no==undefined)
-			return ;
-			findUserById(no);
+				return ;
+			location.href="/TapWater/paywindow/selectUserByUserNo?userNo="+no;
 		}); 
+		
 	});
 	
-	window.noUser=function(){
-		alert('没有用户登录');
-	}
-})
-function findUserById(no){
-	location.href="/TapWater/paywindow/selectUserByUserNo?userNo="+no;
-}
+		//本次实收改变计算金额
+	$("#bcss").keyup(function(){
+		this.value=this.value=this.value.replace(/\D/gi,"");
+		
+		var num = $("#userMoney").val();
+		if(num==""){
+			num=0;
+		}
+		var znum =eval(num+"+"+this.value);
+		$("#bczl").html(znum);
+		if($("#cc").attr("checked")){
+			$("#bczl").html("0.0");
+		}
+	});
+	
+	//选不选中找零转入预存
+	$("#cc").click(function(){
+			if($("#cc").attr("checked")){
+				$("#bczl").html("0.0");
+			}else{
+				var num = $("#userMoney").val();
+				var bcss=$("#bcss").val();
+				var znum =eval(num+"+"+bcss);
+				$("#bczl").html(znum);
+			}
+	});
 //交费
-function pay(){
+window.pay=function(){
+	var bcss=$("#bcss").val();
+	if(bcss==""){
+		 alert("用户还没有缴费！");
+		 return
+	}
+	
 	showDialog('确认交费吗？', function(){
+	//是否交入预存
+	var isyc=$("#cc").attr("checked");
+	var userNo = $("#userNo").val();
+	if(userNo==""){
+		alert("没有选择用户");
+		return;
+	}
+	var fapiao = $("#fapiao").val();
+	if(fapiao==""){
+		alert("没有选择发票");
+		return;
+	}
+	
 		//回调
+		var args = {
+				"userNo":userNo,
+				"fapiao": fapiao,
+				"jiaofei": bcss
+		};
+		$.post("/TapWater/paywindow/jiaofei",args,function(x){
+			if(no==undefined)
+			return ;
+			alert('缴费成功！');
+		}); 
+		
 		//打印发票
-		showWindow({url:'../page/pay_printInvoice.html', width:800, height:260});
+		showWindow({url:'/TapWater/sy/page/pay_printInvoice.jsp', width:800, height:260});
 	});
 }
+	//详情
+	$("#xiangqing").click(function(){
+		var userNo=$("#userNo").val();
+		if(userNo==""){
+			  alert( "你还没有选择用户！");  
+			 return;
+		}
+		location.href="/TapWater/paywindow/yonghuxiangqing?userNo="+userNo;
+	});
+});
 //选择发票
 function selectInvoice(){
-	showWindow({url:'../page/pay_window_selectInvoice.html'});
+	var no = showWindow({url:'/TapWater/sy/page/pay_window_selectInvoice.jsp'});
+	if(no==undefined)
+		return ;
+	$("#fapiao").val(no);
 }
 //发票补开
 function reInvoice(){
 	showWindow({url:'../page/pay_window_reInvoice.html'});
 }
-
-
+ 
 </script>
 </head> 
  
 <body> 
 
+	<% request.getSession().removeAttribute("whereStr");
+	request.getSession().removeAttribute("map");
+	%>
 	<c:if test="${user==null }">
 		<script type="text/javascript">
 			//没有选择用户
 			$(function(){
-				//$(".pay").hide();
+				$(".pay").hide();
 				//$("#cqzd").hide();
 			});
 		</script>
@@ -119,27 +185,28 @@ function reInvoice(){
 			<table>
 				<tr>
 					<td>用户编码</td>
-					<td><input size="16" name="userNo" /> </td>
+					<td><input size="16" name="userNo" value="${user.userNo }"/>
+					 </td>
 					<td>用户简码</td>
-					<td><input size="16" name="abc"/> </td>
+					<td><input size="16" name="abc" value="${user.abc }" /> </td>
 					<td>短信电话</td>
-					<td><input size="16" name="smsPhone"/> </td>
+					<td><input size="16" name="smsPhone" value="${user.smsPhone }"/> </td>
 					<td>联系电话</td>
-					<td><input size="16" name="phone"/> </td>
+					<td><input size="16" name="phone" value="${user.phone }"/> </td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>档案编号</td>
-					<td><input size="16" name="docNum" /> </td>
+					<td><input size="16" name="docNum" value="${user.docNum }" /> </td>
 					<td>用户姓名</td>
-					<td><input size="16" name="userName"/> </td>
+					<td><input size="16" name="userName" value="${user.userName }"/> </td>
 					<td>联系地址</td>
-					<td colspan="4"><input size="16" name="address"/>
+					<td colspan="4"><input size="16" name="address" value="${user.address }"/>
 						<a href="javascript:;" class="btn btn-icon btn-small btn-find btn-blue"
 						   id="btnSel"><span></span>查询</a>
-						<a href="../page/user_search1.html?id=0100000987" target="_blank" 
+						<a href="javascript:" id="xiangqing" target="_blank" 
 							class="btn btn-icon btn-small btn-person btn-blue"><span></span>详情</a>
-						<a href="javascript:;" class="btn btn-icon btn-small btn-refresh"><span></span>重置</a>
+						<a href="/TapWater/sy/page/pay_window.jsp" class="btn btn-icon btn-small btn-refresh" id="chongzhi"><span></span>重置</a>
 					</td>
 				</tr>
 			</table>	
@@ -154,7 +221,11 @@ function reInvoice(){
 			<table class="pay">
 				<tr>
 					<td>陈欠总额</td>
-					<td class="right red bold" >-2381.23&nbsp;&nbsp;</td>
+					<td class="right red bold" >
+						<c:if test="${user.userMoney < 0}">${user.userMoney }</c:if>
+						<c:if test="${user.userMoney >= 0 || user.userMoney==null}">0.00</c:if>
+						 &nbsp;&nbsp;
+						</td>
 					<td >元</td>
 					<td rowspan="5" style="padding-left:80px;">
 						<button onClick="pay();"
@@ -163,24 +234,29 @@ function reInvoice(){
 				</tr>
 				<tr>
 					<td>剩余预交</td>
-					<td class="right green bold">+0.00&nbsp;&nbsp;</td>
+					<td class="right green bold">
+						<c:if test="${user.userMoney <= 0  || user.userMoney==null}">0.00</c:if>
+						<c:if test="${user.userMoney > 0 }">${user.userMoney }</c:if>
+					&nbsp;&nbsp;</td>
 					<td>元</td>
 				</tr>
 				<tr>
 					<td>本次实收</td>
-					<td><input class="getmoney" value="934.12" /></td>
+					<td><input class="getmoney" type="text" id="bcss" />
+						<input type="hidden" id="userMoney" value="${user.userMoney }">
+					</td>
 					<td>元</td>
 				</tr>
 				<tr>
 					<td>本次找零</td>
-					<td class="right">0.00&nbsp;&nbsp;</td>
+					<td class="right" id="bczl">0.00&nbsp;&nbsp;</td>
 					<td>元 <input id="cc" type="checkbox" checked="checked" /><label for="cc">找零转入预存</label></td>
 				</tr>
 				<tr>
 					<td>发票号码</td>
 					<td>
 						<span class="text_button">
-							<input style="width:120px; text-align:center;" value="08347927" />
+							<input style="width:120px; text-align:center;" value="08347927" id="fapiao" />
 							<button onClick="selectInvoice();">浏览</button>
 						</span>
 					</td>
@@ -441,18 +517,37 @@ function reInvoice(){
 		
 			<!------------------------------------- 修改联系信息 --------------------------------------------->
 			<div class="form label-inline uniform">
-	
-				<div class="field"><label for="xx">用户编码</label> <input disabled="disabled" value="0100000987" /></div>
-				<div class="field"><label for="xx">用户姓名</label> <input disabled="disabled" value="张三" /></div>
-				<div class="field"><label for="xx">联系电话</label> <input value="13012345678" /></div>
-				<div class="field"><label for="xx">短信号码</label> <input value="13012345678" /></div>
-				<div class="field"><label for="xx">联系地址</label> <input size="80" 
-					value="城东区福园路红午巷39号" /></div>
+				<div class="field"><label for="xx">用户编码</label> <input name="userNo" disabled="disabled" id="userNo" value="${user.userNo }" /></div>
+				<div class="field"><label for="xx">用户姓名</label> <input name="userName" disabled="disabled" value="${user.userName }" /></div>
+				<div class="field"><label for="xx">联系电话</label> <input name="phone" id="phone" value="${user.phone }" /></div>
+				<div class="field"><label for="xx">短信号码</label> <input name="smsPhone" id="smsPhone" value="${user.smsPhone }" /></div>
+				<div class="field"><label for="xx">联系地址</label> <input size="80" name="address" id="address"
+					value="${user.address }" /></div>
 				<div class="buttonrow">
-					<button class="btn">保存</button>
+					<button class="btn" id="updateUserFrm">保存</button>
 				</div>
-
 			</div>
+<script type="text/javascript">
+	$(function(){
+		$("#updateUserFrm").click(function(){
+			var userNo = $("#userNo").val();		
+			var phone = $("#phone").val();		
+			var smsPhone = $("#smsPhone").val();		
+			var address = $("#address").val();	
+			
+			
+			var args={
+				"userNo":userNo,
+				"phone":phone,
+				"smsPhone":smsPhone,
+				"address":address
+			};
+			$.post("/TapWater/paywindow/updateUserPhoneAndSmsPhone",args,function(x){
+				alert("修改成功！");
+			}); 
+		});		
+	});
+</script>
 		</div>
 		<div id="tab5" class="tab_content"> 
 			<div class="reportTitle">

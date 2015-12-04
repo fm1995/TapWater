@@ -32,6 +32,10 @@ public interface PyBillMapper {
     
     
     
+    /**
+     * 自定义查询语句
+     * @return
+     */
     List<PyBill> sumBillReal();
 
 	Double selectBillMoneysByCreateTime(@Param("ymonth")String ymonth);

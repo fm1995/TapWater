@@ -1,24 +1,12 @@
-<!DOCTYPE html>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"> 
  
 <head> 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
 	<title>选择发票</title> 
-	
-	<link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/text.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/form.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/buttons.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/grid.css" type="text/css" media="screen" title="no title" />	
-	<link rel="stylesheet" href="../css/layout.css" type="text/css" media="screen" title="no title" />	
-	
-	<link rel="stylesheet" href="../css/ui-darkness/jquery-ui-1.8.12.custom.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/jquery.visualize.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/facebox.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/uniform.default.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/dataTables.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen" title="no title">
+	 <%@include file="../style.jsp" %>
 <style type="text/css">
 .invoice_list a { margin:4px 2px;
 font-size:14px;
@@ -26,6 +14,7 @@ font-size:14px;
 </style>
 <script type="text/javascript">
 function ok(no){
+	window.returnValue=no;
 	parent.close();
 }
 </script>

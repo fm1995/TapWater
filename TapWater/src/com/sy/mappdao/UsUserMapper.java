@@ -30,10 +30,16 @@ public interface UsUserMapper{
 
     int updateByPrimaryKey(UsUser record);
 
-    //==========================è‡ªå®šä¹‰æŸ¥è¯¢è¯­å¥
+    //========×Ô¶¨Òå²éÑ¯Óï¾ä BarryLIu
 	List<UsUser> selectYSList(@Param("start")int start,@Param("rows") int rows,@Param("userMoney") Integer userMoney);
 
 	int selectYSListCount(@Param("start")int start,@Param("rows") int rows,@Param("userMoney") Integer userMoney);
 	
 	Double selectYSMonenys(@Param("start")int start,@Param("rows") int rows,@Param("userMoney") Integer userMoney);
+
+	List<UsUser> selectUser(@Param("user")UsUser user,@Param("start") Integer start, @Param("rows")Integer rows);
+
+	List<UsUser> selectUserByWhere(@Param("whereStr")String whereStr, @Param("start") Integer start, @Param("rows")Integer rows);
+
+	Integer selectUserCountByWhere(@Param("whereStr")String whereStr, @Param("start") Integer start, @Param("rows")Integer rows);
 }

@@ -29,6 +29,7 @@ public interface RdReadMapper {
     int updateByPrimaryKey(RdRead record);
 
     
-    
+    //自定义查询语句BarryLiu 
+    /**查询*/
 	Integer selectAmountsByYearAndMonth(@Param("ymonth")String ymonth);
 }

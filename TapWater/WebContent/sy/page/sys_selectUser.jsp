@@ -25,7 +25,7 @@
 <div style="width:90%; margin:0 auto;">
 	<br/>
 	<h2>选择用户</h2>
-
+	
 
 	<table class="data display">
 		<thead>
@@ -52,14 +52,36 @@
 
 <div style="margin-right:20px;">			
 	<div class="page">
-		<a href="?page=1">第一页</a>
-		<a href="?page=6">上一页</a>
-		<input class="pageIndex" value="7"/> / <input class="pageCount" readonly="readonly" value="98765" />
-		<a href="?page=8">下一页</a>
-		<a href="?page=98765">第未页</a>
+		<a href="javascript:up(2,${map['pageCount'] })">第一页</a>
+		<a href="javascript:up(${map['page'] },${map['pageCount'] })">上一页</a>
+		<input class="pageIndex" readonly="readonly" value="${map['page'] }"/> / <input class="pageCount" readonly="readonly" value="${map['pageCount'] }"  />
+		<a href="javascript:down(${map['page'] },${map['pageCount'] })">下一页</a>
+		<a href="javascript:down(${map['pageCount']-1 },${map['pageCount'] })">第未页</a>
 	</div>
 </div>
 </div>
+
+<script type="text/javascript">
+	window.up=function(currPage,pageCount){
+	 if(currPage<=1){
+		return;
+	 }
+	 location.href="/TapWater/paywindow/selectUserPage?page="+(--currPage)+"&pageCount="+pageCount;
+	}
+		
+	window.down=function(currPage,pageCount){
+		 if(currPage>=pageCount){
+			return;
+		 }
+		  location.href="/TapWater/paywindow/selectUserPage?page="+(++currPage)+"&pageCount="+pageCount;
+	}
+	 
+	
+<% 
+	request.getSession().removeAttribute("map");
+%>
+</script>
+
 <script src="../js/jquery/jquery-1.5.2.min.js"></script>
 <script src="../js/jquery/jquery-ui-1.8.12.custom.min.js"></script>
 <script src="../js/misc/excanvas.min.js"></script>

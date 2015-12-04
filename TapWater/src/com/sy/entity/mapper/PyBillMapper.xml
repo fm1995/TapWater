@@ -273,6 +273,7 @@
   </select>
 
   
+  <!-- 自定义查询语句 BarryLiu -->
   <select id="selectBillMoneysByCreateTime" parameterType="map" resultType="double">
 		SELECT sum(bill_money) FROM sy.py_bill
 		  	where date_format(create_date,'%Y%m%d') like '%'#{ymonth}'%'        

@@ -93,7 +93,7 @@
 		return;
 	 }
 	var money=document.getElementById("userMoney").value;
-	 location.href="/SY/report/yushou?page="+(--currPage)+"&userMoney="+money;
+	 location.href="/TapWater/report/report?page="+(--currPage)+"&userMoney="+money;
 	}
 		
 	window.down=function(currPage,row){
@@ -101,12 +101,7 @@
 			return;
 		 }
 		var money=document.getElementById("userMoney").value;
-		 location.href="/SY/report/yushou?page="+(++currPage)+"&userMoney="+money;
-	}
-	
-	window.tj=function(){
-		var money=document.getElementById("userTrueMoney").value;
-		location.href="/SY/report/yushou?userMoney="+money;
+		location.href="/TapWater/report/yushou?page="+(++currPage)+"&userMoney="+money;
 	}
 </script>
 

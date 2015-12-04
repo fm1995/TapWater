@@ -15,13 +15,38 @@ public class SfglDto {
 	private Integer page =1;
 	private Integer rows =5;
 	
+	private Integer pageCount;
 	
 	private Integer userMoney;
+	private String whereStr;
+	
+	
+	
 	
 	@Override
 	public String toString() {
-		return "Report [page=" + page + ", rows=" + rows + ", userMoney="
-				+ userMoney + "]";
+		return "SfglDto [page=" + page + ", rows=" + rows + ", pageCount="
+				+ pageCount + ", userMoney=" + userMoney + ", whereStr="
+				+ whereStr + "]";
+	}
+
+
+	public Integer getPageCount() {
+		return pageCount;
+	}
+
+
+	public void setPageCount(Integer pageCount) {
+		this.pageCount = pageCount;
+	}
+
+
+	public String getWhereStr() {
+		return whereStr;
+	}
+
+	public void setWhereStr(String whereStr) {
+		this.whereStr = whereStr;
 	}
 
 	public Integer getUserMoney() {
