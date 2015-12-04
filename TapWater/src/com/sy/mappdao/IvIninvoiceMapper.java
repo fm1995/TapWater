@@ -2,7 +2,9 @@ package com.sy.mappdao;
 
 import com.sy.entity.IvIninvoice;
 import com.sy.entity.IvIninvoiceExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface IvIninvoiceMapper {
@@ -27,4 +29,6 @@ public interface IvIninvoiceMapper {
     int updateByPrimaryKeySelective(IvIninvoice record);
 
     int updateByPrimaryKey(IvIninvoice record);
+
+    
 }

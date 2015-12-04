@@ -99,11 +99,16 @@ window.pay=function(){
 		$.post("/TapWater/paywindow/jiaofei",args,function(x){
 			if(no==undefined)
 			return ;
-			alert('缴费成功！');
+			if(no=="ok"){
+				alert('缴费成功！');
+				showWindow({url:'/TapWater/sy/page/pay_printInvoice.jsp', width:800, height:260});
+			}
+			if(no=="fail")
+				alert('缴费失败！');
+				
 		}); 
 		
 		//打印发票
-		showWindow({url:'/TapWater/sy/page/pay_printInvoice.jsp', width:800, height:260});
 	});
 }
 	//详情
@@ -118,10 +123,15 @@ window.pay=function(){
 });
 //选择发票
 function selectInvoice(){
-	var no = showWindow({url:'/TapWater/sy/page/pay_window_selectInvoice.jsp'});
-	if(no==undefined)
-		return ;
-	$("#fapiao").val(no);
+	 
+	$.post("/TapWater/paywindow/selectInvoice",{"rows":5},function(x){
+		if(x=="fail"){
+			alert("你没有登陆");
+			return ;
+		}
+		var no = showWindow({url:'/TapWater/sy/page/pay_window_selectInvoice.jsp'});
+		$("#fapiao").val(no);
+	}); 
 }
 //发票补开
 function reInvoice(){
@@ -283,42 +293,14 @@ function reInvoice(){
 					</tr>
 				</thead>
 				<tbody>
-				<tr class="odd selected">
-					<td>SF0100000987-201308</td>
-					<td class="right">2822.14 元</td>
-					<td class="right">2000.00 元</td>
-					<td class="right"> 822.14 元</td>
-				</tr>
-				<tr class="even">
-					<td>SF0100000987-201309</td>
-					<td class="right">1239.84 元</td>
-					<td class="right">1111.11 元</td>
-					<td class="right"> 128.73 元</td>
-				</tr>
-				<tr class="odd">
-					<td>SF0100000987-201310</td>
-					<td class="right"> 921.11 元</td>
-					<td class="right"> 111.11 元</td>
-					<td class="right"> 810.00 元</td>
-				</tr>
-				<tr class="even">
-					<td>SF0100000987-201311</td>
-					<td class="right">   3.00 元</td>
-					<td class="right">   2.00 元</td>
-					<td class="right">   1.00 元</td>
-				</tr>
-				<tr class="odd">
-					<td>SF0100000987-201312</td>
-					<td class="right">3003.57 元</td>
-					<td class="right">   0.57 元</td>
-					<td class="right">3003.00 元</td>
-				</tr>
-				<tr class="even">
-					<td>SF0100000987-201401</td>
-					<td class="right">2873.39 元</td>
-					<td class="right">1111.11 元</td>
-					<td class="right">1762.28 元</td>
-				</tr>
+				<c:forEach var="b" items="${pyBills }">
+					<tr class="odd selected">
+						<td>${b.billNo }</td>
+						<td class="right">${b.realMoney+b.realMoney } 元</td>
+						<td class="right">${b.billMoney } 元</td>
+						<td class="right">${b.realMoney }元</td>
+					</tr>
+				</c:forEach>
 				
 				</tbody>
 			</table>
@@ -451,62 +433,23 @@ function reInvoice(){
 					<td>比尔盖茨</td>
 					<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
 				</tr>
-				<tr class="even">
-					<td>JF0100000987-201401-01</td>
-					<td>2014年01月04日</td>
-					<td class="right">100 元</td>
-					<td class="center">08714330</td>
-					<td>比尔盖茨</td>
-					<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
-				</tr>
-				<tr class="odd">
-					<td>JF0100000987-201312-01</td>
-					<td>2013年12月05日</td>
-					<td class="right">3433 元</td>
-					<td class="center">49835092</td>
-					<td>比尔盖茨</td>
-					<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
-				</tr>
-				<tr class="even">
-					<td>JF0100000987-201311-02</td>
-					<td>2013年11月24日</td>
-					<td class="right">925 元</td>
-					<td class="center">02139358</td>
-					<td>比尔盖茨</td>
-					<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
-				</tr>
-				<tr class="odd">
-					<td>JF0100000987-201311-01</td>
-					<td>2013年11月07日</td>
-					<td class="right">1002 元</td>
-					<td class="center">45583937</td>
-					<td>比尔盖茨</td>
-					<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
-				</tr>
-				<tr class="even">
-					<td>JF0100000987-201310-01</td>
-					<td>2013年10月01日</td>
-					<td class="right">1837 元</td>
-					<td class="center">57399377</td>
-					<td>比尔盖茨</td>
-					<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
-				</tr>
-				<tr class="odd">
-					<td>JF0100000987-201309-01</td>
-					<td>2013年09月03日</td>
-					<td class="right">3094 元</td>
-					<td class="center">58439258</td>
-					<td>比尔盖茨</td>
-					<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
-				</tr>
-				<tr class="even">
-					<td>JF0100000987-201308-01</td>
-					<td>2013年08月05日</td>
-					<td class="right">2495 元</td>
-					<td class="center">68345009</td>
-					<td>比尔盖茨</td>
-					<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
-				</tr>
+				<c:forEach var="p" items="${pays }">
+					<tr class="odd">
+						<td>${p.payNo }</td>
+						<td>${p.payDate }</td>
+						<td class="right">${p.payMoney } 元</td>
+						<td class="center">${b.invoice }</td>
+						<td>比尔盖茨</td>
+						<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
+					</tr>
+					<tr class="odd selected">
+						<td>${b.billNo }</td>
+						<td class="right">${b.realMoney+b.realMoney } 元</td>
+						<td class="right">${b.billMoney } 元</td>
+						<td class="right">${b.realMoney }元</td>
+					</tr>
+				</c:forEach>
+				
 				<tr class="odd">
 					<td colspan="6">只显示最近的8条交费记录...</td>
 				</tr>
@@ -554,11 +497,17 @@ function reInvoice(){
 				用户历史详单
 			</div>
 			<div class="height24">
-				<div style="float:left;width:200px;">用户编码：0100000987</div>
-				<div style="float:left;">用户姓名：张三</div>
+				<div style="float:left;width:200px;">用户编码：${user.userNo }</div>
+				<div style="float:left;">用户姓名：${user.userName }</div>
 				
-				<div style="float:right;">当前欠费：179.16 元</div>
-				<div style="float:right;width:200px;">当前余额：0.00 元</div>
+				<div style="float:right;">当前欠费：
+					<c:if test="${user.userMoney < 0}">${user.userMoney }</c:if>
+						<c:if test="${user.userMoney >= 0 || user.userMoney==null}">0.00</c:if>
+				元</div>
+				<div style="float:right;width:200px;">当前余额：
+						<c:if test="${user.userMoney <= 0  || user.userMoney==null}">0.00</c:if>
+						<c:if test="${user.userMoney > 0 }">${user.userMoney }</c:if>
+				 元</div>
 			</div>
 			<table class="report">
 				<thead>

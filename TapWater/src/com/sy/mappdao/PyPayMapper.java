@@ -2,7 +2,9 @@ package com.sy.mappdao;
 
 import com.sy.entity.PyPay;
 import com.sy.entity.PyPayExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface PyPayMapper {
@@ -27,4 +29,7 @@ public interface PyPayMapper {
     int updateByPrimaryKeySelective(PyPay record);
 
     int updateByPrimaryKey(PyPay record);
+
+    /**根据where条件进行分页查询*/
+	List<PyPay> selectByWhereStrPage(@Param("whereStr")String whereStr,@Param("start") int start, @Param("page")int page);
 }

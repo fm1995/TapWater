@@ -319,4 +319,24 @@
       archive_date = #{archiveDate,jdbcType=TIMESTAMP}
     where invoice_no = #{invoiceNo,jdbcType=VARCHAR}
   </update>
+  
+  <!-- 自定义查询语句 -->
+  <select id="selectInvoiceByWhere" parameterType="map" resultMap="BaseResultMap">
+		select * from  iv_invoice
+		<where>
+			<if test="whereStr != null">
+			    ${whereStr}
+			</if>		    
+		</where> 
+		limit #{start} ,#{rows}
+	</select>
+	<select id="selectInvoiceCountByWhere" resultType="java.lang.Integer" parameterType="map">
+		select count(*) form iv_invoice 
+		<where>
+		    <if test="whereStr != null">
+		        ${whereStr}
+		    </if>
+		</where>	    
+		limit #{start},#{rows}
+	</select>
 </mapper>

@@ -36,4 +36,12 @@ public interface RdReadMapper {
     //自定义查询语句BarryLiu 
     /**查询*/
 	Integer selectAmountsByYearAndMonth(@Param("ymonth")String ymonth);
+
+	List<ReadView> selByYearAndMonth(@Param("read")RdRead read);
+
+	List<RdRead> selReadByTerm(@Param("term")TermUtil term,@Param("read") RdRead read);
+
+	int selReadByTermUserCount(@Param("term")TermUtil term, @Param("read")RdRead read);
+
+	int selReadByTermCount(@Param("term")TermUtil term,@Param("read") RdRead read);
 }

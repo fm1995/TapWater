@@ -36,17 +36,39 @@ public class PayWindowController extends PyController{
 		request.getSession().setAttribute("map", map);
 		return "/sy/page/sys_selectUser.jsp";
 	}
-	//分页查询以后选择了缴费的编号来查询用户
-	@RequestMapping("/selectUserByUserNo")
-	public String selectUserByUserNo(UsUser user,HttpServletRequest request){
-		user= usUserService.selectByPrimaryKey(user.getUserNo());
-		request.setAttribute("user", user);
-		return "/sy/page/pay_window.jsp";
+	//aJax分页查询发票
+	@RequestMapping("/selectInvoice")
+	public String selectInvoice(HttpServletRequest request,HttpServletResponse response,SfglDto dto) throws IOException{
+		Map<String, Object> map = ivInvoiceService.selectInvoice(dto,request);
+		request.getSession().setAttribute("map", map);
+		if(map==null)//没有用户登陆不能查询发票
+			response.getOutputStream().print("fail");
+		else
+			response.getOutputStream().print("ok");
+		
+		return null;
+	}
+	//分页查询发票,
+	@RequestMapping("/selectInvoicePage")
+	public String selectInvoicePage(HttpServletRequest request,HttpServletResponse response,SfglDto dto) throws IOException{
+		Map<String, Object> map = ivInvoiceService.selectInvoice(dto,request);
+		request.setAttribute("map", map);
+		return "/sy/page/pay_window_selectInvoice.jsp";
 	}
 	
+	
+	
+	
+	//分页查询以后选择了缴费的编号来查询发票
+	@RequestMapping("/selectUserByUserNo")
+	public String selectUserByUserNo(UsUser user,HttpServletRequest request){
+		pyBillService.selectUser(user,request);
+		return "/sy/page/pay_window.jsp";
+	}
+	//aJax缴费
 	@RequestMapping("jiaofei")
-	public String jiaofei(HttpServletRequest request,HttpServletResponse response){
-		usUserService.jiaofei(request);
+	public String jiaofei(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		usUserService.jiaofei(request,response);
 		return null;
 	}
 	//跳到用户详情页面去执行用户详情操作
@@ -57,7 +79,7 @@ public class PayWindowController extends PyController{
 		return "/sy/page/user_search1.jsp";
 	}
 
-	//修改
+	//修改联系资料
 	@RequestMapping("updateUserPhoneAndSmsPhone")
 	public String updateUserPhoneAndSmsPhone(UsUser user,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		System.out.println(user);

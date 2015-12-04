@@ -1,14 +1,21 @@
 package com.sy.service.sfgl;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
 import com.sy.dto.SfglDto;
+import com.sy.entity.PyPay;
+import com.sy.entity.SyEmp;
 import com.sy.entity.UsSms;
 import com.sy.entity.UsUser;
 import com.sy.entity.UsUserExample;
@@ -107,8 +114,6 @@ public class UsUserService extends UsParentSer implements ParentSerI<UsUser> {
 		request.getSession().setAttribute("whereStr", whereStr);
 		
 		System.out.println("whereStr:"+whereStr);
-		//List<UsUser> users = usUserMapper.selectByExample(example);
-		//List<UsUser> users=usUserMapper.selectUser(user,(page-1)*rows,rows);
 		List<UsUser> users=usUserMapper.selectUserByWhere(whereStr,(page-1)*rows,rows);
 		Integer total = usUserMapper.selectUserCountByWhere(whereStr,(page-1)*rows,rows);
 		System.out.println(user);
@@ -125,12 +130,29 @@ public class UsUserService extends UsParentSer implements ParentSerI<UsUser> {
 		return map;
 	}
 
-	public void jiaofei(HttpServletRequest request) {
-		
+	/**用户缴费,判断用户有没有登陆*/
+	public void jiaofei(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		SyEmp empLogin = (SyEmp) request.getSession().getAttribute("");
+		if(empLogin==null)
+			response.getOutputStream().print("fail");
 		String userNo = request.getParameter("userNo");
 		String fapiao = request.getParameter("fapiao");
 		String jiaofei = request.getParameter("jiaofei");
 		System.out.println("userNo: "+jiaofei+" fapiao:"+fapiao+" jiaofei:"+jiaofei);
+		
+		PyPay pay =new PyPay();
+		pay.setPayMoney(new BigDecimal(jiaofei));
+		pay.setInvoice(fapiao);
+		pay.setPayDate(new Date());
+		pay.setUserNo(userNo);
+		pay.setEmpId(empLogin.getEmpId());
+
+		SimpleDateFormat fmt=new SimpleDateFormat("yyyyMM-dd");
+		String dateStr = fmt.format(new Date());
+		pay.setPayNo("JF"+userNo+"-"+dateStr);
+		
+		pyPayMapper.insert(pay);
+		response.getOutputStream().print("ok");
 		
 	}
 	/**修改用户的手机,短息手机和地址的值*/

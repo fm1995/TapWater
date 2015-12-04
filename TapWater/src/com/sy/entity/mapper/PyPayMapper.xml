@@ -256,4 +256,16 @@
       emp_id = #{empId,jdbcType=INTEGER}
     where pay_no = #{payNo,jdbcType=VARCHAR}
   </update>
+  
+  
+  <!-- 自定义查询语句 -->
+  <select id="selectByWhereStrPage" parameterType="map" resultMap="BaseResultMap">
+	SELECT  * FROM sy.py_pay
+	<where>
+	    <if test="whereStr != null">
+	        ${whereStr}
+	    </if>
+	</where>      
+	limit #{start},#{page}
+  </select>
 </mapper>

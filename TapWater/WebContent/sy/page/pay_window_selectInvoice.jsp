@@ -30,217 +30,50 @@ function ok(no){
 
 	<div class="invoice_list">
 		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031846</a>
-		<a href="javascript:ok('02031845');">02031847</a>
-		<a href="javascript:ok('02031845');">02031848</a>
-		<a href="javascript:ok('02031845');">02031849</a>
-		<a href="javascript:ok('02031845');">02031850</a>
-		<a href="javascript:ok('02031845');">02031851</a>
-		<a href="javascript:ok('02031845');">02031852</a>
-		<a href="javascript:ok('02031845');">02031853</a>
-		<a href="javascript:ok('02031845');">02031854</a>
-		<a href="javascript:ok('02031845');">02031855</a>
-		<a href="javascript:ok('02031845');">02031856</a>
-		<a href="javascript:ok('02031845');">02031857</a>
-		<a href="javascript:ok('02031845');">02031858</a>
-		<a href="javascript:ok('02031845');">02031859</a>
-		<a href="javascript:ok('02031845');">02031860</a>
-		<a href="javascript:ok('02031845');">02031861</a>
-		<a href="javascript:ok('02031845');">02031862</a>
-		<a href="javascript:ok('02031845');">02031863</a>
-		<a href="javascript:ok('02031845');">02031864</a>
-		<a href="javascript:ok('02031845');">02031865</a>
-		<a href="javascript:ok('02031845');">02031866</a>
-		<a href="javascript:ok('02031845');">02031867</a>
-		<a href="javascript:ok('02031845');">02031868</a>
-		<a href="javascript:ok('02031845');">02031869</a>
-		<a href="javascript:ok('02031845');">02031870</a>
-		<a href="javascript:ok('02031845');">02031871</a>
-		<a href="javascript:ok('02031845');">02031872</a>
-		<a href="javascript:ok('02031845');">02031873</a>
-		<a href="javascript:ok('02031845');">02031874</a>
-		<a href="javascript:ok('02031845');">02031875</a>
-		<a href="javascript:ok('02031845');">02031876</a>
-		<a href="javascript:ok('02031845');">02031877</a>
-		<a href="javascript:ok('02031845');">02031878</a>
-		<a href="javascript:ok('02031845');">02031879</a>
-		<a href="javascript:ok('02031845');">02031880</a>
-		<a href="javascript:ok('02031845');">02031881</a>
-		<a href="javascript:ok('02031845');">02031882</a>
-		<a href="javascript:ok('02031845');">02031883</a>
-		<a href="javascript:ok('02031845');">02031884</a>
-		<a href="javascript:ok('02031845');">02031885</a>
-		<a href="javascript:ok('02031845');">02031886</a>
-		<a href="javascript:ok('02031845');">02031887</a>
-		<a href="javascript:ok('02031845');">02031888</a>
-		<a href="javascript:ok('02031845');">02031889</a>
-		<a href="javascript:ok('02031845');">02031890</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
-		<a href="javascript:ok('02031845');">02031845</a>
+	  	<c:forEach var="iv" items="${map['invoices'] }">
+			<a href="javascript:ok('${iv.invoiceNo }');">${iv.invoiceNo }</a>
+	  	</c:forEach>
 	</div>
 
 <div style="margin-right:20px;">			
 	<div class="page">
-		<a href="#">第一页</a>
-		<a href="#">上一页</a>
-		<input class="pageIndex" value="1"/> / <input class="pageCount" readonly="readonly" value="98765" />
-		<a href="#">下一页</a>
-		<a href="#">第未页</a>
+		<a href="javascript:up(2,${map['pageCount'] })">第一页</a>
+		<a href="javascript:up(${map['page'] },${map['pageCount'] })">上一页</a>
+		<input class="pageIndex" readonly="readonly" value="${map['page'] }"/> / <input class="pageCount" readonly="readonly" value="${map['pageCount'] }"  />
+		<a href="javascript:down(${map['page'] },${map['pageCount'] })">下一页</a>
+		<a href="javascript:down(${map['pageCount']-1 },${map['pageCount'] })">第未页</a>
 	</div>
 </div>
 </div>
+
+
+<script type="text/javascript">
+	window.up=function(currPage,pageCount){
+	 if(currPage<=1){
+		return;
+	 }
+	 location.href="/TapWater/paywindow/selectInvoicePage?page="+(--currPage)+"&pageCount="+pageCount;
+	}
+		
+	window.down=function(currPage,pageCount){
+		 if(currPage>=pageCount){
+			return;
+		 }
+		  location.href="/TapWater/paywindow/selectInvoicePage?page="+(++currPage)+"&pageCount="+pageCount;
+	}
+	 
+	
+<% 
+	request.getSession().removeAttribute("map");
+%>
+</script>
+
+
+
+
+
+
+
 
 <script src="../js/jquery/jquery-1.5.2.min.js"></script>
 <script src="../js/jquery/jquery-ui-1.8.12.custom.min.js"></script>
