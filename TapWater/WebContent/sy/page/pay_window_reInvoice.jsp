@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"> 
- 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head> 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
 	<title>发票补开</title> 
 	
-	<link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/text.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/form.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/buttons.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/grid.css" type="text/css" media="screen" title="no title" />	
-	<link rel="stylesheet" href="../css/layout.css" type="text/css" media="screen" title="no title" />	
-	
-	<link rel="stylesheet" href="../css/ui-darkness/jquery-ui-1.8.12.custom.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/jquery.visualize.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/facebox.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/uniform.default.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/dataTables.css" type="text/css" media="screen" title="no title" />
-	
-	<link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen" title="no title">
+	<%@include file="../style.jsp" %>
 	<style type="text/css">
 	#changeMessage { color:red; margin-left:150px; visibility:hidden;  }
 	</style>
@@ -39,7 +26,11 @@
 	//提交表单
 	function ok(){
 		//打印发票
-		showWindow({url:'../page/pay_printInvoice.html', width:800, height:260});
+		var invoice=$("#invoice").val();
+		var flag=0;
+		if(invoice==$("#hinvoice").val())
+			flag=1;
+		showWindow({url:'/TapWater/sy/page/pay_printInvoice.jsp?invoice='+invoice+"&flag="+flag, width:800, height:260});
 	}
 	</script>
 </head> 
@@ -59,24 +50,27 @@
 		<input size="50" type="text" class="medium" value="已使用" disabled="disabled" /></div>
 		
 		<div class="field"><label for="name">发票号码</label>
-		<input size="50" type="text" class="medium" value="02010631" onKeyUp="invoiceChange();" /> 
+		<input size="50" type="text" id="invoice" class="medium" value="${pay.invoice }" onKeyUp="invoiceChange();" /> 
+		<input size="50" type="hidden" id="hinvoice" class="medium" value="${pay.invoice }" onKeyUp="invoiceChange();" /> 
 		<br/>
 		<span id="changeMessage">由于你修改了发票号码，此操作会将原发票号码作废，将新发票号码与交费单关联。</span></div>
 		
 		<div class="field"><label for="name">交费单号</label>
-		<input size="50" type="text" class="medium" value="JF0100000987-201401-01" disabled="disabled" /></div>
+		<input size="50" type="text" class="medium" value="${pay.payNo }" disabled="disabled" /></div>
 		
 		<div class="field"><label for="name">交费用户</label>
-		<input size="50" type="text" class="medium" value="张三" disabled="disabled" /></div>
+		<input size="50" type="text" class="medium" value="${pay.userNo }" disabled="disabled" /></div>
 		
 		<div class="field"><label for="name">收费员</label>
-		<input size="50" type="text" class="medium" value="比尔盖茨" disabled="disabled" /></div>
+		<input size="50" type="text" class="medium" value="${sfEmp.empName }" disabled="disabled" /></div>
 		
 		<div class="field"><label for="name">交费金额</label>
-		<input size="50" type="text" class="medium" value="2455.00 元" disabled="disabled" /></div>
+		<input size="50" type="text" class="medium" value="${pay.payMoney } 元" disabled="disabled" /></div>
 		
 		<div class="field"><label for="name">交费日期</label>
-		<input size="50" type="text" class="medium" value="2014年01月19日" disabled="disabled" /></div>
+		<input size="50" type="text" class="medium" value="<fmt:formatDate value='${pay.payDate }'  type='date' dateStyle='long'/>" disabled="disabled" />
+		
+		</div>
 		
 		<div class="buttonrow">
 			<input id="submit" type="submit" class="btn" value="重新打印发票" onClick="ok();"></input>  

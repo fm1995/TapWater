@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 
 import com.sy.dto.SfglDto;
+import com.sy.entity.IvInvoice;
 import com.sy.entity.PyPay;
+import com.sy.entity.PyUserhistory;
 import com.sy.entity.SyEmp;
 import com.sy.entity.UsSms;
 import com.sy.entity.UsUser;
@@ -109,11 +111,9 @@ public class UsUserService extends UsParentSer implements ParentSerI<UsUser> {
 		String whereStr = (String) request.getSession().getAttribute("whereStr");
 		if(dto.getUserMoney()!=null){//userMoney没什么意义,只是表示有值就是Ajax查询
 			whereStr = SfglUtils.getSqlWhereByUsUser(user);
-			System.out.println("重新查询");
 		}
 		request.getSession().setAttribute("whereStr", whereStr);
 		
-		System.out.println("whereStr:"+whereStr);
 		List<UsUser> users=usUserMapper.selectUserByWhere(whereStr,(page-1)*rows,rows);
 		Integer total = usUserMapper.selectUserCountByWhere(whereStr,(page-1)*rows,rows);
 		System.out.println(user);
@@ -126,20 +126,45 @@ public class UsUserService extends UsParentSer implements ParentSerI<UsUser> {
 		map.put("pageCount", pageCount);
 		if(dto.getPageCount()!=null)
 			map.put("pageCount", dto.getPageCount());
-		System.out.println("users.size():  " + users.size());
 		return map;
 	}
 
 	/**用户缴费,判断用户有没有登陆*/
 	public void jiaofei(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		SyEmp empLogin = (SyEmp) request.getSession().getAttribute("");
-		if(empLogin==null)
-			response.getOutputStream().print("fail");
+		
+		
 		String userNo = request.getParameter("userNo");
 		String fapiao = request.getParameter("fapiao");
 		String jiaofei = request.getParameter("jiaofei");
 		System.out.println("userNo: "+jiaofei+" fapiao:"+fapiao+" jiaofei:"+jiaofei);
 		
+		SyEmp empLogin = (SyEmp) request.getSession().getAttribute("empLogin");
+		if(empLogin==null){  //如果用户没有登陆   失败
+			response.getOutputStream().print("fail");
+			return ;
+		}
+		//如果发票不可用 失败   failfp
+		if(!isTrueFapiao(fapiao,empLogin.getEmpId()))
+		{	response.getOutputStream().print("failfp");
+			return;
+		}
+		
+		insertPay(userNo, fapiao, jiaofei, empLogin);
+		insertUserHistory(response, userNo, fapiao, jiaofei);
+		updateIvInvoice(fapiao);
+		response.getOutputStream().print("ok");
+	}
+	/**发票已经用过 改变发票时间*/
+	private void updateIvInvoice(String fapiao) {
+		IvInvoice invoice = invoiceMapper.selectByPrimaryKey(fapiao);
+		invoice.setUsed(true);
+		invoice.setUseDate(new Date());
+		invoiceMapper.updateByPrimaryKey(invoice);
+	}
+
+	/**添加一条缴费记录到   pyPay表*/
+	private void insertPay(String userNo, String fapiao, String jiaofei,
+			SyEmp empLogin) {
 		PyPay pay =new PyPay();
 		pay.setPayMoney(new BigDecimal(jiaofei));
 		pay.setInvoice(fapiao);
@@ -150,11 +175,34 @@ public class UsUserService extends UsParentSer implements ParentSerI<UsUser> {
 		SimpleDateFormat fmt=new SimpleDateFormat("yyyyMM-dd");
 		String dateStr = fmt.format(new Date());
 		pay.setPayNo("JF"+userNo+"-"+dateStr);
-		
-		pyPayMapper.insert(pay);
-		response.getOutputStream().print("ok");
-		
+		pyPayMapper.insert(pay); //缴费
 	}
+
+	/**添加一条记录交费到   py_userHistory 历史记录表中*/
+	private void insertUserHistory(HttpServletResponse response, String userNo,
+			String fapiao, String jiaofei) throws IOException {
+		PyUserhistory record =new PyUserhistory();
+		record.setUserno(userNo);
+		SimpleDateFormat fmt=new SimpleDateFormat("yyyyMM-dd");
+		String dateStr = fmt.format(new Date());
+		record.setOrderno("JF"+userNo+"-"+dateStr);
+		record.setTypee(1);
+		record.setDatee(new Date());
+		record.setPaymoney(new BigDecimal(jiaofei));
+		record.setUsermoney(usUserMapper.selectByPrimaryKey(userNo).getUserMoney());
+		
+		pyUserhistoryMapper.insert(record);
+	}
+	/**判断是不是真实的发票*/
+	private Boolean isTrueFapiao(String fapiao,Integer emp_id) {
+		String whereStr =" and invoice_no = "+fapiao+" and emp_id = "+emp_id;
+		List<IvInvoice> list = invoiceMapper.selectInvoiceByWhere(whereStr, 0, 10);
+		if(list.size()==0)
+			return false;
+		else
+			return true;
+	}
+
 	/**修改用户的手机,短息手机和地址的值*/
 	public UsUser updateUserPhoneAndSmsPhone(UsUser user) {
 		UsUser usUser = selectByPrimaryKey(user.getUserNo());

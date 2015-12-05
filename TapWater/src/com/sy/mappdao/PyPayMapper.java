@@ -32,4 +32,6 @@ public interface PyPayMapper {
 
     /**根据where条件进行分页查询*/
 	List<PyPay> selectByWhereStrPage(@Param("whereStr")String whereStr,@Param("start") int start, @Param("page")int page);
+	/**查询历史纪录最多八条*/
+	List<PyPay> selPayHistoryWhereStrPage(@Param("whereStr")String whereStr,@Param("start")int start, @Param("page")int page);
 }

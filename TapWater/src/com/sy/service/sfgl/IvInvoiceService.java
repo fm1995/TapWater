@@ -43,7 +43,7 @@ public class IvInvoiceService extends IvParentSer implements ParentSerI<IvInvoic
 	public int delete(String id) {
 		return getIvInvoiceMapper().deleteByPrimaryKey(id);
 	}
-	/**查询发票如果是*/
+	/**查询发票如果是未使用就查询*/
 	public Map<String, Object> selectInvoice(SfglDto dto,
 			HttpServletRequest request) {
 
@@ -55,7 +55,7 @@ public class IvInvoiceService extends IvParentSer implements ParentSerI<IvInvoic
 			return null;
 		}
 		Integer empId = empLogin.getEmpId();
-		String whereStr=" and emp_id = "+empId;
+		String whereStr=" and emp_id = "+empId +" and use_date is null ";
 		List<IvInvoice> invoices=getIvInvoiceMapper().selectInvoiceByWhere(whereStr,(page-1)*rows,rows);
 		Integer total = getIvInvoiceMapper().selectInvoiceCountByWhere(whereStr,(page-1)*rows,rows);
 		Map<String, Object> map = new HashMap<String, Object>();

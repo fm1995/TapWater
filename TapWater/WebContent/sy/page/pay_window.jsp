@@ -8,7 +8,7 @@
 	<title>收费窗口 - 湖南省自来水公司营销管理信息系统</title> 
 	
 	<%@include file="../style.jsp" %>
-
+	<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 	
 <style type="text/css">
@@ -97,13 +97,15 @@ window.pay=function(){
 				"jiaofei": bcss
 		};
 		$.post("/TapWater/paywindow/jiaofei",args,function(x){
-			if(no==undefined)
+			if(x==undefined)
 			return ;
-			if(no=="ok"){
+			if(x=="ok"){
 				alert('缴费成功！');
 				showWindow({url:'/TapWater/sy/page/pay_printInvoice.jsp', width:800, height:260});
 			}
-			if(no=="fail")
+			if(x=="fail")
+				alert('缴费失败！');
+			if(x=="failfp")
 				alert('缴费失败！');
 				
 		}); 
@@ -134,8 +136,11 @@ function selectInvoice(){
 	}); 
 }
 //发票补开
-function reInvoice(){
-	showWindow({url:'../page/pay_window_reInvoice.html'});
+function reInvoice(payNo){
+	$.post("/TapWater/paywindow/selectInvoiceByPayNo",{"payNo":payNo},function(x){
+		if(x=="ok")
+			showWindow({url:'/TapWater/sy/page/pay_window_reInvoice.jsp'});
+	}); 
 }
  
 </script>
@@ -294,7 +299,7 @@ function reInvoice(){
 				</thead>
 				<tbody>
 				<c:forEach var="b" items="${pyBills }">
-					<tr class="odd selected">
+					<tr class="odd ">
 						<td>${b.billNo }</td>
 						<td class="right">${b.realMoney+b.realMoney } 元</td>
 						<td class="right">${b.billMoney } 元</td>
@@ -321,7 +326,7 @@ function reInvoice(){
 						<th style="text-align:right">未收</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="sfmx">
 				<tr class="odd">
 					<td>生活用水</td>
 					<td class="right">   12 吨</td>
@@ -330,38 +335,7 @@ function reInvoice(){
 					<td class="right">11.11 元</td>
 					<td class="right">14.57 元</td>
 				</tr>
-				<tr class="even">
-					<td>经营用水</td>
-					<td class="right">   108 吨</td>
-					<td class="right">  3.25 元</td>
-					<td class="right">351.00 元</td>
-					<td class="right">111.11 元</td>
-					<td class="right">239.89 元</td>
-				</tr>
-				<tr class="odd">
-					<td>垃圾费</td>
-					<td class="right">   120 吨</td>
-					<td class="right">  0.80 元</td>
-					<td class="right"> 96.00 元</td>
-					<td class="right">  0.00 元</td>
-					<td class="right"> 96.00 元</td>
-				</tr>
-				<tr class="even">
-					<td>排污费</td>
-					<td class="right">   108 吨</td>
-					<td class="right">  1.20 元</td>
-					<td class="right">129.60 元</td>
-					<td class="right">  0.60 元</td>
-					<td class="right">129.00 元</td>
-				</tr>
-				<tr class="odd">
-					<td>资源费</td>
-					<td class="right">   108 吨</td>
-					<td class="right">  0.02 元</td>
-					<td class="right">  2.16 元</td>
-					<td class="right">  2.16 元</td>
-					<td class="right">  0.00 元</td>
-				</tr>
+				 
 				</tbody>
 			</table>
 			
@@ -376,7 +350,7 @@ function reInvoice(){
 						<th style="text-align:right">实用水量</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="bmmx">
 				<tr class="odd">
 					<td class="">93495 吨</td>
 					<td class="">93515 吨</td>
@@ -425,28 +399,16 @@ function reInvoice(){
 					</tr>
 				</thead>
 				<tbody>
-				<tr class="odd">
-					<td>JF0100000987-201401-02</td>
-					<td>2014年01月22日</td>
-					<td class="right">2934 元</td>
-					<td class="center">08739320</td>
-					<td>比尔盖茨</td>
-					<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
-				</tr>
+				<% int i=0; %>
 				<c:forEach var="p" items="${pays }">
 					<tr class="odd">
 						<td>${p.payNo }</td>
-						<td>${p.payDate }</td>
+						<td><fmt:formatDate value="${p.payDate }"  type="date" dateStyle="long"/></td>
 						<td class="right">${p.payMoney } 元</td>
-						<td class="center">${b.invoice }</td>
-						<td>比尔盖茨</td>
-						<td><a href="javascript:reInvoice();" class="btn btn-small">发票补开</a></td>
-					</tr>
-					<tr class="odd selected">
-						<td>${b.billNo }</td>
-						<td class="right">${b.realMoney+b.realMoney } 元</td>
-						<td class="right">${b.billMoney } 元</td>
-						<td class="right">${b.realMoney }元</td>
+						<td class="center">${p.invoice }</td>
+						<td>${p.emp.empName }
+						</td>
+						<td><a href="javascript:reInvoice('${p.payNo }');" class="btn btn-small">发票补开</a></td>
 					</tr>
 				</c:forEach>
 				
@@ -513,7 +475,7 @@ function reInvoice(){
 				<thead>
 					<tr>
 						<th style="width:210px;">水费/交费单号</th>
-						<th style="width:96px;">时间</th>
+						<th style="width:120px;">时间</th>
 						<th style="width:70px;">上月表码</th>
 						<th style="width:70px;">本月表码</th>
 						<th style="width:70px;">用水量</th>
@@ -523,121 +485,24 @@ function reInvoice(){
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td class="left">水费 SF0100000987-201309</td>
-						<td class="center">2013-09-03</td>
-						<td class="right">1033</td>
-						<td class="right">1240</td>
-						<td class="right">207 吨</td>
-						<td class="right">298.08 元</td>
-						<td class="right">&nbsp;</td>
-						<td class="right"><span class="fleft">欠费</span> -298.08 元</td>
-					</tr>
-					<tr>
-						<td class="left">交费 JF0100000987-201309-01</td>
-						<td class="center">2013-09-27</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">300.00 元</td>
-						<td class="right"><span class="fleft">余额</span> 1.92 元</td>
-					</tr>
-					<tr>
-						<td class="left">水费 SF0100000987-201310</td>
-						<td class="center">2013-10-06</td>
-						<td class="right">1240</td>
-						<td class="right">1330</td>
-						<td class="right">90 吨</td>
-						<td class="right">192.60 元</td>
-						<td class="right">&nbsp;</td>
-						<td class="right"><span class="fleft">欠费</span> -190.68 元</td>
-					</tr>
-					<tr>
-						<td class="left">交费 JF0100000987-201310-01</td>
-						<td class="center">2013-10-30</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">200.00 元</td>
-						<td class="right"><span class="fleft">余额</span> 9.32 元</td>
-					</tr>
-					<tr>
-						<td class="left">水费 SF0100000987-201311</td>
-						<td class="center">2013-11-11</td>
-						<td class="right">1330</td>
-						<td class="right">1460</td>
-						<td class="right">130 吨</td>
-						<td class="right">187.20 元</td>
-						<td class="right">&nbsp;</td>
-						<td class="right"><span class="fleft">欠费</span> -177.88 元</td>
-					</tr>
-					<tr>
-						<td class="left">交费 JF0100000987-201311-01</td>
-						<td class="center">2013-11-12</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">200.00 元</td>
-						<td class="right"><span class="fleft">余额</span> 22.12 元</td>
-					</tr>
-					<tr>
-						<td class="left">水费 SF0100000987-201312</td>
-						<td class="center">2013-12-05</td>
-						<td class="right">1460</td>
-						<td class="right">1882</td>
-						<td class="right">422 吨</td>
-						<td class="right">607.68 元</td>
-						<td class="right">&nbsp;</td>
-						<td class="right"><span class="fleft">欠费</span> -585.56 元</td>
-					</tr>
-					<tr>
-						<td class="left">交费 JF0100000987-201312-01</td>
-						<td class="center">2013-12-07</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">200.00 元</td>
-						<td class="right"><span class="fleft">欠费</span> -385.56 元</td>
-					</tr>
-					<tr>
-						<td class="left">交费 JF0100000987-201312-02</td>
-						<td class="center">2013-12-08</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">200.00 元</td>
-						<td class="right"><span class="fleft">欠费</span> -185.56 元</td>
-					</tr>
-					<tr>
-						<td class="left">交费 JF0100000987-201312-03</td>
-						<td class="center">2013-12-09</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">100.00 元</td>
-						<td class="right"><span class="fleft">欠费</span> -85.56 元</td>
-					</tr>
-					<tr>
-						<td class="left">水费 SF0100000987-201401</td>
-						<td class="center">2014-01-04</td>
-						<td class="right">1882</td>
-						<td class="right">1947</td>
-						<td class="right">65 吨</td>
-						<td class="right">93.60 元</td>
-						<td class="right">&nbsp;</td>
-						<td class="right"><span class="fleft">欠费</span> -179.16 元</td>
-					</tr>
-					
+					<c:forEach var ="h" items="${historys }">
+						<tr>
+							<td class="left">交费 ${h.orderno }</td>
+							<td class="center">
+								<fmt:formatDate value="${h.datee }"  type="date" dateStyle="long"/>
+							</td>
+							<td class="right">${h.prevalue }</td>
+							<td class="right">${h.curvalue };</td>
+							<td class="right">${h.amount }</td>
+							<td class="right">${h.billmoney }</td>
+							<td class="right">${h.paymoney } 元</td>
+							<td class="right"><span class="fleft"></span> ${h.usermoney } 元</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			<div class="height24 fright">
-				打印日期：2014年01月09日
+				打印日期：<fmt:formatDate value="${currDate }"  type="date" dateStyle="long"/>
 			</div>
 			<div style="margin:0px auto; text-align:center; margin-top:40px;">
 				<button class="btn btn-icon btn-print btn-blue" onClick="parent.close();"><span></span>打印</button>
@@ -648,9 +513,12 @@ function reInvoice(){
 				催缴水费通知单
 			</div>
 			<div class="height24">
-				<div style="float:left;width:200px;">用户编码：0100000987</div>
-				<div style="float:left;">用户姓名：张三</div>
-				<div style="float:right;">当前欠费：1377.16 元</div>
+				<div style="float:left;width:200px;">用户编码：${user.userNo }</div>
+				<div style="float:left;">用户姓名：${user.userName }</div>
+				<div style="float:right;">当前欠费：
+						<c:if test="${user.userMoney < 0}">${user.userMoney }</c:if>
+						<c:if test="${user.userMoney >= 0 || user.userMoney==null}">0.00</c:if>
+				元</div>
 			</div>
 			<table class="report">
 				<thead>
@@ -674,51 +542,7 @@ function reInvoice(){
 						<td class="right">2.00 元</td>
 						<td class="right">296.08 元</td>
 					</tr>
-					<tr>
-						<td class="center">2013-10-06</td>
-						<td class="right">1240</td>
-						<td class="right">1330</td>
-						<td class="right">90 吨</td>
-						<td class="right">192.60 元</td>
-						<td class="right">0.00 元</td>
-						<td class="right">192.60 元</td>
-					</tr>
-					<tr>
-						<td class="center">2013-11-11</td>
-						<td class="right">1330</td>
-						<td class="right">1460</td>
-						<td class="right">130 吨</td>
-						<td class="right">187.20 元</td>
-						<td class="right">0.00 元</td>
-						<td class="right">187.20 元</td>
-					</tr>
-					<tr>
-						<td class="center">2013-12-05</td>
-						<td class="right">1460</td>
-						<td class="right">1882</td>
-						<td class="right">422 吨</td>
-						<td class="right">607.68 元</td>
-						<td class="right">0.00 元</td>
-						<td class="right">607.68 元</td>
-					</tr>
-					<tr>
-						<td class="center">2014-01-04</td>
-						<td class="right">1882</td>
-						<td class="right">1947</td>
-						<td class="right">65 吨</td>
-						<td class="right">93.60 元</td>
-						<td class="right">0.00 元</td>
-						<td class="right">93.60 元</td>
-					</tr>
-					<tr>
-						<td class="center">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">&nbsp;</td>
-						<td class="right">1377.16 元</td>
-					</tr>
+					 
 				</tbody>
 			</table>
 			<div class="height24">
@@ -727,7 +551,7 @@ function reInvoice(){
 			<div class="height24 right">
 				湖南省自来水公司
 				&nbsp;&nbsp;
-				2014年01月05日
+				<fmt:formatDate value="${currDate }"  type="date" dateStyle="long"/>
 			</div>
 			<div style="margin:0px auto; text-align:center; margin-top:10px;">
 				<button class="btn btn-icon btn-print btn-blue" onClick="parent.close();"><span></span>打印</button>
@@ -763,11 +587,22 @@ $(document).ready(function()
 	$('table.billlist tbody tr').click(function(){
 		$('table.billlist tbody tr.selected').removeClass('selected');
 		$(this).addClass('selected');
+		var billNo=$(this).children("td").get(0).innerHTML;
+
 		
-		//以下代码是模拟ajax视觉效果
-		if(!temp_html) temp_html = $('#details').html();
-		$('#details').html('正在加载...');
-		setTimeout(function(){ $('#details').html(temp_html); }, 300);
+	
+		//aJax异步查询 水费的详细信息
+		$.post("/TapWater/paywindow/queryBillDetails",{"billNo":billNo},function(x){
+			$("#sfmx").html(x);
+		});
+		$.post("/TapWater/paywindow/queryBillDetails",{"billNo":billNo},function(x){
+			$("#bmmx").html(x);
+		});
+		//$('#details').html('正在加载...');
+		//if(!temp_html) temp_html = $('#details').html();
+		
+		//alert(temp_html);
+		//setTimeout(function(){ $('#details').html(temp_html); }, 300);
 	});
 });
 var temp_html;

@@ -130,9 +130,9 @@
 					
 					<div class="nav_menu">
 						<ul>
-							<li><a href="./workspace.html">我的工作台</a></li>
-							<li><a href="./page/sys_pwd.html">修改密码</a></li>
-							<li><a href="./login.html">退出系统</a></li>
+							<li><a href="/TapWater/sy/workspace.jsp">我的工作台</a></li>
+							<li><a href="/TapWater/sy/page/sys_pwd.html">修改密码</a></li>
+							<li><a href="/TapWater/sy/login.jsp">退出系统</a></li>
 						</ul>
 					</div> <!-- .menu -->
 				</li>

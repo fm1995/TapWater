@@ -27,5 +27,8 @@ public class PyParent {
 	protected RdReadMapper rdReadMapper;
 	@Autowired
 	protected UsUserMapper usUserMapper;
+	@Autowired
+	protected SyEmpMapper syEmpMapper;
+	
 	
 }

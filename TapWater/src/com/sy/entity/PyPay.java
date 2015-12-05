@@ -20,7 +20,26 @@ public class PyPay {
 
     private Integer empId;
 
-    public String getPayNo() {
+    
+    private SyEmp emp;
+    
+    @Override
+	public String toString() {
+		return "PyPay [payNo=" + payNo + ", userNo=" + userNo + ", payType="
+				+ payType + ", payDate=" + payDate + ", invoice=" + invoice
+				+ ", payMoney=" + payMoney + ", useMoney=" + useMoney
+				+ ", empId=" + empId + ", emp=" + emp + "]";
+	}
+
+	public SyEmp getEmp() {
+		return emp;
+	}
+
+	public void setEmp(SyEmp emp) {
+		this.emp = emp;
+	}
+
+	public String getPayNo() {
         return payNo;
     }
 

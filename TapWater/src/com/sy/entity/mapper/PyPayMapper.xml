@@ -268,4 +268,28 @@
 	</where>      
 	limit #{start},#{page}
   </select>
+  
+    <resultMap id="BaseResultMap1" type="com.sy.entity.PyPay" >
+    <id column="pay_no" property="payNo" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="pay_date" property="payDate" jdbcType="TIMESTAMP" />
+    <result column="invoice" property="invoice" jdbcType="VARCHAR" />
+    <result column="pay_money" property="payMoney" jdbcType="DECIMAL" />
+    <result column="use_money" property="useMoney" jdbcType="DECIMAL" />
+    <result column="emp_id" property="empId" jdbcType="INTEGER" />
+	 <association property="emp"  resultMap="com.sy.mappdao.SyEmpMapper.BaseResultMap"></association>
+  </resultMap>
+  <select id="selPayHistoryWhereStrPage" parameterType="map" resultMap="BaseResultMap1">
+	SELECT  pay.*,emp.* FROM sy.py_pay pay ,sy_emp emp
+	<where>
+	    <if test="whereStr != null">
+	        ${whereStr}
+	    </if>
+	</where>      
+	limit #{start},#{page}
+  </select>
+  
+  
+  
 </mapper>

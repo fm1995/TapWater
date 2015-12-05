@@ -331,7 +331,7 @@
 		limit #{start} ,#{rows}
 	</select>
 	<select id="selectInvoiceCountByWhere" resultType="java.lang.Integer" parameterType="map">
-		select count(*) form iv_invoice 
+		select count(*) from iv_invoice 
 		<where>
 		    <if test="whereStr != null">
 		        ${whereStr}

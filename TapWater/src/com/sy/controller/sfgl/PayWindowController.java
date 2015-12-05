@@ -48,6 +48,12 @@ public class PayWindowController extends PyController{
 		
 		return null;
 	}
+	//aJax查询发票跟据id 放到域中去
+	@RequestMapping("/selectInvoiceByPayNo")
+	public String selectInvoiceByPayNo(HttpServletRequest request,HttpServletResponse response,String payNo) throws IOException{
+		pyPayService.selectInvoiceByPayNo(request,response,payNo);
+		return null;
+	}
 	//分页查询发票,
 	@RequestMapping("/selectInvoicePage")
 	public String selectInvoicePage(HttpServletRequest request,HttpServletResponse response,SfglDto dto) throws IOException{
@@ -87,5 +93,13 @@ public class PayWindowController extends PyController{
 		request.setAttribute("user", user);
 		response.getOutputStream().print("ok");
 		 return null;
+	}
+	
+	
+	//aJax 根据 水费的编号查询水费的详细信息
+	@RequestMapping("queryBillDetails")
+	public String queryBillDetails(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		pyBillService.selectBillDetails(request,response);
+		return null;
 	}
 }
