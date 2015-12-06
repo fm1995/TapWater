@@ -2,7 +2,9 @@ package com.sy.mappdao;
 
 import com.sy.entity.PyUserhistory;
 import com.sy.entity.PyUserhistoryExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface PyUserhistoryMapper {
@@ -27,4 +29,6 @@ public interface PyUserhistoryMapper {
     int updateByPrimaryKeySelective(PyUserhistory record);
 
     int updateByPrimaryKey(PyUserhistory record);
+
+	List<PyUserhistory> selectByWhereStr(@Param("whereStr")String whereStr);
 }

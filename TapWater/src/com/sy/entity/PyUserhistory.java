@@ -25,8 +25,31 @@ public class PyUserhistory {
     private BigDecimal paymoney;
 
     private BigDecimal usermoney;
+    
+    //Î´½É½ð¶î
+    private BigDecimal weipaymoney;
+    
+    
 
-    public Integer getId() {
+    @Override
+	public String toString() {
+		return "PyUserhistory [id=" + id + ", userno=" + userno + ", typee="
+				+ typee + ", orderno=" + orderno + ", datee=" + datee
+				+ ", prevalue=" + prevalue + ", curvalue=" + curvalue
+				+ ", amount=" + amount + ", billmoney=" + billmoney
+				+ ", paymoney=" + paymoney + ", usermoney=" + usermoney
+				+ ", weipaymoney=" + weipaymoney + "]";
+	}
+
+	public BigDecimal getWeipaymoney() {
+		return weipaymoney;
+	}
+
+	public void setWeipaymoney(BigDecimal weipaymoney) {
+		this.weipaymoney = weipaymoney;
+	}
+
+	public Integer getId() {
         return id;
     }
 

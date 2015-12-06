@@ -60,6 +60,16 @@ public class PyBillService extends PyParent {
 		request.setAttribute("historys", historys);
 		//当前时间
 		request.setAttribute("currDate", new Date());
+		
+		
+		//催促通知单
+		String whereStr=" and  billmoney > paymoney ";
+		List<PyUserhistory> jiaofei = pyUserhistoryMapper.selectByWhereStr(whereStr);
+		for (PyUserhistory hty : jiaofei) {					//算出用户未缴的钱
+			BigDecimal weipaymoney = hty.getBillmoney().subtract(hty.getPaymoney());
+			hty.setWeipaymoney(weipaymoney );
+		}
+		request.setAttribute("jiaofei", jiaofei);
 
 		
 	}

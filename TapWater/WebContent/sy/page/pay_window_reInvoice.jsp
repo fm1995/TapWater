@@ -23,15 +23,42 @@
 		$('#submit').val('修改发票号码并重新打印');
 	}
 	
-	//提交表单
-	function ok(){
-		//打印发票
-		var invoice=$("#invoice").val();
-		var flag=0;
-		if(invoice==$("#hinvoice").val())
-			flag=1;
-		showWindow({url:'/TapWater/sy/page/pay_printInvoice.jsp?invoice='+invoice+"&flag="+flag, width:800, height:260});
-	}
+	
+	$(function(){
+		//提交表单
+		window.ok=function(){
+			//打印发票
+			var invoice=$("#invoice").val();
+			var flag=1; //发票未变
+			
+						
+			if(invoice!=$("#hinvoice").val()){//发票没改变
+				showWindow({url:'/TapWater/sy/page/pay_printInvoice.jsp?invoice='+invoice+"&flag="+flag, width:800, height:260});
+				return;
+			}
+			if(invoice!=$("#hinvoice").val()){//发票改变
+				flag=0;
+				$.post("/TapWater/paywindow/changeInvoice",
+						{"invoice":invoice,
+						"payNo":$("#payNo").val(),
+						"oldinvoice":$("#hinvoice").val()
+						}
+				,function(x){
+					if(x=="noinvoice"){
+						alert('没有这个发票');
+						return;
+					}
+					if(x=="usedinvoice"){
+						alert("发票已经使用");
+						return;
+					}
+				});
+			showWindow({url:'/TapWater/sy/page/pay_printInvoice.jsp?invoice='+invoice+"&flag="+flag, width:800, height:260});
+			}
+		}
+		
+	});
+	
 	</script>
 </head> 
  
@@ -56,7 +83,7 @@
 		<span id="changeMessage">由于你修改了发票号码，此操作会将原发票号码作废，将新发票号码与交费单关联。</span></div>
 		
 		<div class="field"><label for="name">交费单号</label>
-		<input size="50" type="text" class="medium" value="${pay.payNo }" disabled="disabled" /></div>
+		<input size="50" type="text" class="medium" value="${pay.payNo }" id="payNo" disabled="disabled" /></div>
 		
 		<div class="field"><label for="name">交费用户</label>
 		<input size="50" type="text" class="medium" value="${pay.userNo }" disabled="disabled" /></div>

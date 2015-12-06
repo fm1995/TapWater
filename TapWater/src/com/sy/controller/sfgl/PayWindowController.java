@@ -102,4 +102,12 @@ public class PayWindowController extends PyController{
 		pyBillService.selectBillDetails(request,response);
 		return null;
 	}
+	
+	
+	@RequestMapping("changeInvoice")
+	public String changeInvoice(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		pyPayService.changeInvoice(request,response);
+		
+		return null;
+	}
 }

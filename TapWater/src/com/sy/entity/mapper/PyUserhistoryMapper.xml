@@ -304,4 +304,15 @@
       usermoney = #{usermoney,jdbcType=DECIMAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  <select id="selectByWhereStr" parameterType="map" resultMap="BaseResultMap">
+      select * from py_userhistory 
+      <where>
+		<if test="whereStr != null">
+		    ${whereStr}
+		</if>          
+      </where>
+  </select>
 </mapper>

@@ -18,7 +18,9 @@ tr.tr_money td.m1 { font-size:24px; }
 </script>
 </head> 
  
-<body> 
+<body > 
+<input type="hidden" value="${param.flag }">
+
 <div style="width:90%; margin:0px auto;">
 	<div class="reportTitle">
 		打印发票

@@ -29,6 +29,8 @@ public class PyParent {
 	protected UsUserMapper usUserMapper;
 	@Autowired
 	protected SyEmpMapper syEmpMapper;
+	@Autowired
+	protected IvInvoiceMapper ivInvoiceMapper;
 	
 	
 }

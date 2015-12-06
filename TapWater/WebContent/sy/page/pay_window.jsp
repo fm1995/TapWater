@@ -533,16 +533,20 @@ function reInvoice(payNo){
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td class="center">2013-09-03</td>
-						<td class="right">1033</td>
-						<td class="right">1240</td>
-						<td class="right">207 吨</td>
-						<td class="right">298.08 元</td>
-						<td class="right">2.00 元</td>
-						<td class="right">296.08 元</td>
-					</tr>
-					 
+					<c:forEach var ="h" items="${jiaofei }">
+					<%  %>
+							<tr>
+								<td class="center">
+									<fmt:formatDate value="${h.datee }"  type="date" dateStyle="long"/>
+								</td>
+								<td class="right">${h.prevalue }</td>
+								<td class="right">${h.curvalue };吨</td>
+								<td class="right">${h.amount }</td>
+								<td class="right">${h.billmoney }</td>
+								<td class="right">${h.paymoney } 元</td>
+								<td class="right">${h.weipaymoney } 元</td>
+							</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			<div class="height24">
