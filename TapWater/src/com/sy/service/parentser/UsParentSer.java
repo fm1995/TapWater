@@ -8,6 +8,8 @@ import com.sy.mappdao.IvInvoiceMapper;
 import com.sy.mappdao.PyBillMapper;
 import com.sy.mappdao.PyPayMapper;
 import com.sy.mappdao.PyUserhistoryMapper;
+import com.sy.mappdao.RdVolumeMapper;
+import com.sy.mappdao.SyMeterTypeMapper;
 import com.sy.mappdao.UsFormulaMapper;
 import com.sy.mappdao.UsMeterMapper;
 import com.sy.mappdao.UsSmsMapper;
@@ -34,6 +36,9 @@ public class UsParentSer{
 	
 	@Autowired
 	protected IvInvoiceMapper invoiceMapper;
-	
+	@Autowired
+	protected RdVolumeMapper rdVolumeMapper;
+	@Autowired
+	protected SyMeterTypeMapper syMeterTypeMapper;
 	
 }

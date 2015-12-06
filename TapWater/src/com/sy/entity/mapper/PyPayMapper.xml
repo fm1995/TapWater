@@ -266,7 +266,7 @@
 	        ${whereStr}
 	    </if>
 	</where>      
-	limit #{start},#{page}
+	limit #{start},#{rows}
   </select>
   
     <resultMap id="BaseResultMap1" type="com.sy.entity.PyPay" >
@@ -287,7 +287,7 @@
 	        ${whereStr}
 	    </if>
 	</where>      
-	limit #{start},#{page}
+	limit #{start},#{rows}
   </select>
   
   

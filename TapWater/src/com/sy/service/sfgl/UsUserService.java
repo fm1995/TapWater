@@ -17,12 +17,18 @@ import com.sy.dto.SfglDto;
 import com.sy.entity.IvInvoice;
 import com.sy.entity.PyPay;
 import com.sy.entity.PyUserhistory;
+import com.sy.entity.RdVolume;
 import com.sy.entity.SyEmp;
+import com.sy.entity.SyMeterType;
+import com.sy.entity.UsMeter;
+import com.sy.entity.UsMeterExample;
 import com.sy.entity.UsSms;
 import com.sy.entity.UsUser;
 import com.sy.entity.UsUserExample;
 import com.sy.entity.UsUserExample.Criteria;
+import com.sy.mappdao.RdVolumeMapper;
 import com.sy.projectUtils.SfglUtils;
+import com.sy.service.cbgl.VolumeService;
 import com.sy.service.parentser.ParentSerI;
 import com.sy.service.parentser.UsParentSer;
 
@@ -211,6 +217,32 @@ public class UsUserService extends UsParentSer implements ParentSerI<UsUser> {
 		usUser.setAddress(user.getAddress());
 		update(usUser);
 		return usUser;
+	}
+
+	/**查询用户详情，1.查询用户,2，查询用户表册，3.查询用户水表*/
+	public void selectUserAndDetails(String userNo, HttpServletRequest request) {
+		if(userNo!=null){
+			UsUser user = usUserMapper.selectByPrimaryKey(userNo);//1查询用户
+			RdVolume volume =null;
+			if(user==null)
+				return;
+			if(user.getVolumeId()!=null)//查询用户表册
+				volume= rdVolumeMapper.selectByPrimaryKey(user.getVolumeId());
+			UsMeter meter = null;
+			SyMeterType meterType=null;
+			if(user.getMeterId()!=null) //查询用户水表所属的口径
+				meterType=syMeterTypeMapper.selectByPrimaryKey(user.getMeterId());
+			
+			UsMeterExample example =new UsMeterExample();
+			example.createCriteria().andUserNoEqualTo(userNo);
+			List<UsMeter> meters= usMeterMapper.selectByExample(example); //用户水表
+			if(meters.size()>0)
+				meter=meters.get(0);
+			request.setAttribute("user", user);
+			request.setAttribute("volume", volume);
+			request.setAttribute("meter", meter);
+			request.setAttribute("meterType", meterType);
+		}		
 	}
 
 }

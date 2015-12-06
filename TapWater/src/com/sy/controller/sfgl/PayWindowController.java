@@ -77,13 +77,7 @@ public class PayWindowController extends PyController{
 		usUserService.jiaofei(request,response);
 		return null;
 	}
-	//跳到用户详情页面去执行用户详情操作
-	@RequestMapping("yonghuxiangqing")
-	public String yonghuxiangqing(String userNo){
-		System.out.println("跳到用户详情页面去");
-		
-		return "/sy/page/user_search1.jsp";
-	}
+	
 
 	//修改联系资料
 	@RequestMapping("updateUserPhoneAndSmsPhone")

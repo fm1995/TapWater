@@ -2,6 +2,7 @@ package com.sy.service.sfgl;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
+import com.sy.dto.SfglDto;
 import com.sy.entity.IvInvoice;
 import com.sy.entity.IvInvoiceExample;
 import com.sy.entity.IvInvoiceExample.Criteria;
@@ -84,6 +86,26 @@ public class PyPayService extends PyParent{
 			return false;
 		}
 		return true;
+	}
+
+	/**根据用户的编号 分页查询交费的账单
+	 * @throws IOException */
+	public void selectPaysPageByUserNo(HttpServletRequest request,
+			HttpServletResponse response, SfglDto dto, String userNo) throws IOException {
+		if(userNo==null)
+			return ;
+		String whereStr = " and user_no = '"+userNo+"'";
+		List<PyPay> pays = pyPayMapper.selectByWhereStrPage(whereStr, (dto.getPage()-1)*dto.getRows(), dto.getRows());
+		StringBuffer sb=new StringBuffer();
+		for (PyPay pay : pays) {
+			sb.append("<tr>");
+			System.out.println(pay);
+			sb.append("<td></td>");
+			
+			sb.append("</tr>");
+		}
+		System.out.println(sb.toString());
+		response.getOutputStream().print(sb.toString());
 	}
    
 }

@@ -116,11 +116,7 @@ window.pay=function(){
 	//详情
 	$("#xiangqing").click(function(){
 		var userNo=$("#userNo").val();
-		if(userNo==""){
-			  alert( "你还没有选择用户！");  
-			 return;
-		}
-		location.href="/TapWater/paywindow/yonghuxiangqing?userNo="+userNo;
+		location.href="/TapWater/paydetails/yonghuxiangqing?userNo="+userNo;
 	});
 });
 //选择发票

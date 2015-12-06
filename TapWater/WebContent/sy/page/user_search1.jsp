@@ -1,44 +1,43 @@
-fsfsfwfaffaofwfaf<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"> 
- 
+ <%@include file="/sy/style.jsp" %>
 <head> 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
 	<title>湖南省自来水公司营销管理信息系统</title> 
 	
-	<link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/text.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/form.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/buttons.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/grid.css" type="text/css" media="screen" title="no title" />	
-	<link rel="stylesheet" href="../css/layout.css" type="text/css" media="screen" title="no title" />	
-	
-	<link rel="stylesheet" href="../css/ui-darkness/jquery-ui-1.8.12.custom.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/jquery.visualize.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/facebox.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/uniform.default.css" type="text/css" media="screen" title="no title" />
-	<link rel="stylesheet" href="../css/plugin/dataTables.css" type="text/css" media="screen" title="no title" />
-	
-	<link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen" title="no title">
+	<%@include file="../style.jsp" %>
 	<style type="text/css">
 	table.data thead th { vertical-align:middle; text-align:center; }
 	.tab_content { min-height:220px; }
 	</style>
 	<script type="text/javascript">
+	 
 	//查询用户
-	function searchUser(){	
+$(function(){
+	$("#btnSel").click(function(){
+
+		var args = {
+				"userNo":$("input[name=userNo]").val(),
+				"abc": $("input[name=abc]").val(),		
+				"smsPhone": $("input[name=smsPhone]").val(),		
+				"phone": $("input[name=phone]").val(),		
+				"docNum": $("input[name=docNum]").val(),		
+				"userName": $("input[name=userName]").val(),		
+				"address": $("input[name=address]").val(),		
+				"userMoney": 200		
+		};
+		$.post("/TapWater/paywindow/selectUser",args,function(x){
+			var no=showWindow({url:'/TapWater/sy/page/sys_selectUser.jsp'});
+			if(no==undefined)
+				return ;
+			location.href="/TapWater/paydetails/selectUserByUserNo?userNo="+no;
+		}); 
+		
+	});
 	
-		//因为在本地环境下，chrome浏览器的showModalDialog()之后的代码无法执行，
-		//            为了在本地也能演示，故将此代码写到showModalDialog()之前。
-		location.href = 'user_search1.html';
-	
-		//显示选择用户的界面
-		showWindow({url:'../page/sys_selectUser.html', callback: function(val){
-			//alert(val.addr);  //回调处理
-		}});
-	}
-	
+});
 	//显示抄表详情
 	function showReadingDetail(){
 		showWindow({url:'../page/user_search1_readingDetail.html', width:500, height:400});
@@ -50,153 +49,29 @@ fsfsfwfaffaofwfaf<%@ page language="java" contentType="text/html; charset=UTF-8"
 	}
 
 	</script>
+<script type="text/javascript">
+$(function(){
+	window.ajaxLoad=function(){
+	
+	}
+	window.ajaxLoadPays=function(){
+		var userId=$("#userIdt").val();
+		var args={
+			"userNo":userId
+		};
+		$.post("",args,function(x){
+			
+		});
+	}
+});
+</script>	
 </head> 
  
-<body> 
-
+<body onload="ajaxLoad()"> 
+	<input id="userIdt" value="0100000459">
 <div id="wrapper">
 	
-	<div id="header">
-		
-		<div class="content_pad">
-			<h1><a href="../workspace.html">湖南省自来水公司营销管理信息系统</a></h1>
-			
-			<ul id="nav">
-				
-				<li class="nav_dropdown nav_icon">
-					<a href="javascript:;"><span class="ui-icon ui-icon-wrench"></span>业扩工程</a>
-					
-					<div class="nav_menu">			
-						<ul>
-							<li><a href="../page/be__request.html">01 用户申请</a></li>
-							<li><a href="../page/be__audit.html">02 初步审核</a></li>
-							<li><a href="../page/be__pay.html">03 交施工费</a></li>
-							<li><a href="../page/be__billclear.html">04 水费清算</a></li>
-							<li><a href="../page/be__contract.html">05 供水协议</a></li>
-							<li><a href="../page/be__working.html">06 施工竣工</a></li>
-							<li><a href="../page/be__open.html">07 通水停水</a></li>
-							<li><a href="../page/be__save.html">08 档案存档</a></li>
-							<li><a href="../page/be_order.html">工单管理</a></li>
-							<li><a href="../page/be_abort.html">终止工单</a></li>
-							<li><a href="../page/be_reportProgress.html">业扩工程进度</a></li>
-							<li><a href="../page/be_reportMoney.html">业扩收费报表</a></li>
-						</ul>
-						
-					</div>
-				</li>
-
-				<li class="nav_dropdown nav_icon">
-					<a href="javascript:;"><span class="ui-icon ui-icon-person"></span>用户管理</a>
-					
-					<div class="nav_menu">			
-						<ul>
-							<li><a href="../page/user_search.html">用户查询</a></li>	
-							<li><a href="../page/user_add.html">快捷新户</a></li>	
-							<li><a href="../page/user_changeName.html">快捷过户</a></li>
-							<li><a href="../page/user_changeBank.html">快捷代扣</a></li>
-							<li><a href="../page/user_changeMeter.html">快捷换表</a></li>
-							<li><a href="../page/user_changeFormula.html">快捷重签</a></li>
-							<li><a href="../page/user_delete.html">快捷销户</a></li>
-							<li><a href="../page/user_reportShortcut.html">快捷操作记录</a></li>
-							<li><a href="../page/user_docNum.html">档案号管理</a></li>
-							<li><a href="../page/user_sendMsg.html">短信群发</a></li>
-						</ul>
-						
-					</div>
-				</li>
-
-				<li class="nav_dropdown nav_icon">
-					<a href="javascript:;"><span class="ui-icon ui-icon-pencil"></span>抄表管理</a>
-					
-					<div class="nav_menu">			
-						<ul>
-							<li><a href="../page/rd_volume.html">表册管理</a></li>	
-							<li><a href="../page/rd_init.html">抄表初始化</a></li>	
-							<li><a href="../page/rd_task.html">任务分配</a></li>	
-							<li><a href="../page/rd_enter.html">抄表录入</a></li>	
-							<li><a href="../page/rd_audit.html">抄表审核</a></li>
-							<li><a href="../page/rd_reportReading.html">抄表情况查询</a></li>	
-							<li><a href="../page/rd_reportVolumeReading.html">抄表统计报表</a></li>	
-							<li><a href="../page/rd_reportZero.html">零吨位用户查询</a></li>	
-							<li><a href="../page/rd_reportMaxValue.html">最大码值修正记录</a></li>
-							<li><a href="../page/rd_reportCPreAmount.html">底码修正记录</a></li>	
-							<li><a href="../page/rd_reportMeterCheck.html">水表周检报表</a></li>
-						</ul>
-						
-					</div>
-				</li>
-				
-				<li class="nav_dropdown nav_icon">
-					<a href="javascript:;"><span class="ui-icon ui-icon-star"></span>收费管理</a>
-					
-					<div class="nav_menu">			
-						<ul>
-							<li><a href="../page/pay_window.html">窗口收费</a></li>	
-							<li><a href="../page/pay_batch.html">批量收费</a></li>
-							<li><a href="../page/pay_invoiceReprint.html">发票补开/作废</a></li>	
-							<li><a href="../page/pay_reportDebts.html">欠费报表</a></li>	
-							<li><a href="../page/pay_reportPay.html">收费情况报表</a></li>	
-							<li><a href="../page/pay_reportMonthRecycle.html">月资金回收情况报表</a></li>	
-							<li><a href="../page/pay_reportBalance.html">用户预收情况报表</a></li>	
-							<li><a href="../page/pay_reportWaterType.html">各类用水统计总表</a></li>
-						</ul>
-						
-					</div>
-				</li>
-				
-				<li class="nav_dropdown nav_icon">
-					<a href="javascript:;"><span class="ui-icon ui-icon-script"></span>发票管理</a>
-					
-					<div class="nav_menu">			
-						<ul>
-							<li><a href="../page/inv_invoiceManage.html">发票总表</a></li>
-							<li><a href="../page/inv_invoiceIn.html">发票入库</a></li>	
-							<li><a href="../page/inv_invoiceOut.html">发票出库</a></li>
-							<li><a href="../page/inv_invoiceArchive.html">发票交票</a></li>
-							<li><a href="../page/inv_invoiceReportOut.html">发票出库情况查询</a></li>	
-							<li><a href="../page/inv_invoiceReportEmp.html">收费人员发票查询</a></li>	
-							<li><a href="../page/inv_invoiceReportArchive.html">发票交票情况查询</a></li>	
-							<li><a href="../page/inv_invoiceReportUse.html">发票使用情况查询</a></li>	
-							<li><a href="../page/inv_invoiceReportMoneySum.html">销账汇总报表</a></li>	
-							<li><a href="../page/inv_invoiceReportMoneyDetail.html">销账明细报表</a></li>	
-						</ul>
-					</div>
-				</li>
-
-				<li class="nav_dropdown nav_icon">
-					<a href="javascript:;"><span class="ui-icon ui-icon-gear"></span>系统设置</a>
-					
-					<div class="nav_menu">			
-						<ul>
-							<li><a href="../page/sys_area.html">抄表辖区</a></li>	
-							<li><a href="../page/sys_meterType.html">水表型号</a></li>	
-							<li><a href="../page/sys_dept.html">部门管理</a></li>	
-							<li><a href="../page/sys_emp.html">员工管理</a></li>	
-							<li><a href="../page/sys_menupower.html">菜单权限设置</a></li>	
-							<li><a href="../page/sys_areapower.html">辖区权限设置</a></li>	
-							<li><a href="../page/sys_waterType.html">用水类型设定</a></li>	
-							<li><a href="../page/sys_surcharge.html">附加费设定</a></li>	
-							<li><a href="../page/sys_flow.html">流程配置</a></li>	
-						</ul>
-						
-					</div>
-				</li>
-				
-				<li class="nav_current nav_dropdown nav_icon_only">
-					<a href="javascript:;">&nbsp;</a>
-					
-					<div class="nav_menu">
-						<ul>
-							<li><a href="../workspace.html">我的工作台</a></li>
-							<li><a href="../page/sys_pwd.html">修改密码</a></li>
-							<li><a href="../login.html">退出系统</a></li>
-						</ul>
-					</div> <!-- .menu -->
-				</li>
-			</ul>
-		</div> <!-- .content_pad -->
-		
-	</div> <!-- #header -->	
+	<%@include file="../header.jsp" %>
 	
 	<div id="masthead">
 		<div>
@@ -212,13 +87,13 @@ fsfsfwfaffaofwfaf<%@ page language="java" contentType="text/html; charset=UTF-8"
 			<h2>用户查询</h2>
 			
 			<div class="searchUserDiv">
-				用户编码 <input value="0100000987" />
-				用户简码 <input value="zs" />
-				用户姓名 <input value="张三" />
-				联系电话 <input value="0731-52483413" />
-				家庭住址 <input value="新开发区国际IT中心华瑞国际总部办公楼" />
-				<button class="btn btn-small btn-icon btn-person" 
-					onclick="searchUser();"><span></span>查询用户</button>
+				用户编码 <input name="userNo"  value="${user.userNo }" />
+				用户简码 <input  name="abc" value="${user.abc }"  />
+				用户姓名 <input  name="userName" value="${user.userName }"/>
+				联系电话 <input  name="phone" value="${user.phone }" />
+				家庭住址 <input name="address" value="${user.address }" />
+				<button class="btn btn-small btn-icon btn-person"  id="btnSel"
+					><span></span>查询用户</button>
 			</div>
 			
 			<div class="tab_container">
@@ -250,50 +125,56 @@ fsfsfwfaffaofwfaf<%@ page language="java" contentType="text/html; charset=UTF-8"
 	<tbody>
 		<tr>
 			<td>用户编码</td>
-			<td><input readonly="readonly" value="0100000987" /></td>
+			<td><input readonly="readonly" value="${user.userNo }" /></td>
 			<td>用户类型</td>
-			<td><input readonly="readonly" value="私户、公户" /></td>
+			<td><input readonly="readonly" value="${user.userType }" /></td>
 			<td>所属辖区</td>
-			<td><input readonly="readonly" value="新开发区" /></td>
+			<td><input readonly="readonly" value="${user.areaId }" /></td>
 		</tr>
 		<tr>
 			<td>用户名称</td>
-			<td><input readonly="readonly" value="张三" /></td>
+			<td><input readonly="readonly" value="${user.userName }" /></td>
 			<td>开户时间</td>
-			<td><input readonly="readonly" value="2010年10月27日" /></td>
+			<td><input readonly="readonly" value="${user.createDate }" /></td>
 			<td>收款方式</td>
-			<td><input readonly="readonly" value="坐收、走收、银行代扣" /></td>
+			<td><input readonly="readonly" value="${user.payType }" /></td>
 		</tr>
 		<tr>
 			<td>联系电话</td>
-			<td><input readonly="readonly" value="13012345678" /></td>
+			<td><input readonly="readonly" value="${user.phone }" /></td>
 			<td>开户银行</td>
-			<td><input readonly="readonly" value="建设银行" /></td>
+			<td><input readonly="readonly" value="${user.bankName }" /></td>
 			<td>银行账号</td>
-			<td><input readonly="readonly" value="1234567890123456789" /></td>
+			<td><input readonly="readonly" value="${user.bankNum }" /></td>
 		</tr>
 		<tr>
 			<td>短信电话</td>
-			<td><input readonly="readonly" value="13012345678" /></td>
+			<td><input readonly="readonly" value="${user.smsPhone }" /></td>
 			<td>用户地址</td>
 			<td colspan="3"><input size="68" readonly="readonly" 
-								value="新开发区国际IT中心华瑞国际总部办公楼2219号" /></td>
+								value="${user.address }" /></td>
 		</tr>
 		<tr>
 			<td>档案编号</td>
-			<td><input readonly="readonly" value="A4954-394P1#4" /></td>
+			<td><input readonly="readonly" value="${user.docNum }" /></td>
 			<td>合同编号</td>
-			<td><input readonly="readonly" value="W20101027-19" /></td>
+			<td><input readonly="readonly" value="${user.contractNum }" /></td>
 			<td>签订日期</td>
-			<td><input readonly="readonly" value="2010年10月27日" /></td>
+			<td><input readonly="readonly" value="${user.contractDate }" /></td>
 		</tr>
 		<tr>
 			<td>提比提量</td>
-			<td><input readonly="readonly" value="[SH:80%][SY:20%]" /></td>
+			<td><input readonly="readonly" value="${user.formula }" /></td>
 			<td>用户余额</td>
-			<td><input readonly="readonly" class="right" value="0" />元</td>
+			<td>
+				<c:if test="${user.userMoney < 0}"><input readonly="readonly" class="right" value="0.00" /></c:if>
+				<c:if test="${user.userMoney >= 0 || user.userMoney==null}"><input readonly="readonly" class="right" value="${user.userMoney }" /></c:if>
+			元</td>
 			<td>用户欠款</td>
-			<td><input readonly="readonly" class="right" value="219" />元</td>
+			<td>
+				<c:if test="${user.userMoney <= 0  || user.userMoney==null}"><input readonly="readonly" class="right" value="${user.userMoney }" /></c:if>
+				<c:if test="${user.userMoney > 0 }"><input readonly="readonly" class="right" value="0.00" /></c:if>
+			元</td>
 		</tr>
 	</tbody>
 	</table>
@@ -315,11 +196,11 @@ fsfsfwfaffaofwfaf<%@ page language="java" contentType="text/html; charset=UTF-8"
 	<tbody>
 		<tr>
 			<td>表册编号</td>
-			<td><input readonly="readonly" value="9" /></td>
+			<td><input readonly="readonly" value="${volume.id }" /></td>
 			<td>表册名称</td>
-			<td><input readonly="readonly" value="新开发区#1" /></td>
+			<td><input readonly="readonly" value="${volume.volumeName }" /></td>
 			<td>所在序号</td>
-			<td><input readonly="readonly" value="1490" /></td>
+			<td><input readonly="readonly" value="${volume.areaId }" /></td>
 		</tr>
 	</tbody>
 	</table>
@@ -341,25 +222,25 @@ fsfsfwfaffaofwfaf<%@ page language="java" contentType="text/html; charset=UTF-8"
 	<tbody>
 		<tr>
 			<td>水表编号</td>
-			<td><input readonly="readonly" value="M0100000987-01" /></td>
+			<td><input readonly="readonly" value="${meter.meterNo }" /></td>
 			<td>表身码</td>
-			<td><input readonly="readonly" value="01010001" /></td>
+			<td><input readonly="readonly" value="${meter.meterName }" /></td>
 			<td>起始底码</td>
-			<td><input readonly="readonly" value="2" /></td>
+			<td><input readonly="readonly" value="${meter.startValue }" /></td>
 		</tr>
 		<tr>
 			<td>水表类型</td>
-			<td><input readonly="readonly" value="DN40" /></td>
+			<td><input readonly="readonly" value="${meter.meterTypeId }" /></td>
 			<td>水表口径</td>
-			<td><input readonly="readonly" value="40" /></td>
+			<td><input readonly="readonly" value="${meterType.aperture }" /></td>
 			<td>最大码值</td>
-			<td><input readonly="readonly" value="99999" /></td>
+			<td><input readonly="readonly" value="${meter.maxValue }" /></td>
 		</tr>
 		<tr>
 			<td>装表日期</td>
-			<td><input readonly="readonly" value="2010年10月27日" /></td>
+			<td><input readonly="readonly" value="${meter.setupDate }" /></td>
 			<td>水表厂家</td>
-			<td colspan="3"><input size="68" readonly="readonly" value="城至水表厂" /></td>
+			<td colspan="3"><input size="68" readonly="readonly" value="${meter.factory }" /></td>
 		</tr>
 	</tbody>
 	</table>
@@ -782,18 +663,18 @@ fsfsfwfaffaofwfaf<%@ page language="java" contentType="text/html; charset=UTF-8"
 	
 </div> <!-- #wrapper -->
 
-<script src="../js/jquery/jquery-1.5.2.min.js"></script>
-<script src="../js/jquery/jquery-ui-1.8.12.custom.min.js"></script>
-<script src="../js/misc/excanvas.min.js"></script>
-<script src="../js/jquery/facebox.js"></script>
-<script src="../js/jquery/jquery.visualize.js"></script>
-<script src="../js/jquery/jquery.dataTables.min.js"></script>
-<script src="../js/jquery/jquery.tablesorter.min.js"></script>
-<script src="../js/jquery/jquery.uniform.min.js"></script>
-<script src="../js/jquery/jquery.placeholder.min.js"></script>
+<script src="/TapWater/sy/js/jquery/jquery-1.5.2.min.js"></script>
+<script src="/TapWater/sy/js/jquery/jquery-ui-1.8.12.custom.min.js"></script>
+<script src="/TapWater/sy/js/misc/excanvas.min.js"></script>
+<script src="/TapWater/sy/js/jquery/facebox.js"></script>
+<script src="/TapWater/sy/js/jquery/jquery.visualize.js"></script>
+<script src="/TapWater/sy/js/jquery/jquery.dataTables.min.js"></script>
+<script src="/TapWater/sy/js/jquery/jquery.tablesorter.min.js"></script>
+<script src="/TapWater/sy/js/jquery/jquery.uniform.min.js"></script>
+<script src="/TapWater/sy/js/jquery/jquery.placeholder.min.js"></script>
 
-<script src="../js/widgets.js"></script>
-<script src="../js/dashboard.js"></script>
+<script src="/TapWater/sy/js/widgets.js"></script>
+<script src="/TapWater/sy/js/dashboard.js"></script>
 
 <script type="text/javascript">
 	
