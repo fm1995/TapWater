@@ -2,9 +2,10 @@
 自来水项目
 SpringMVC+MyBatis(TapWater)
 
+(失败：转用svn)
 =========================
 ============
-* encoding: GBK
+* encoding: UTF-8
 * Java&IDE: JDK7 Eclipse 
 * Backend:   SpringMVC3.1.1 MyBatis3.3.0 (Configured by mapper)
 * Frontend: JQuery-EasyUI1.4 Javascript JQuery Ajax
