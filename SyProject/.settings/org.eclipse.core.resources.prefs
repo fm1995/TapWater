@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//WebContent/SY/page/header.jsp=UTF-8
+encoding//WebContent/SY/page/user_changeFormula.jsp=UTF-8
+encoding//WebContent/SY/page/user_changeMeter.jsp=UTF-8
+encoding//WebContent/SY/page/user_changeName.jsp=UTF-8
+encoding//WebContent/SY/page/user_delete.jsp=UTF-8
+encoding//WebContent/SY/page/user_docNum.jsp=UTF-8
+encoding//WebContent/SY/page/user_reportShortcut.jsp=UTF-8
+encoding//WebContent/SY/page/user_sendMsg.jsp=UTF-8
+encoding//src/com/sy/mappdao/SyEmpMapper.java=UTF-8

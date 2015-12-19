@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sy.mappdao.SyMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.sy.entity.SyMenu" >
+    <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_parent" property="menuParent" jdbcType="INTEGER" />
+    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="menu_on_click" property="menuOnClick" jdbcType="VARCHAR" />
+    <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR" />
+    <result column="menu_order_index" property="menuOrderIndex" jdbcType="INTEGER" />
+    <result column="flow_id" property="flowId" jdbcType="INTEGER" />
+    <result column="menu_disabled" property="menuDisabled" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    menu_id, menu_name, menu_parent, menu_url, menu_on_click, menu_icon, menu_order_index, 
+    flow_id, menu_disabled
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sy.entity.SyMenuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sy_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sy.entity.SyMenuExample" >
+    delete from sy_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sy.entity.SyMenu" >
+    insert into sy_menu (menu_id, menu_name, menu_parent, 
+      menu_url, menu_on_click, menu_icon, 
+      menu_order_index, flow_id, menu_disabled
+      )
+    values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuParent,jdbcType=INTEGER}, 
+      #{menuUrl,jdbcType=VARCHAR}, #{menuOnClick,jdbcType=VARCHAR}, #{menuIcon,jdbcType=VARCHAR}, 
+      #{menuOrderIndex,jdbcType=INTEGER}, #{flowId,jdbcType=INTEGER}, #{menuDisabled,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sy.entity.SyMenu" >
+    insert into sy_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="menuName != null" >
+        menu_name,
+      </if>
+      <if test="menuParent != null" >
+        menu_parent,
+      </if>
+      <if test="menuUrl != null" >
+        menu_url,
+      </if>
+      <if test="menuOnClick != null" >
+        menu_on_click,
+      </if>
+      <if test="menuIcon != null" >
+        menu_icon,
+      </if>
+      <if test="menuOrderIndex != null" >
+        menu_order_index,
+      </if>
+      <if test="flowId != null" >
+        flow_id,
+      </if>
+      <if test="menuDisabled != null" >
+        menu_disabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuParent != null" >
+        #{menuParent,jdbcType=INTEGER},
+      </if>
+      <if test="menuUrl != null" >
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOnClick != null" >
+        #{menuOnClick,jdbcType=VARCHAR},
+      </if>
+      <if test="menuIcon != null" >
+        #{menuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOrderIndex != null" >
+        #{menuOrderIndex,jdbcType=INTEGER},
+      </if>
+      <if test="flowId != null" >
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="menuDisabled != null" >
+        #{menuDisabled,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sy.entity.SyMenuExample" resultType="java.lang.Integer" >
+    select count(*) from sy_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sy_menu
+    <set >
+      <if test="record.menuId != null" >
+        menu_id = #{record.menuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuName != null" >
+        menu_name = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuParent != null" >
+        menu_parent = #{record.menuParent,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuUrl != null" >
+        menu_url = #{record.menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuOnClick != null" >
+        menu_on_click = #{record.menuOnClick,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuIcon != null" >
+        menu_icon = #{record.menuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuOrderIndex != null" >
+        menu_order_index = #{record.menuOrderIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.flowId != null" >
+        flow_id = #{record.flowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuDisabled != null" >
+        menu_disabled = #{record.menuDisabled,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sy_menu
+    set menu_id = #{record.menuId,jdbcType=INTEGER},
+      menu_name = #{record.menuName,jdbcType=VARCHAR},
+      menu_parent = #{record.menuParent,jdbcType=INTEGER},
+      menu_url = #{record.menuUrl,jdbcType=VARCHAR},
+      menu_on_click = #{record.menuOnClick,jdbcType=VARCHAR},
+      menu_icon = #{record.menuIcon,jdbcType=VARCHAR},
+      menu_order_index = #{record.menuOrderIndex,jdbcType=INTEGER},
+      flow_id = #{record.flowId,jdbcType=INTEGER},
+      menu_disabled = #{record.menuDisabled,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.SyMenu" >
+    update sy_menu
+    <set >
+      <if test="menuName != null" >
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuParent != null" >
+        menu_parent = #{menuParent,jdbcType=INTEGER},
+      </if>
+      <if test="menuUrl != null" >
+        menu_url = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOnClick != null" >
+        menu_on_click = #{menuOnClick,jdbcType=VARCHAR},
+      </if>
+      <if test="menuIcon != null" >
+        menu_icon = #{menuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOrderIndex != null" >
+        menu_order_index = #{menuOrderIndex,jdbcType=INTEGER},
+      </if>
+      <if test="flowId != null" >
+        flow_id = #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="menuDisabled != null" >
+        menu_disabled = #{menuDisabled,jdbcType=BIT},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sy.entity.SyMenu" >
+    update sy_menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_parent = #{menuParent,jdbcType=INTEGER},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      menu_on_click = #{menuOnClick,jdbcType=VARCHAR},
+      menu_icon = #{menuIcon,jdbcType=VARCHAR},
+      menu_order_index = #{menuOrderIndex,jdbcType=INTEGER},
+      flow_id = #{flowId,jdbcType=INTEGER},
+      menu_disabled = #{menuDisabled,jdbcType=BIT}
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+  
+<!-- 自定义 -->
+<select id="selectSyMenu" resultMap="BaseResultMap">
+	select * from sy_menu where  menu_disabled=0
+</select>
+
+</mapper>

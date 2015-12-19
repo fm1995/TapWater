@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd 
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.1.xsd ">
+
+	<!-- MVC配置文件 -->
+
+	<!-- 开放注解 -->
+	<mvc:annotation-driven>
+		<!-- JSON支持 -->
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 规范进入文件 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 扫描包 -->
+	<context:component-scan base-package="com.sy.controller" />
+	<context:component-scan base-package="com.sy.integration" />
+	<context:component-scan base-package="com.sy.service" />
+
+
+	<!-- 数据源 -->
+	<bean id="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sy"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+
+	<!-- mybaits需要的工厂类 -->
+	<bean id="sf" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"></property>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/sy/entity/mapper/*.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- temp -->
+	<bean id="template" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sf"></constructor-arg>
+	</bean>
+
+	<!-- 以类名为Spring Bean的id -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.sy.mappdao"></property>
+		<property name="sqlSessionTemplateBeanName" value="template"></property>
+	</bean>
+
+</beans>

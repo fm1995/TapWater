@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sy.mappdao.PySumreportMapper" >
+  <resultMap id="BaseResultMap" type="com.sy.entity.PySumreport" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="typee" property="typee" jdbcType="INTEGER" />
+    <result column="report_year" property="reportYear" jdbcType="INTEGER" />
+    <result column="report_month" property="reportMonth" jdbcType="INTEGER" />
+    <result column="line_no" property="lineNo" jdbcType="INTEGER" />
+    <result column="c1" property="c1" jdbcType="VARCHAR" />
+    <result column="c2" property="c2" jdbcType="VARCHAR" />
+    <result column="c3" property="c3" jdbcType="VARCHAR" />
+    <result column="c4" property="c4" jdbcType="VARCHAR" />
+    <result column="c5" property="c5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, typee, report_year, report_month, line_no, c1, c2, c3, c4, c5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sy.entity.PySumreportExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from py_sumreport
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from py_sumreport
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from py_sumreport
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sy.entity.PySumreportExample" >
+    delete from py_sumreport
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sy.entity.PySumreport" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into py_sumreport (typee, report_year, report_month, 
+      line_no, c1, c2, c3, 
+      c4, c5)
+    values (#{typee,jdbcType=INTEGER}, #{reportYear,jdbcType=INTEGER}, #{reportMonth,jdbcType=INTEGER}, 
+      #{lineNo,jdbcType=INTEGER}, #{c1,jdbcType=VARCHAR}, #{c2,jdbcType=VARCHAR}, #{c3,jdbcType=VARCHAR}, 
+      #{c4,jdbcType=VARCHAR}, #{c5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sy.entity.PySumreport" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into py_sumreport
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typee != null" >
+        typee,
+      </if>
+      <if test="reportYear != null" >
+        report_year,
+      </if>
+      <if test="reportMonth != null" >
+        report_month,
+      </if>
+      <if test="lineNo != null" >
+        line_no,
+      </if>
+      <if test="c1 != null" >
+        c1,
+      </if>
+      <if test="c2 != null" >
+        c2,
+      </if>
+      <if test="c3 != null" >
+        c3,
+      </if>
+      <if test="c4 != null" >
+        c4,
+      </if>
+      <if test="c5 != null" >
+        c5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typee != null" >
+        #{typee,jdbcType=INTEGER},
+      </if>
+      <if test="reportYear != null" >
+        #{reportYear,jdbcType=INTEGER},
+      </if>
+      <if test="reportMonth != null" >
+        #{reportMonth,jdbcType=INTEGER},
+      </if>
+      <if test="lineNo != null" >
+        #{lineNo,jdbcType=INTEGER},
+      </if>
+      <if test="c1 != null" >
+        #{c1,jdbcType=VARCHAR},
+      </if>
+      <if test="c2 != null" >
+        #{c2,jdbcType=VARCHAR},
+      </if>
+      <if test="c3 != null" >
+        #{c3,jdbcType=VARCHAR},
+      </if>
+      <if test="c4 != null" >
+        #{c4,jdbcType=VARCHAR},
+      </if>
+      <if test="c5 != null" >
+        #{c5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sy.entity.PySumreportExample" resultType="java.lang.Integer" >
+    select count(*) from py_sumreport
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update py_sumreport
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.typee != null" >
+        typee = #{record.typee,jdbcType=INTEGER},
+      </if>
+      <if test="record.reportYear != null" >
+        report_year = #{record.reportYear,jdbcType=INTEGER},
+      </if>
+      <if test="record.reportMonth != null" >
+        report_month = #{record.reportMonth,jdbcType=INTEGER},
+      </if>
+      <if test="record.lineNo != null" >
+        line_no = #{record.lineNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.c1 != null" >
+        c1 = #{record.c1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.c2 != null" >
+        c2 = #{record.c2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.c3 != null" >
+        c3 = #{record.c3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.c4 != null" >
+        c4 = #{record.c4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.c5 != null" >
+        c5 = #{record.c5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update py_sumreport
+    set id = #{record.id,jdbcType=INTEGER},
+      typee = #{record.typee,jdbcType=INTEGER},
+      report_year = #{record.reportYear,jdbcType=INTEGER},
+      report_month = #{record.reportMonth,jdbcType=INTEGER},
+      line_no = #{record.lineNo,jdbcType=INTEGER},
+      c1 = #{record.c1,jdbcType=VARCHAR},
+      c2 = #{record.c2,jdbcType=VARCHAR},
+      c3 = #{record.c3,jdbcType=VARCHAR},
+      c4 = #{record.c4,jdbcType=VARCHAR},
+      c5 = #{record.c5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.PySumreport" >
+    update py_sumreport
+    <set >
+      <if test="typee != null" >
+        typee = #{typee,jdbcType=INTEGER},
+      </if>
+      <if test="reportYear != null" >
+        report_year = #{reportYear,jdbcType=INTEGER},
+      </if>
+      <if test="reportMonth != null" >
+        report_month = #{reportMonth,jdbcType=INTEGER},
+      </if>
+      <if test="lineNo != null" >
+        line_no = #{lineNo,jdbcType=INTEGER},
+      </if>
+      <if test="c1 != null" >
+        c1 = #{c1,jdbcType=VARCHAR},
+      </if>
+      <if test="c2 != null" >
+        c2 = #{c2,jdbcType=VARCHAR},
+      </if>
+      <if test="c3 != null" >
+        c3 = #{c3,jdbcType=VARCHAR},
+      </if>
+      <if test="c4 != null" >
+        c4 = #{c4,jdbcType=VARCHAR},
+      </if>
+      <if test="c5 != null" >
+        c5 = #{c5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sy.entity.PySumreport" >
+    update py_sumreport
+    set typee = #{typee,jdbcType=INTEGER},
+      report_year = #{reportYear,jdbcType=INTEGER},
+      report_month = #{reportMonth,jdbcType=INTEGER},
+      line_no = #{lineNo,jdbcType=INTEGER},
+      c1 = #{c1,jdbcType=VARCHAR},
+      c2 = #{c2,jdbcType=VARCHAR},
+      c3 = #{c3,jdbcType=VARCHAR},
+      c4 = #{c4,jdbcType=VARCHAR},
+      c5 = #{c5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 自定义查询语句 -->
+  <!-- 这条语句c5先暂时放它的编号 -->
+  <select id="selectAmountPrice" parameterType="map" resultMap="BaseResultMap">
+      select  ct.costtype_id c5,
+      	case  when sum(tp.amount) is null then 0
+       		 when sum(tp.amount) is not  null then sum(tp.amount)
+        end   c2
+	,ct.costtype_price c3 ,ct.cost_type_name  c1 from sy_cost_type ct 
+	left join rd_readtypes tp on  ct.costtype_code = tp.water_type_code
+	left join rd_read rd on rd.id = tp.read_id 
+   where ct.costtype_kind =0 
+   		<if test="year != null and year != '' ">
+		   ${year}
+   		</if>
+   		<if test="month !=null and month != '' ">
+		   ${month }
+   		</if>
+	group by  ct.costtype_code 
+  </select>
+</mapper>

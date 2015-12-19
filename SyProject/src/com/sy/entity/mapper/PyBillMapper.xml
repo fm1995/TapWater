@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sy.mappdao.PyBillMapper" >
+  <resultMap id="BaseResultMap" type="com.sy.entity.PyBill" >
+    <id column="bill_no" property="billNo" jdbcType="VARCHAR" />
+    <result column="read_id" property="readId" jdbcType="INTEGER" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="bill_money" property="billMoney" jdbcType="DECIMAL" />
+    <result column="real_money" property="realMoney" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="BIT" />
+    <result column="balance_date" property="balanceDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bill_no, read_id, user_no, create_date, bill_money, real_money, balance, balance_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sy.entity.PyBillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from py_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from py_bill
+    where bill_no = #{billNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from py_bill
+    where bill_no = #{billNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sy.entity.PyBillExample" >
+    delete from py_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sy.entity.PyBill" >
+    insert into py_bill (bill_no, read_id, user_no, 
+      create_date, bill_money, real_money, 
+      balance, balance_date)
+    values (#{billNo,jdbcType=VARCHAR}, #{readId,jdbcType=INTEGER}, #{userNo,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{billMoney,jdbcType=DECIMAL}, #{realMoney,jdbcType=DECIMAL}, 
+      #{balance,jdbcType=BIT}, #{balanceDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sy.entity.PyBill" >
+    insert into py_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billNo != null" >
+        bill_no,
+      </if>
+      <if test="readId != null" >
+        read_id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="billMoney != null" >
+        bill_money,
+      </if>
+      <if test="realMoney != null" >
+        real_money,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="balanceDate != null" >
+        balance_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billNo != null" >
+        #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="readId != null" >
+        #{readId,jdbcType=INTEGER},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billMoney != null" >
+        #{billMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="realMoney != null" >
+        #{realMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=BIT},
+      </if>
+      <if test="balanceDate != null" >
+        #{balanceDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sy.entity.PyBillExample" resultType="java.lang.Integer" >
+    select count(*) from py_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update py_bill
+    <set >
+      <if test="record.billNo != null" >
+        bill_no = #{record.billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readId != null" >
+        read_id = #{record.readId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userNo != null" >
+        user_no = #{record.userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.billMoney != null" >
+        bill_money = #{record.billMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.realMoney != null" >
+        real_money = #{record.realMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=BIT},
+      </if>
+      <if test="record.balanceDate != null" >
+        balance_date = #{record.balanceDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update py_bill
+    set bill_no = #{record.billNo,jdbcType=VARCHAR},
+      read_id = #{record.readId,jdbcType=INTEGER},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      bill_money = #{record.billMoney,jdbcType=DECIMAL},
+      real_money = #{record.realMoney,jdbcType=DECIMAL},
+      balance = #{record.balance,jdbcType=BIT},
+      balance_date = #{record.balanceDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.PyBill" >
+    update py_bill
+    <set >
+      <if test="readId != null" >
+        read_id = #{readId,jdbcType=INTEGER},
+      </if>
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billMoney != null" >
+        bill_money = #{billMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="realMoney != null" >
+        real_money = #{realMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=BIT},
+      </if>
+      <if test="balanceDate != null" >
+        balance_date = #{balanceDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bill_no = #{billNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sy.entity.PyBill" >
+    update py_bill
+    set read_id = #{readId,jdbcType=INTEGER},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      bill_money = #{billMoney,jdbcType=DECIMAL},
+      real_money = #{realMoney,jdbcType=DECIMAL},
+      balance = #{balance,jdbcType=BIT},
+      balance_date = #{balanceDate,jdbcType=TIMESTAMP}
+    where bill_no = #{billNo,jdbcType=VARCHAR}
+  </update>
+  
+   <!-- 本月实交金额和应交金额的共用方法,应交金额统计，传入列名。实交金额统计，传入列名和结清状态 -->
+  <select id="sumMoney" resultType="Double" parameterType="map">
+  	select sum(${column}) from py_bill where date_format(create_date,'%m')=date_format(now(),'%m') 
+  	<if test="balance != null">
+  		and balance=#{balance}
+  	</if>
+  </select>
+  
+  <!-- 以月份分组，并查询当前月份应交金额和实交金额总和 ,用List<PyBill>集合保存-->
+  <!-- 逻辑，查出最晚的7个月份，并按月份从早到晚排序 -->
+  <select id="sumBillReal" resultMap="BaseResultMap">
+  	select * from 
+		(SELECT date_format(create_date,'%Y年%m月') 'bill_no',
+				sum(bill_money) 'bill_money',
+				sum(real_money) 'real_money',
+				create_date 
+				FROM sy.py_bill where create_date is not null 
+						group by date_format(create_date,'%Y年%m月') 
+						order by create_date desc limit 7) ta
+        	order by ta.create_date asc
+  </select>
+  
+  <!-- 自定义查询语句 -->
+  <select id="selectByWhereStrPage" parameterType="map" resultMap="BaseResultMap">
+      select * from py_bill 
+      	<where>
+			<if test="whereStr != null">
+			    ${whereStr}
+			</if>      	    
+      	</where>
+      	<if test="start !=null and rows !=null">
+      	    limit ${start},${rows}
+      	</if>
+  </select>
+  
+  <!-- 用于收费管理报表查询 -->
+  <select id="selectBillMoneysByCreateTime" parameterType="map" resultType="double">
+		SELECT sum(bill_money) FROM sy.py_bill
+		  	where date_format(create_date,'%Y%m%d') like '%${ymonth}%'        
+  </select>
+  <select id="selectRealMoneysByCreateTime" parameterType="map" resultType="double">
+		SELECT sum(real_money) FROM sy.py_bill
+			where date_format(create_date,'%Y%m%d') like '%${ymonth}%'    
+  </select>
+  
+  <resultMap id="BaseResultMap1" type="com.sy.entity.PyBill" >
+    <id column="bill_no" property="billNo" jdbcType="VARCHAR" />
+    <result column="read_id" property="readId" jdbcType="INTEGER" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="bill_money" property="billMoney" jdbcType="DECIMAL" />
+    <result column="real_money" property="realMoney" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="BIT" />
+    <result column="balance_date" property="balanceDate" jdbcType="TIMESTAMP" />
+    <association property="user" resultMap="com.sy.mappdao.UsUserMapper.BaseResultMap"></association>
+    <association property="read" resultMap="com.sy.mappdao.RdReadMapper.BaseResultMap"></association>
+  </resultMap>
+  <select id="selByWhereStrPage" parameterType="map" resultMap="BaseResultMap1">
+      select py.*,us.*,rd.* FROM sy.py_bill py ,us_user us ,rd_read rd
+      	<where>
+      	    and  py.user_no = us.user_no and py.read_id = rd.id
+			<if test="whereStr != null">
+			    ${whereStr}
+			</if>      	    
+      	</where>
+      	<if test="start !=null and rows !=null">
+      	    limit ${start},${rows}
+      	</if>
+  </select>
+  <select id="countByWhereStr" parameterType="map" resultType="java.lang.Integer">
+      select count(*) FROM sy.py_bill py ,us_user us ,rd_read rd
+      	<where>
+      	    and  py.user_no = us.user_no and py.read_id = rd.id
+			<if test="whereStr != null and whereStr != '' ">
+			    ${whereStr}
+			</if>      	    
+      	</where>
+  </select>
+  <select id="sumBillMoneysWhereStr" parameterType="map" resultType="java.lang.Double">
+      select sum(py.bill_money) FROM sy.py_bill py ,us_user us ,rd_read rd
+      	<where>
+      	    and  py.user_no = us.user_no and py.read_id = rd.id
+			<if test="whereStr != null and whereStr != '' ">
+			    ${whereStr}
+			</if>      	    
+      	</where>
+  </select>
+  <select id="sumRealMoneysWhereStr" parameterType="map" resultType="java.lang.Double">
+      select sum(py.real_money) FROM sy.py_bill py ,us_user us ,rd_read rd
+      	<where>
+      	    and  py.user_no = us.user_no and py.read_id = rd.id
+			<if test="whereStr != null and whereStr != '' ">
+			    ${whereStr}
+			</if>      	    
+      	</where>
+  </select>
+</mapper>

@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sy.mappdao.BeOrderuserMapper">
+	<resultMap id="BaseResultMap" type="com.sy.entity.BeOrderuser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="sms_phone" property="smsPhone" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="project_money" property="projectMoney"
+			jdbcType="DECIMAL" />
+		<result column="real_money" property="realMoney" jdbcType="DECIMAL" />
+		<result column="invoice_no" property="invoiceNo" jdbcType="VARCHAR" />
+		<result column="formula" property="formula" jdbcType="VARCHAR" />
+		<result column="contract_num" property="contractNum" jdbcType="VARCHAR" />
+		<result column="meter_type_id" property="meterTypeId" jdbcType="INTEGER" />
+		<result column="meter_name" property="meterName" jdbcType="VARCHAR" />
+		<result column="max_value" property="maxValue" jdbcType="INTEGER" />
+		<result column="start_value" property="startValue" jdbcType="INTEGER" />
+		<result column="meter_factory" property="meterFactory"
+			jdbcType="VARCHAR" />
+		<result column="doc_num" property="docNum" jdbcType="VARCHAR" />
+		<result column="user_no" property="userNo" jdbcType="VARCHAR" />
+		<association property="syMeterType" column="meter_type_id"
+			resultMap="com.sy.mappdao.SyMeterTypeMapper.BaseResultMap">
+		</association>
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, order_no, user_name, phone, sms_phone, address,
+		project_money,
+		real_money, invoice_no,
+		formula, contract_num,
+		meter_type_id, meter_name, max_value, start_value,
+		meter_factory,
+		doc_num, user_no
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.sy.entity.BeOrderuserExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		from be_orderuser
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from be_orderuser
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		be_orderuser
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.sy.entity.BeOrderuserExample">
+		delete from be_orderuser
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.sy.entity.BeOrderuser">
+		<selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into be_orderuser (order_no, user_name, phone,
+		sms_phone,
+		address, project_money,
+		real_money, invoice_no, formula,
+		contract_num,
+		meter_type_id, meter_name,
+		max_value, start_value, meter_factory,
+		doc_num, user_no)
+		values (#{orderNo,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR},
+		#{smsPhone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+		#{projectMoney,jdbcType=DECIMAL},
+		#{realMoney,jdbcType=DECIMAL},
+		#{invoiceNo,jdbcType=VARCHAR},
+		#{formula,jdbcType=VARCHAR},
+		#{contractNum,jdbcType=VARCHAR}, #{meterTypeId,jdbcType=INTEGER},
+		#{meterName,jdbcType=VARCHAR},
+		#{maxValue,jdbcType=INTEGER},
+		#{startValue,jdbcType=INTEGER},
+		#{meterFactory,jdbcType=VARCHAR},
+		#{docNum,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sy.entity.BeOrderuser">
+		<selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into be_orderuser
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="smsPhone != null">
+				sms_phone,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="projectMoney != null">
+				project_money,
+			</if>
+			<if test="realMoney != null">
+				real_money,
+			</if>
+			<if test="invoiceNo != null">
+				invoice_no,
+			</if>
+			<if test="formula != null">
+				formula,
+			</if>
+			<if test="contractNum != null">
+				contract_num,
+			</if>
+			<if test="meterTypeId != null">
+				meter_type_id,
+			</if>
+			<if test="meterName != null">
+				meter_name,
+			</if>
+			<if test="maxValue != null">
+				max_value,
+			</if>
+			<if test="startValue != null">
+				start_value,
+			</if>
+			<if test="meterFactory != null">
+				meter_factory,
+			</if>
+			<if test="docNum != null">
+				doc_num,
+			</if>
+			<if test="userNo != null">
+				user_no,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="smsPhone != null">
+				#{smsPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="projectMoney != null">
+				#{projectMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="realMoney != null">
+				#{realMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="invoiceNo != null">
+				#{invoiceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="formula != null">
+				#{formula,jdbcType=VARCHAR},
+			</if>
+			<if test="contractNum != null">
+				#{contractNum,jdbcType=VARCHAR},
+			</if>
+			<if test="meterTypeId != null">
+				#{meterTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="meterName != null">
+				#{meterName,jdbcType=VARCHAR},
+			</if>
+			<if test="maxValue != null">
+				#{maxValue,jdbcType=INTEGER},
+			</if>
+			<if test="startValue != null">
+				#{startValue,jdbcType=INTEGER},
+			</if>
+			<if test="meterFactory != null">
+				#{meterFactory,jdbcType=VARCHAR},
+			</if>
+			<if test="docNum != null">
+				#{docNum,jdbcType=VARCHAR},
+			</if>
+			<if test="userNo != null">
+				#{userNo,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.sy.entity.BeOrderuserExample"
+		resultType="java.lang.Integer">
+		select count(*) from be_orderuser
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update be_orderuser
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.orderNo != null">
+				order_no = #{record.orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.userName != null">
+				user_name = #{record.userName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.phone != null">
+				phone = #{record.phone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.smsPhone != null">
+				sms_phone = #{record.smsPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.address != null">
+				address = #{record.address,jdbcType=VARCHAR},
+			</if>
+			<if test="record.projectMoney != null">
+				project_money = #{record.projectMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="record.realMoney != null">
+				real_money = #{record.realMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="record.invoiceNo != null">
+				invoice_no = #{record.invoiceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.formula != null">
+				formula = #{record.formula,jdbcType=VARCHAR},
+			</if>
+			<if test="record.contractNum != null">
+				contract_num = #{record.contractNum,jdbcType=VARCHAR},
+			</if>
+			<if test="record.meterTypeId != null">
+				meter_type_id = #{record.meterTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="record.meterName != null">
+				meter_name = #{record.meterName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.maxValue != null">
+				max_value = #{record.maxValue,jdbcType=INTEGER},
+			</if>
+			<if test="record.startValue != null">
+				start_value = #{record.startValue,jdbcType=INTEGER},
+			</if>
+			<if test="record.meterFactory != null">
+				meter_factory = #{record.meterFactory,jdbcType=VARCHAR},
+			</if>
+			<if test="record.docNum != null">
+				doc_num = #{record.docNum,jdbcType=VARCHAR},
+			</if>
+			<if test="record.userNo != null">
+				user_no = #{record.userNo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update be_orderuser
+		set id = #{record.id,jdbcType=INTEGER},
+		order_no =
+		#{record.orderNo,jdbcType=VARCHAR},
+		user_name =
+		#{record.userName,jdbcType=VARCHAR},
+		phone =
+		#{record.phone,jdbcType=VARCHAR},
+		sms_phone =
+		#{record.smsPhone,jdbcType=VARCHAR},
+		address =
+		#{record.address,jdbcType=VARCHAR},
+		project_money =
+		#{record.projectMoney,jdbcType=DECIMAL},
+		real_money =
+		#{record.realMoney,jdbcType=DECIMAL},
+		invoice_no =
+		#{record.invoiceNo,jdbcType=VARCHAR},
+		formula =
+		#{record.formula,jdbcType=VARCHAR},
+		contract_num =
+		#{record.contractNum,jdbcType=VARCHAR},
+		meter_type_id =
+		#{record.meterTypeId,jdbcType=INTEGER},
+		meter_name =
+		#{record.meterName,jdbcType=VARCHAR},
+		max_value =
+		#{record.maxValue,jdbcType=INTEGER},
+		start_value =
+		#{record.startValue,jdbcType=INTEGER},
+		meter_factory =
+		#{record.meterFactory,jdbcType=VARCHAR},
+		doc_num =
+		#{record.docNum,jdbcType=VARCHAR},
+		user_no =
+		#{record.userNo,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.BeOrderuser">
+		update be_orderuser
+		<set>
+			<if test="orderNo != null">
+				order_no = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="smsPhone != null">
+				sms_phone = #{smsPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="projectMoney != null">
+				project_money = #{projectMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="realMoney != null">
+				real_money = #{realMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="invoiceNo != null">
+				invoice_no = #{invoiceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="formula != null">
+				formula = #{formula,jdbcType=VARCHAR},
+			</if>
+			<if test="contractNum != null">
+				contract_num = #{contractNum,jdbcType=VARCHAR},
+			</if>
+			<if test="meterTypeId != null">
+				meter_type_id = #{meterTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="meterName != null">
+				meter_name = #{meterName,jdbcType=VARCHAR},
+			</if>
+			<if test="maxValue != null">
+				max_value = #{maxValue,jdbcType=INTEGER},
+			</if>
+			<if test="startValue != null">
+				start_value = #{startValue,jdbcType=INTEGER},
+			</if>
+			<if test="meterFactory != null">
+				meter_factory = #{meterFactory,jdbcType=VARCHAR},
+			</if>
+			<if test="docNum != null">
+				doc_num = #{docNum,jdbcType=VARCHAR},
+			</if>
+			<if test="userNo != null">
+				user_no = #{userNo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sy.entity.BeOrderuser">
+		update
+		be_orderuser
+		set order_no = #{orderNo,jdbcType=VARCHAR},
+		user_name =
+		#{userName,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		sms_phone = #{smsPhone,jdbcType=VARCHAR},
+		address =
+		#{address,jdbcType=VARCHAR},
+		project_money =
+		#{projectMoney,jdbcType=DECIMAL},
+		real_money =
+		#{realMoney,jdbcType=DECIMAL},
+		invoice_no =
+		#{invoiceNo,jdbcType=VARCHAR},
+		formula = #{formula,jdbcType=VARCHAR},
+		contract_num = #{contractNum,jdbcType=VARCHAR},
+		meter_type_id =
+		#{meterTypeId,jdbcType=INTEGER},
+		meter_name =
+		#{meterName,jdbcType=VARCHAR},
+		max_value =
+		#{maxValue,jdbcType=INTEGER},
+		start_value =
+		#{startValue,jdbcType=INTEGER},
+		meter_factory =
+		#{meterFactory,jdbcType=VARCHAR},
+		doc_num = #{docNum,jdbcType=VARCHAR},
+		user_no = #{userNo,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+
+	<resultMap id="BaseResultMap2" type="com.sy.entity.BeOrderuser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="sms_phone" property="smsPhone" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="project_money" property="projectMoney"
+			jdbcType="DECIMAL" />
+		<result column="real_money" property="realMoney" jdbcType="DECIMAL" />
+		<result column="invoice_no" property="invoiceNo" jdbcType="VARCHAR" />
+		<result column="formula" property="formula" jdbcType="VARCHAR" />
+		<result column="contract_num" property="contractNum" jdbcType="VARCHAR" />
+		<result column="meter_type_id" property="meterTypeId" jdbcType="INTEGER" />
+		<result column="meter_name" property="meterName" jdbcType="VARCHAR" />
+		<result column="max_value" property="maxValue" jdbcType="INTEGER" />
+		<result column="start_value" property="startValue" jdbcType="INTEGER" />
+		<result column="meter_factory" property="meterFactory"
+			jdbcType="VARCHAR" />
+		<result column="doc_num" property="docNum" jdbcType="VARCHAR" />
+		<result column="user_no" property="userNo" jdbcType="VARCHAR" />
+		<association property="beOrder" column="order_no"
+			resultMap="com.sy.mappdao.BeOrderMapper.BaseResultMap"></association>
+	</resultMap>
+
+	<select id="selectByOrderNo" parameterType="java.lang.String"
+		resultMap="BaseResultMap2">
+		select * from be_orderuser,be_order where be_orderuser.order_no=be_order.order_no and be_order.order_no=#{orderNo}
+	</select>
+	
+	<select id="selectByOrderNo2" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from be_orderuser where order_no=#{orderNo}
+	</select>
+
+
+	<select id="selAllOrderuser" resultMap="BaseResultMap2"
+		parameterType="map">
+		select * from be_orderuser u,be_order o
+		<where>
+			u.order_no=o.order_no
+			<if test="orderType1!=null and orderType2!=null and orderType3!=null">
+				and order_type=1 or order_type=2 or order_type=5
+			</if>
+			<if test="orderType1!=null and orderType2==null and orderType3!=null">
+				and order_type=1 or order_type=5
+			</if>
+			<if test="orderType1!=null and orderType2==null and orderType3==null">
+				and order_type=1
+			</if>
+			<if test="orderType1!=null and orderType2!=null and orderType3==null">
+				and order_type=1 or order_type=2
+			</if>
+			<if test="orderType1==null and orderType2!=null and orderType3==null">
+				and order_type=2
+			</if>
+			<if test="orderType1==null and orderType2!=null and orderType3!=null">
+				and order_type=2 or order_type=5
+			</if>
+			<if test="orderType1==null and orderType2==null and orderType3!=null">
+				and order_type=1 or order_type=2 or order_type=5
+			</if>
+			<if test="orderType1==null and orderType2==null and orderType3!=null">
+				and order_type=5
+			</if>
+			<if test="date1!=null and date2==null">
+			<![CDATA[and pay_date>#{date1}]]>
+			</if>
+			<if test="date1==null and date2!=null">
+			   <![CDATA[ and pay_date<#{date2}]]>
+			</if>
+			<if test="date1!=null and date2!=null">
+			   <![CDATA[ and pay_date<#{date2}and pay_date>#{date1}]]>
+			</if>
+		</where>
+		limit #{start},10
+	</select>
+
+	<select id="selAllOrderuserCount" resultType="INTEGER"
+		parameterType="map">
+		select count(*) from be_orderuser u,be_order o
+		<where>
+			u.order_no=o.order_no
+			<if test="orderType1!=null and orderType2!=null and orderType3!=null">
+				and order_type=1 or order_type=2 or order_type=5
+			</if>
+			<if test="orderType1!=null and orderType2==null and orderType3!=null">
+				and order_type=1 or order_type=5
+			</if>
+			<if test="orderType1!=null and orderType2==null and orderType3==null">
+				and order_type=1
+			</if>
+			<if test="orderType1!=null and orderType2!=null and orderType3==null">
+				and order_type=1 or order_type=2
+			</if>
+			<if test="orderType1==null and orderType2!=null and orderType3==null">
+				and order_type=2
+			</if>
+			<if test="orderType1==null and orderType2!=null and orderType3!=null">
+				and order_type=2 or order_type=5
+			</if>
+			<if test="orderType1==null and orderType2==null and orderType3!=null">
+				and order_type=1 or order_type=2 or order_type=5
+			</if>
+			<if test="orderType1==null and orderType2==null and orderType3!=null">
+				and order_type=5
+			</if>
+			<if test="date1!=null and date2==null">
+			<![CDATA[and pay_date>#{date1}]]>
+			</if>
+			<if test="date1==null and date2!=null">
+			   <![CDATA[ and pay_date<#{date2}]]>
+			</if>
+			<if test="date1!=null and date2!=null">
+			   <![CDATA[ and pay_date<#{date2} and pay_date>#{date1}]]>
+			</if>
+		</where>
+	</select>
+	
+		<select id="selAllOrderuserMoney" resultType="INTEGER"
+		parameterType="map">
+		select sum(u.real_money) from be_orderuser u,be_order o
+		<where>
+			u.order_no=o.order_no
+			<if test="orderType1!=null and orderType2!=null and orderType3!=null">
+				and order_type=1 or order_type=2 or order_type=5
+			</if>
+			<if test="orderType1!=null and orderType2==null and orderType3!=null">
+				and order_type=1 or order_type=5
+			</if>
+			<if test="orderType1!=null and orderType2==null and orderType3==null">
+				and order_type=1
+			</if>
+			<if test="orderType1!=null and orderType2!=null and orderType3==null">
+				and order_type=1 or order_type=2
+			</if>
+			<if test="orderType1==null and orderType2!=null and orderType3==null">
+				and order_type=2
+			</if>
+			<if test="orderType1==null and orderType2!=null and orderType3!=null">
+				and order_type=2 or order_type=5
+			</if>
+			<if test="orderType1==null and orderType2==null and orderType3!=null">
+				and order_type=1 or order_type=2 or order_type=5
+			</if>
+			<if test="orderType1==null and orderType2==null and orderType3!=null">
+				and order_type=5
+			</if>
+			<if test="date1!=null and date2==null">
+			<![CDATA[and pay_date>#{date1}]]>
+			</if>
+			<if test="date1==null and date2!=null">
+			   <![CDATA[ and pay_date<#{date2}]]>
+			</if>
+			<if test="date1!=null and date2!=null">
+			   <![CDATA[ and pay_date<#{date2} and pay_date>#{date1}]]>
+			</if>
+		</where>
+	</select>
+	
+
+	<select id="queryByOrdeNo" parameterType="String" resultMap="BaseResultMap">
+		select * from be_orderuser o,sy_meter_type s
+		where
+		o.meter_type_id=s.metertype_id
+		<if test="be != null">
+			and o.order_no=#{be}
+		</if>
+	</select>
+  
+  <select id="newUserCount" resultType="int">
+  	select count(*) from be_orderuser 
+  	where user_no not in 
+		(select user_no from rd_read)
+  </select>
+</mapper>
