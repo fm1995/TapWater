@@ -306,7 +306,7 @@
   </update>
   
   
-  
+  <!-- 自定义查询语句 -->
   <select id="selectByWhereStr" parameterType="map" resultMap="BaseResultMap">
       select * from py_userhistory 
       <where>

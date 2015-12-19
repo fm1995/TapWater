@@ -33,7 +33,7 @@ import com.sy.service.parentser.ParentSerI;
 import com.sy.service.parentser.UsParentSer;
 
 @Service
-public class UsUserService extends UsParentSer implements ParentSerI<UsUser> {
+public class PyUsUserService extends UsParentSer implements ParentSerI<UsUser> {
 
 	public void text() {
 		List<UsSms> selAll = usSmsMapper.selAll();

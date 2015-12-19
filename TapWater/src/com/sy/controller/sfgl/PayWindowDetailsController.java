@@ -18,7 +18,7 @@ public class PayWindowDetailsController extends PyController{
 		@RequestMapping("yonghuxiangqing")
 		public String yonghuxiangqing(String userNo,HttpServletRequest request){
 			usUserService.selectUserAndDetails(userNo,request);
-			return "/sy/page/user_search1.jsp";
+			return "/SY/page/user_search1.jsp";
 		}
 		
 		@RequestMapping("ajaxLoadPays")
@@ -30,6 +30,6 @@ public class PayWindowDetailsController extends PyController{
 		@RequestMapping("/selectUserByUserNo")
 		public String selectUserByUserNo(UsUser user,HttpServletRequest request){
 			pyBillService.selectUser(user,request);
-			return "/sy/page/user_search1.jsp";
+			return "/SY/page/user_search1.jsp";
 		}
 }

@@ -15,7 +15,7 @@ import com.sy.service.parentser.ParentSerI;
 import com.sy.service.parentser.PyParentSer;
 
 @Service
-public class SYCostTypeService extends PyParentSer implements ParentSerI<SyCostType>{
+public class PySYCostTypeService extends PyParentSer implements ParentSerI<SyCostType>{
 
 	@Override
 	public List<SyCostType> getAll() {

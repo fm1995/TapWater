@@ -13,8 +13,8 @@ import com.sy.service.sfgl.PyBilldetailService;
 import com.sy.service.sfgl.PyPayService;
 import com.sy.service.sfgl.PySumreportService;
 import com.sy.service.sfgl.PyUserhistoryService;
-import com.sy.service.sfgl.SYCostTypeService;
-import com.sy.service.sfgl.UsUserService;
+import com.sy.service.sfgl.PySYCostTypeService;
+import com.sy.service.sfgl.PyUsUserService;
 
 /**
  * 收费管理
@@ -40,10 +40,10 @@ public class PyController {
 	
 	
 	@Autowired
-	protected UsUserService usUserService;
+	protected PyUsUserService usUserService;
 	
 	@Autowired
-	protected SYCostTypeService syCostTypeService;
+	protected PySYCostTypeService syCostTypeService;
 	
 	@Resource(name="ivInvoiceSer")
 	protected IvInvoiceService ivInvoiceService;
