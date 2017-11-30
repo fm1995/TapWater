@@ -18,9 +18,6 @@ SpringMVC+MyBatis(SyProject)
 * Windows: win10
 * Other:  
 
-sql
------------------------------------
-* [Github link](https://github.com/fm1995/TapWater/blob/master/SY/SyDataBase/sy.sql)	 sy.sql
 
 sAbout
 -----------------------------------
