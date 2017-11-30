@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.sy.mappdao.UsUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sy.entity.UsUser" >
+    <id column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="ABC" property="abc" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="sms_phone" property="smsPhone" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="user_type" property="userType" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_num" property="bankNum" jdbcType="VARCHAR" />
+    <result column="formula" property="formula" jdbcType="VARCHAR" />
+    <result column="user_money" property="userMoney" jdbcType="DECIMAL" />
+    <result column="meter_id" property="meterId" jdbcType="INTEGER" />
+    <result column="doc_num" property="docNum" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="contract_num" property="contractNum" jdbcType="VARCHAR" />
+    <result column="contract_date" property="contractDate" jdbcType="TIMESTAMP" />
+    <result column="volume_id" property="volumeId" jdbcType="INTEGER" />
+    <result column="volume_order_index" property="volumeOrderIndex" jdbcType="INTEGER" />
+    <result column="user_disabled" property="userDisabled" jdbcType="BIT" />
+  </resultMap>
+ 
+  <resultMap id="BaseResultMap1" type="com.sy.entity.UsUser" >
+    <id column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="ABC" property="abc" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="sms_phone" property="smsPhone" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="user_type" property="userType" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_num" property="bankNum" jdbcType="VARCHAR" />
+    <result column="formula" property="formula" jdbcType="VARCHAR" />
+    <result column="user_money" property="userMoney" jdbcType="DECIMAL" />
+    <result column="meter_id" property="meterId" jdbcType="INTEGER" />
+    <result column="doc_num" property="docNum" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="contract_num" property="contractNum" jdbcType="VARCHAR" />
+    <result column="contract_date" property="contractDate" jdbcType="TIMESTAMP" />
+    <result column="volume_id" property="volumeId" jdbcType="INTEGER" />
+    <result column="volume_order_index" property="volumeOrderIndex" jdbcType="INTEGER" />
+    <result column="user_disabled" property="userDisabled" jdbcType="BIT" />
+    <association property="orderUser" column="user_no"
+    	resultMap="com.sy.mappdao.BeOrderuserMapper.BaseResultMap"></association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_no, user_name, ABC, create_date, address, phone, sms_phone, area_id, user_type, 
+    pay_type, bank_name, bank_num, formula, user_money, meter_id, doc_num, pwd, contract_num, 
+    contract_date, volume_id, volume_order_index, user_disabled
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sy.entity.UsUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from us_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from us_user
+    where user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from us_user
+    where user_no = #{userNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sy.entity.UsUserExample" >
+    delete from us_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sy.entity.UsUser" >
+    insert into us_user (user_no, user_name, ABC, 
+      create_date, address, phone, 
+      sms_phone, area_id, user_type, 
+      pay_type, bank_name, bank_num, 
+      formula, user_money, meter_id, 
+      doc_num, pwd, contract_num, 
+      contract_date, volume_id, volume_order_index, 
+      user_disabled)
+    values (#{userNo,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{abc,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{smsPhone,jdbcType=VARCHAR}, #{areaId,jdbcType=INTEGER}, #{userType,jdbcType=VARCHAR}, 
+      #{payType,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{bankNum,jdbcType=VARCHAR}, 
+      #{formula,jdbcType=VARCHAR}, #{userMoney,jdbcType=DECIMAL}, #{meterId,jdbcType=INTEGER}, 
+      #{docNum,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{contractNum,jdbcType=VARCHAR}, 
+      #{contractDate,jdbcType=TIMESTAMP}, #{volumeId,jdbcType=INTEGER}, #{volumeOrderIndex,jdbcType=INTEGER}, 
+      #{userDisabled,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sy.entity.UsUser" >
+    insert into us_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="abc != null" >
+        ABC,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="smsPhone != null" >
+        sms_phone,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="bankNum != null" >
+        bank_num,
+      </if>
+      <if test="formula != null" >
+        formula,
+      </if>
+      <if test="userMoney != null" >
+        user_money,
+      </if>
+      <if test="meterId != null" >
+        meter_id,
+      </if>
+      <if test="docNum != null" >
+        doc_num,
+      </if>
+      <if test="pwd != null" >
+        pwd,
+      </if>
+      <if test="contractNum != null" >
+        contract_num,
+      </if>
+      <if test="contractDate != null" >
+        contract_date,
+      </if>
+      <if test="volumeId != null" >
+        volume_id,
+      </if>
+      <if test="volumeOrderIndex != null" >
+        volume_order_index,
+      </if>
+      <if test="userDisabled != null" >
+        user_disabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="abc != null" >
+        #{abc,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="smsPhone != null" >
+        #{smsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNum != null" >
+        #{bankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="formula != null" >
+        #{formula,jdbcType=VARCHAR},
+      </if>
+      <if test="userMoney != null" >
+        #{userMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="meterId != null" >
+        #{meterId,jdbcType=INTEGER},
+      </if>
+      <if test="docNum != null" >
+        #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNum != null" >
+        #{contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="contractDate != null" >
+        #{contractDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="volumeId != null" >
+        #{volumeId,jdbcType=INTEGER},
+      </if>
+      <if test="volumeOrderIndex != null" >
+        #{volumeOrderIndex,jdbcType=INTEGER},
+      </if>
+      <if test="userDisabled != null" >
+        #{userDisabled,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sy.entity.UsUserExample" resultType="java.lang.Integer" >
+    select count(*) from us_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update us_user
+    <set >
+      <if test="record.userNo != null" >
+        user_no = #{record.userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abc != null" >
+        ABC = #{record.abc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smsPhone != null" >
+        sms_phone = #{record.smsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaId != null" >
+        area_id = #{record.areaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userType != null" >
+        user_type = #{record.userType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payType != null" >
+        pay_type = #{record.payType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankNum != null" >
+        bank_num = #{record.bankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.formula != null" >
+        formula = #{record.formula,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userMoney != null" >
+        user_money = #{record.userMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.meterId != null" >
+        meter_id = #{record.meterId,jdbcType=INTEGER},
+      </if>
+      <if test="record.docNum != null" >
+        doc_num = #{record.docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pwd != null" >
+        pwd = #{record.pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractNum != null" >
+        contract_num = #{record.contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractDate != null" >
+        contract_date = #{record.contractDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.volumeId != null" >
+        volume_id = #{record.volumeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.volumeOrderIndex != null" >
+        volume_order_index = #{record.volumeOrderIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.userDisabled != null" >
+        user_disabled = #{record.userDisabled,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update us_user
+    set user_no = #{record.userNo,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      ABC = #{record.abc,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      address = #{record.address,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      sms_phone = #{record.smsPhone,jdbcType=VARCHAR},
+      area_id = #{record.areaId,jdbcType=INTEGER},
+      user_type = #{record.userType,jdbcType=VARCHAR},
+      pay_type = #{record.payType,jdbcType=VARCHAR},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      bank_num = #{record.bankNum,jdbcType=VARCHAR},
+      formula = #{record.formula,jdbcType=VARCHAR},
+      user_money = #{record.userMoney,jdbcType=DECIMAL},
+      meter_id = #{record.meterId,jdbcType=INTEGER},
+      doc_num = #{record.docNum,jdbcType=VARCHAR},
+      pwd = #{record.pwd,jdbcType=VARCHAR},
+      contract_num = #{record.contractNum,jdbcType=VARCHAR},
+      contract_date = #{record.contractDate,jdbcType=TIMESTAMP},
+      volume_id = #{record.volumeId,jdbcType=INTEGER},
+      volume_order_index = #{record.volumeOrderIndex,jdbcType=INTEGER},
+      user_disabled = #{record.userDisabled,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.UsUser" >
+    update us_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="abc != null" >
+        ABC = #{abc,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="smsPhone != null" >
+        sms_phone = #{smsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNum != null" >
+        bank_num = #{bankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="formula != null" >
+        formula = #{formula,jdbcType=VARCHAR},
+      </if>
+      <if test="userMoney != null" >
+        user_money = #{userMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="meterId != null" >
+        meter_id = #{meterId,jdbcType=INTEGER},
+      </if>
+      <if test="docNum != null" >
+        doc_num = #{docNum,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNum != null" >
+        contract_num = #{contractNum,jdbcType=VARCHAR},
+      </if>
+      <if test="contractDate != null" >
+        contract_date = #{contractDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="volumeId != null" >
+        volume_id = #{volumeId,jdbcType=INTEGER},
+      </if>
+      <if test="volumeOrderIndex != null" >
+        volume_order_index = #{volumeOrderIndex,jdbcType=INTEGER},
+      </if>
+      <if test="userDisabled != null" >
+        user_disabled = #{userDisabled,jdbcType=BIT},
+      </if>
+    </set>
+    where user_no = #{userNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sy.entity.UsUser" >
+    update us_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      ABC = #{abc,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      sms_phone = #{smsPhone,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=INTEGER},
+      user_type = #{userType,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_num = #{bankNum,jdbcType=VARCHAR},
+      formula = #{formula,jdbcType=VARCHAR},
+      user_money = #{userMoney,jdbcType=DECIMAL},
+      meter_id = #{meterId,jdbcType=INTEGER},
+      doc_num = #{docNum,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      contract_num = #{contractNum,jdbcType=VARCHAR},
+      contract_date = #{contractDate,jdbcType=TIMESTAMP},
+      volume_id = #{volumeId,jdbcType=INTEGER},
+      volume_order_index = #{volumeOrderIndex,jdbcType=INTEGER},
+      user_disabled = #{userDisabled,jdbcType=BIT}
+    where user_no = #{userNo,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 当前这个月注册的用户 -->
+  <select id="selNowUserCount" resultType="Integer">
+  	select count(*) from us_user where date_format(create_date,'%Y-%m')=date_format(now(),'%Y-%m')
+  </select>
+    <!--/////////////////////////// @author 卿建锋  自定义SQL //////////////////////-->
+  <sql id="queryColumn">
+  		user_no,user_name,formula,user_money,doc_num,phone,sms_phone,address,pay_type,bank_name,bank_num
+  </sql>
+  <!-- 快捷换表-【换表处理】 -->
+  <update id="replaceUserByMeter" parameterType="com.sy.entity.UsMeter">
+  		update us_user set meter_id=#{meterNo} where user_no=#{userNo} and user_disabled=0 
+  </update>
+  <!-- 快捷重签 条件查询 -->
+  <select id="queryUsers" parameterType="com.sy.entity.UsUser" resultMap="BaseResultMap">
+  	select 
+  	<include refid="queryColumn"></include>
+  	from us_user 
+	  	<where> 
+	  	<if test="userNo != null">
+	  		user_no=#{userNo} and
+	  	</if>
+	  	<if test="abc != null">
+	  		 abc like #{abc} and
+	  	</if>
+	  	<if test="userName != null">
+	  		 user_name like #{userName} and
+	  	</if>
+	  	<if test="phone !=null">
+	  		 phone like #{phone} and
+	  	</if>
+	  	<if test="address != null">
+	  		 address like #{address} and
+	  	</if>
+	  	 user_disabled=0
+  	 </where>
+  </select>
+  <!-- 重新签订协议 update -->
+  <update id="reSetProtocol"  parameterType="com.sy.entity.UsUser">
+  		update us_user set 
+  		<if test="formula !=null">
+  			formula=#{formula}
+  		</if>
+  		where
+  		user_no=#{userNo}
+  </update>
+  
+  <!-- 销户 -->
+  <update id="cancellationUser" parameterType="com.sy.entity.UsUser">
+  		update us_user set formula=null,user_money=0,user_disabled=1 where user_no=#{userNo}
+  </update>
+  
+  <!-- 验证档案号是否重叠 -->
+ <select id="queryDocNumReset" parameterType="java.lang.String" resultType="java.lang.String">
+ 	select doc_num from us_user where doc_num=#{doc_num}
+ </select>
+  
+  <!-- 修改档案号 -->
+  <update id="updateDocById" parameterType="com.sy.entity.UsUser">
+  		update us_user set 
+  			<if test="docNum !=null">
+  				doc_num=#{docNum}
+  			</if>
+  			<where>
+  				<if test="userNo != null">
+  					user_no=#{userNo}
+  				</if>	
+  			</where>	
+  </update>
+  
+  <!-- 短信群发查询字段 -->
+  <sql id="userBeanColumn">
+  		user_no,user_name,sms_phone,user_money
+  </sql>
+  <!-- 短信群发返回数据源 -->
+  <resultMap type="com.sy.entity.userhelp.UsUserHelpBean" id="userHelpBeanMap">
+  	<id column="user_no" property="userNo" jdbcType="VARCHAR" />
+  	<result column="user_name" property="userName" jdbcType="VARCHAR" />
+  	<result column="sms_phone" property="smsPhone" jdbcType="VARCHAR" />
+  	 <result column="user_money" property="userMoney" jdbcType="DECIMAL" />
+  </resultMap> 
+  <!-- 短信群发-【查询欠费的用户】 -->
+    <select id="queryArreasUserData" parameterType="com.sy.entity.page.Page" resultMap="userHelpBeanMap"> 
+  		 select 
+  			<include refid="userBeanColumn"></include>
+  		from us_user
+  		where
+  			user_money<![CDATA[<]]>0
+  			and user_disabled=0
+  		limit #{pageNumber},#{pageSize} 
+  </select> 
+  <!-- 短信群发-【查询所有的用户】 -->
+  <select id="queryOwnershipUserDate" parameterType="com.sy.entity.page.Page" resultMap="userHelpBeanMap">
+  		 select 
+  			<include refid="userBeanColumn"></include> 
+  		from us_user
+  		where user_disabled=0
+  		limit #{pageNumber},#{pageSize}  
+  </select> 
+  <!-- 统计欠费用户总量 -->
+  <select id="queryArreasUserCount" resultType="java.lang.Integer">
+  		select 
+  			count(*)
+  		from us_user
+  		where
+  			user_money<![CDATA[<]]>0
+  			and user_disabled=0
+  </select>
+  <!-- 统计所有可用的用户  -->
+  <select id="queryTrueUserCount" resultType="int">
+  	select count(*) from us_user where user_disabled=0
+  </select>
+  <!-- 数据源三 -->
+  <resultMap type="com.sy.entity.view.MeterView" id="viewMap">
+  		<id column="user_no" property="userNo" jdbcType="VARCHAR" />
+  	<result column="user_name" property="userName" jdbcType="VARCHAR" />
+  	<result column="meter_type_id" property="meterType" jdbcType="INTEGER"/>
+  	<association property="meter" column="meter_no" 
+  	resultMap="com.sy.mappdao.UsMeterMapper.BaseResultMap"></association>
+  </resultMap>
+  
+  <!-- 快捷换表-【用户查询】 -->
+  <select id="queryChangeTable" parameterType="com.sy.entity.UsUser" resultMap="viewMap">
+  		select user.user_no,user_name,meter_type_id,meter_no from us_user user
+  		left join us_meter meter
+  		on user.user_no=meter.user_no
+  	<where>
+  			<if test="userNo != null">
+	  			user.user_no like #{userNo}
+		  	</if>
+		  	<if test="abc != null">
+		  		and abc like #{abc}
+		  	</if>
+		  	<if test="userName != null">
+		  		and user_name like #{userName}
+		  	</if>
+		  	<if test="phone !=null">
+		  		and phone like #{phone}
+		  	</if>
+		  	<if test="address != null">
+		  		and address like #{address}
+		  	</if>
+		  	and user_disabled=0 
+  		</where>
+  </select>
+	<!-- ====================自定义查询语句 BarryLiu -->
+
+	<select id="selectYSList" parameterType="map" resultMap="BaseResultMap">
+		select * from us_user
+		<where>
+			user_money > 0
+			<if test="userMoney != null ">
+				and user_money > #{userMoney}
+			</if>
+		</where>
+		limit #{start} , #{rows}
+	</select>
+	<select id="selectYSListCount" parameterType="map" resultType="int">
+		select count(*) from us_user
+		<where>
+			user_money > 0
+			<if test="userMoney != null ">
+				and user_money > #{userMoney}
+			</if>
+		</where>
+		limit #{start} , #{rows}
+	</select>
+	<select id="selectYSMonenys" parameterType="map" resultType="java.lang.Double">
+		select sum(user_money) from us_user
+		<where>
+			user_money > 0
+			<if test="userMoney != null ">
+				and user_money > #{userMoney}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectUserByWhere" resultMap="BaseResultMap"
+		parameterType="map">
+		select * from us_user
+		<where>
+			<if test="whereStr != null and whereStr !='' ">
+				${whereStr}
+			</if>
+		</where>
+		<if test="start!=null and rows != null">
+			limit #{start}, #{rows}
+		</if>
+	</select>
+	<select id="selectUserCountByWhere" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(*) from us_user
+		<where>
+			<if test="whereStr != null and whereStr !='' ">
+				${whereStr}
+			</if>
+		</where>
+		limit #{start}, #{rows}
+	</select>
+
+	<select id="selByTerm" resultMap="BaseResultMap1" parameterType="map">
+		select a.*,b.* from us_user a
+		inner join be_orderuser b
+		on a.user_no=b.user_no
+		<where>
+			<if test="0 >= user.volumeId">
+				a.volume_id is null
+			</if>
+			<if test="user.volumeId >0 ">
+				a.volume_id=#{user.volumeId}
+				order by a.volume_order_index
+			</if>
+		</where>
+		limit #{term.startIndex},#{term.rows}
+	</select>
+
+	<select id="selByTermCount" resultType="int" parameterType="com.sy.entity.UsUser">
+		select count(*) from us_user a
+		inner join be_orderuser b
+		on a.user_no=b.user_no
+		<where>
+			<if test="0 >= volumeId">
+				a.volume_id is null
+			</if>
+			<if test=" volumeId >0 ">
+				a.volume_id=#{volumeId}
+			</if>
+		</where>
+	</select>
+
+	<update id="upVolumeId" parameterType="int">
+		update us_user set
+		volume_id=null where volume_id=#{volumeId}
+	</update>
+
+	<update id="upVolumeIdToNull" parameterType="map">
+		update us_user set
+		<if test="volumeId == 0">
+			volume_id=null
+		</if>
+		<if test="volumeId >0">
+			volume_id=#{volumeId}
+		</if>
+		where user_no in (
+		<foreach collection="list" item="userNo" separator=",">
+			#{userNo}
+		</foreach>
+		)
+	</update>
+	<select id="selMax" resultType="INTEGER">
+		select max(substring(user_no,3,10)) from us_user;
+	</select>
+
+	<select id="selByuserName" resultType="com.sy.entity.UsUser"
+		parameterType="map">
+		select * from us_user where user_name=#{userName} and phone=#{phone}
+
+	</select>
+
+
+	<update id="updateUserByUserNo" parameterType="com.sy.entity.UsUser">
+		update us_user set
+		user_name=#{userName},phone=#{phone},sms_phone=#{smsPhone},address=#{address}
+	</update>
+
+</mapper>

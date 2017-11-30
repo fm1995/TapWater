@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sy.mappdao.PyBalancedetailMapper" >
+  <resultMap id="BaseResultMap" type="com.sy.entity.PyBalancedetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="balance_date" property="balanceDate" jdbcType="TIMESTAMP" />
+    <result column="balance_money" property="balanceMoney" jdbcType="DECIMAL" />
+    <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+    <result column="bill_detail_id" property="billDetailId" jdbcType="INTEGER" />
+    <result column="cost_type_code" property="costTypeCode" jdbcType="VARCHAR" />
+    <result column="detail_real_money1" property="detailRealMoney1" jdbcType="DECIMAL" />
+    <result column="detail_real_money2" property="detailRealMoney2" jdbcType="DECIMAL" />
+    <result column="pay_no" property="payNo" jdbcType="VARCHAR" />
+    <result column="pay_use_money1" property="payUseMoney1" jdbcType="DECIMAL" />
+    <result column="pay_use_money2" property="payUseMoney2" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, parent_id, user_no, balance_date, balance_money, bill_no, bill_detail_id, cost_type_code, 
+    detail_real_money1, detail_real_money2, pay_no, pay_use_money1, pay_use_money2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sy.entity.PyBalancedetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from py_balancedetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from py_balancedetail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from py_balancedetail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sy.entity.PyBalancedetailExample" >
+    delete from py_balancedetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sy.entity.PyBalancedetail" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into py_balancedetail (parent_id, user_no, balance_date, 
+      balance_money, bill_no, bill_detail_id, 
+      cost_type_code, detail_real_money1, detail_real_money2, 
+      pay_no, pay_use_money1, pay_use_money2
+      )
+    values (#{parentId,jdbcType=INTEGER}, #{userNo,jdbcType=VARCHAR}, #{balanceDate,jdbcType=TIMESTAMP}, 
+      #{balanceMoney,jdbcType=DECIMAL}, #{billNo,jdbcType=VARCHAR}, #{billDetailId,jdbcType=INTEGER}, 
+      #{costTypeCode,jdbcType=VARCHAR}, #{detailRealMoney1,jdbcType=DECIMAL}, #{detailRealMoney2,jdbcType=DECIMAL}, 
+      #{payNo,jdbcType=VARCHAR}, #{payUseMoney1,jdbcType=DECIMAL}, #{payUseMoney2,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sy.entity.PyBalancedetail" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into py_balancedetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="balanceDate != null" >
+        balance_date,
+      </if>
+      <if test="balanceMoney != null" >
+        balance_money,
+      </if>
+      <if test="billNo != null" >
+        bill_no,
+      </if>
+      <if test="billDetailId != null" >
+        bill_detail_id,
+      </if>
+      <if test="costTypeCode != null" >
+        cost_type_code,
+      </if>
+      <if test="detailRealMoney1 != null" >
+        detail_real_money1,
+      </if>
+      <if test="detailRealMoney2 != null" >
+        detail_real_money2,
+      </if>
+      <if test="payNo != null" >
+        pay_no,
+      </if>
+      <if test="payUseMoney1 != null" >
+        pay_use_money1,
+      </if>
+      <if test="payUseMoney2 != null" >
+        pay_use_money2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceDate != null" >
+        #{balanceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balanceMoney != null" >
+        #{balanceMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="billNo != null" >
+        #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="billDetailId != null" >
+        #{billDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="costTypeCode != null" >
+        #{costTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="detailRealMoney1 != null" >
+        #{detailRealMoney1,jdbcType=DECIMAL},
+      </if>
+      <if test="detailRealMoney2 != null" >
+        #{detailRealMoney2,jdbcType=DECIMAL},
+      </if>
+      <if test="payNo != null" >
+        #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payUseMoney1 != null" >
+        #{payUseMoney1,jdbcType=DECIMAL},
+      </if>
+      <if test="payUseMoney2 != null" >
+        #{payUseMoney2,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sy.entity.PyBalancedetailExample" resultType="java.lang.Integer" >
+    select count(*) from py_balancedetail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update py_balancedetail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userNo != null" >
+        user_no = #{record.userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balanceDate != null" >
+        balance_date = #{record.balanceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.balanceMoney != null" >
+        balance_money = #{record.balanceMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.billNo != null" >
+        bill_no = #{record.billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billDetailId != null" >
+        bill_detail_id = #{record.billDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.costTypeCode != null" >
+        cost_type_code = #{record.costTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailRealMoney1 != null" >
+        detail_real_money1 = #{record.detailRealMoney1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.detailRealMoney2 != null" >
+        detail_real_money2 = #{record.detailRealMoney2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payNo != null" >
+        pay_no = #{record.payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payUseMoney1 != null" >
+        pay_use_money1 = #{record.payUseMoney1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payUseMoney2 != null" >
+        pay_use_money2 = #{record.payUseMoney2,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update py_balancedetail
+    set id = #{record.id,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      balance_date = #{record.balanceDate,jdbcType=TIMESTAMP},
+      balance_money = #{record.balanceMoney,jdbcType=DECIMAL},
+      bill_no = #{record.billNo,jdbcType=VARCHAR},
+      bill_detail_id = #{record.billDetailId,jdbcType=INTEGER},
+      cost_type_code = #{record.costTypeCode,jdbcType=VARCHAR},
+      detail_real_money1 = #{record.detailRealMoney1,jdbcType=DECIMAL},
+      detail_real_money2 = #{record.detailRealMoney2,jdbcType=DECIMAL},
+      pay_no = #{record.payNo,jdbcType=VARCHAR},
+      pay_use_money1 = #{record.payUseMoney1,jdbcType=DECIMAL},
+      pay_use_money2 = #{record.payUseMoney2,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.PyBalancedetail" >
+    update py_balancedetail
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceDate != null" >
+        balance_date = #{balanceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balanceMoney != null" >
+        balance_money = #{balanceMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="billNo != null" >
+        bill_no = #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="billDetailId != null" >
+        bill_detail_id = #{billDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="costTypeCode != null" >
+        cost_type_code = #{costTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="detailRealMoney1 != null" >
+        detail_real_money1 = #{detailRealMoney1,jdbcType=DECIMAL},
+      </if>
+      <if test="detailRealMoney2 != null" >
+        detail_real_money2 = #{detailRealMoney2,jdbcType=DECIMAL},
+      </if>
+      <if test="payNo != null" >
+        pay_no = #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payUseMoney1 != null" >
+        pay_use_money1 = #{payUseMoney1,jdbcType=DECIMAL},
+      </if>
+      <if test="payUseMoney2 != null" >
+        pay_use_money2 = #{payUseMoney2,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sy.entity.PyBalancedetail" >
+    update py_balancedetail
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      balance_date = #{balanceDate,jdbcType=TIMESTAMP},
+      balance_money = #{balanceMoney,jdbcType=DECIMAL},
+      bill_no = #{billNo,jdbcType=VARCHAR},
+      bill_detail_id = #{billDetailId,jdbcType=INTEGER},
+      cost_type_code = #{costTypeCode,jdbcType=VARCHAR},
+      detail_real_money1 = #{detailRealMoney1,jdbcType=DECIMAL},
+      detail_real_money2 = #{detailRealMoney2,jdbcType=DECIMAL},
+      pay_no = #{payNo,jdbcType=VARCHAR},
+      pay_use_money1 = #{payUseMoney1,jdbcType=DECIMAL},
+      pay_use_money2 = #{payUseMoney2,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

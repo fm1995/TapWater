@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sy.mappdao.SyMeterTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.sy.entity.SyMeterType" >
+    <id column="metertype_id" property="metertypeId" jdbcType="INTEGER" />
+    <result column="meter_type_name" property="meterTypeName" jdbcType="VARCHAR" />
+    <result column="metertype_aperture" property="metertypeAperture" jdbcType="INTEGER" />
+    <result column="metertype_max_value" property="metertypeMaxValue" jdbcType="INTEGER" />
+    <result column="metertype_min_value" property="metertypeMinValue" jdbcType="INTEGER" />
+    <result column="metertype_life" property="metertypeLife" jdbcType="INTEGER" />
+    <result column="metertype_remark" property="metertypeRemark" jdbcType="VARCHAR" />
+    <result column="metertype_disabled" property="metertypeDisabled" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    metertype_id, meter_type_name, metertype_aperture, metertype_max_value, metertype_min_value, 
+    metertype_life, metertype_remark, metertype_disabled
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sy.entity.SyMeterTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sy_meter_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sy_meter_type
+    where metertype_id = #{metertypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sy_meter_type
+    where metertype_id = #{metertypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sy.entity.SyMeterTypeExample" >
+    delete from sy_meter_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sy.entity.SyMeterType" >
+    insert into sy_meter_type (metertype_id, meter_type_name, metertype_aperture, 
+      metertype_max_value, metertype_min_value, metertype_life, 
+      metertype_remark, metertype_disabled)
+    values (#{metertypeId,jdbcType=INTEGER}, #{meterTypeName,jdbcType=VARCHAR}, #{metertypeAperture,jdbcType=INTEGER}, 
+      #{metertypeMaxValue,jdbcType=INTEGER}, #{metertypeMinValue,jdbcType=INTEGER}, #{metertypeLife,jdbcType=INTEGER}, 
+      #{metertypeRemark,jdbcType=VARCHAR}, #{metertypeDisabled,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sy.entity.SyMeterType" >
+    insert into sy_meter_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="metertypeId != null" >
+        metertype_id,
+      </if>
+      <if test="meterTypeName != null" >
+        meter_type_name,
+      </if>
+      <if test="metertypeAperture != null" >
+        metertype_aperture,
+      </if>
+      <if test="metertypeMaxValue != null" >
+        metertype_max_value,
+      </if>
+      <if test="metertypeMinValue != null" >
+        metertype_min_value,
+      </if>
+      <if test="metertypeLife != null" >
+        metertype_life,
+      </if>
+      <if test="metertypeRemark != null" >
+        metertype_remark,
+      </if>
+      <if test="metertypeDisabled != null" >
+        metertype_disabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="metertypeId != null" >
+        #{metertypeId,jdbcType=INTEGER},
+      </if>
+      <if test="meterTypeName != null" >
+        #{meterTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="metertypeAperture != null" >
+        #{metertypeAperture,jdbcType=INTEGER},
+      </if>
+      <if test="metertypeMaxValue != null" >
+        #{metertypeMaxValue,jdbcType=INTEGER},
+      </if>
+      <if test="metertypeMinValue != null" >
+        #{metertypeMinValue,jdbcType=INTEGER},
+      </if>
+      <if test="metertypeLife != null" >
+        #{metertypeLife,jdbcType=INTEGER},
+      </if>
+      <if test="metertypeRemark != null" >
+        #{metertypeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="metertypeDisabled != null" >
+        #{metertypeDisabled,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sy.entity.SyMeterTypeExample" resultType="java.lang.Integer" >
+    select count(*) from sy_meter_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sy_meter_type
+    <set >
+      <if test="record.metertypeId != null" >
+        metertype_id = #{record.metertypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.meterTypeName != null" >
+        meter_type_name = #{record.meterTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metertypeAperture != null" >
+        metertype_aperture = #{record.metertypeAperture,jdbcType=INTEGER},
+      </if>
+      <if test="record.metertypeMaxValue != null" >
+        metertype_max_value = #{record.metertypeMaxValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.metertypeMinValue != null" >
+        metertype_min_value = #{record.metertypeMinValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.metertypeLife != null" >
+        metertype_life = #{record.metertypeLife,jdbcType=INTEGER},
+      </if>
+      <if test="record.metertypeRemark != null" >
+        metertype_remark = #{record.metertypeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metertypeDisabled != null" >
+        metertype_disabled = #{record.metertypeDisabled,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sy_meter_type
+    set metertype_id = #{record.metertypeId,jdbcType=INTEGER},
+      meter_type_name = #{record.meterTypeName,jdbcType=VARCHAR},
+      metertype_aperture = #{record.metertypeAperture,jdbcType=INTEGER},
+      metertype_max_value = #{record.metertypeMaxValue,jdbcType=INTEGER},
+      metertype_min_value = #{record.metertypeMinValue,jdbcType=INTEGER},
+      metertype_life = #{record.metertypeLife,jdbcType=INTEGER},
+      metertype_remark = #{record.metertypeRemark,jdbcType=VARCHAR},
+      metertype_disabled = #{record.metertypeDisabled,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.SyMeterType" >
+    update sy_meter_type
+    <set >
+      <if test="meterTypeName != null" >
+        meter_type_name = #{meterTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="metertypeAperture != null" >
+        metertype_aperture = #{metertypeAperture,jdbcType=INTEGER},
+      </if>
+      <if test="metertypeMaxValue != null" >
+        metertype_max_value = #{metertypeMaxValue,jdbcType=INTEGER},
+      </if>
+      <if test="metertypeMinValue != null" >
+        metertype_min_value = #{metertypeMinValue,jdbcType=INTEGER},
+      </if>
+      <if test="metertypeLife != null" >
+        metertype_life = #{metertypeLife,jdbcType=INTEGER},
+      </if>
+      <if test="metertypeRemark != null" >
+        metertype_remark = #{metertypeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="metertypeDisabled != null" >
+        metertype_disabled = #{metertypeDisabled,jdbcType=BIT},
+      </if>
+    </set>
+    where metertype_id = #{metertypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sy.entity.SyMeterType" >
+    update sy_meter_type
+    set meter_type_name = #{meterTypeName,jdbcType=VARCHAR},
+      metertype_aperture = #{metertypeAperture,jdbcType=INTEGER},
+      metertype_max_value = #{metertypeMaxValue,jdbcType=INTEGER},
+      metertype_min_value = #{metertypeMinValue,jdbcType=INTEGER},
+      metertype_life = #{metertypeLife,jdbcType=INTEGER},
+      metertype_remark = #{metertypeRemark,jdbcType=VARCHAR},
+      metertype_disabled = #{metertypeDisabled,jdbcType=BIT}
+    where metertype_id = #{metertypeId,jdbcType=INTEGER}
+  </update>
+    <select id="selectAll" resultMap="BaseResultMap">
+  	select * from sy_meter_type;
+  </select>
+  
+</mapper>

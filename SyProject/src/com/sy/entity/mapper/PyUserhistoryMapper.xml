@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sy.mappdao.PyUserhistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.sy.entity.PyUserhistory" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userno" property="userno" jdbcType="VARCHAR" />
+    <result column="typee" property="typee" jdbcType="INTEGER" />
+    <result column="orderno" property="orderno" jdbcType="VARCHAR" />
+    <result column="datee" property="datee" jdbcType="TIMESTAMP" />
+    <result column="prevalue" property="prevalue" jdbcType="INTEGER" />
+    <result column="curvalue" property="curvalue" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="billmoney" property="billmoney" jdbcType="DECIMAL" />
+    <result column="paymoney" property="paymoney" jdbcType="DECIMAL" />
+    <result column="usermoney" property="usermoney" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, userno, typee, orderno, datee, prevalue, curvalue, amount, billmoney, paymoney, 
+    usermoney
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sy.entity.PyUserhistoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from py_userhistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from py_userhistory
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from py_userhistory
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sy.entity.PyUserhistoryExample" >
+    delete from py_userhistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sy.entity.PyUserhistory" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into py_userhistory (userno, typee, orderno, 
+      datee, prevalue, curvalue, 
+      amount, billmoney, paymoney, 
+      usermoney)
+    values (#{userno,jdbcType=VARCHAR}, #{typee,jdbcType=INTEGER}, #{orderno,jdbcType=VARCHAR}, 
+      #{datee,jdbcType=TIMESTAMP}, #{prevalue,jdbcType=INTEGER}, #{curvalue,jdbcType=INTEGER}, 
+      #{amount,jdbcType=INTEGER}, #{billmoney,jdbcType=DECIMAL}, #{paymoney,jdbcType=DECIMAL}, 
+      #{usermoney,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sy.entity.PyUserhistory" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into py_userhistory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userno != null" >
+        userno,
+      </if>
+      <if test="typee != null" >
+        typee,
+      </if>
+      <if test="orderno != null" >
+        orderno,
+      </if>
+      <if test="datee != null" >
+        datee,
+      </if>
+      <if test="prevalue != null" >
+        prevalue,
+      </if>
+      <if test="curvalue != null" >
+        curvalue,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="billmoney != null" >
+        billmoney,
+      </if>
+      <if test="paymoney != null" >
+        paymoney,
+      </if>
+      <if test="usermoney != null" >
+        usermoney,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userno != null" >
+        #{userno,jdbcType=VARCHAR},
+      </if>
+      <if test="typee != null" >
+        #{typee,jdbcType=INTEGER},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="datee != null" >
+        #{datee,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prevalue != null" >
+        #{prevalue,jdbcType=INTEGER},
+      </if>
+      <if test="curvalue != null" >
+        #{curvalue,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="billmoney != null" >
+        #{billmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="paymoney != null" >
+        #{paymoney,jdbcType=DECIMAL},
+      </if>
+      <if test="usermoney != null" >
+        #{usermoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sy.entity.PyUserhistoryExample" resultType="java.lang.Integer" >
+    select count(*) from py_userhistory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update py_userhistory
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userno != null" >
+        userno = #{record.userno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typee != null" >
+        typee = #{record.typee,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderno != null" >
+        orderno = #{record.orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datee != null" >
+        datee = #{record.datee,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.prevalue != null" >
+        prevalue = #{record.prevalue,jdbcType=INTEGER},
+      </if>
+      <if test="record.curvalue != null" >
+        curvalue = #{record.curvalue,jdbcType=INTEGER},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.billmoney != null" >
+        billmoney = #{record.billmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paymoney != null" >
+        paymoney = #{record.paymoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.usermoney != null" >
+        usermoney = #{record.usermoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update py_userhistory
+    set id = #{record.id,jdbcType=INTEGER},
+      userno = #{record.userno,jdbcType=VARCHAR},
+      typee = #{record.typee,jdbcType=INTEGER},
+      orderno = #{record.orderno,jdbcType=VARCHAR},
+      datee = #{record.datee,jdbcType=TIMESTAMP},
+      prevalue = #{record.prevalue,jdbcType=INTEGER},
+      curvalue = #{record.curvalue,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=INTEGER},
+      billmoney = #{record.billmoney,jdbcType=DECIMAL},
+      paymoney = #{record.paymoney,jdbcType=DECIMAL},
+      usermoney = #{record.usermoney,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.PyUserhistory" >
+    update py_userhistory
+    <set >
+      <if test="userno != null" >
+        userno = #{userno,jdbcType=VARCHAR},
+      </if>
+      <if test="typee != null" >
+        typee = #{typee,jdbcType=INTEGER},
+      </if>
+      <if test="orderno != null" >
+        orderno = #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="datee != null" >
+        datee = #{datee,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prevalue != null" >
+        prevalue = #{prevalue,jdbcType=INTEGER},
+      </if>
+      <if test="curvalue != null" >
+        curvalue = #{curvalue,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="billmoney != null" >
+        billmoney = #{billmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="paymoney != null" >
+        paymoney = #{paymoney,jdbcType=DECIMAL},
+      </if>
+      <if test="usermoney != null" >
+        usermoney = #{usermoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sy.entity.PyUserhistory" >
+    update py_userhistory
+    set userno = #{userno,jdbcType=VARCHAR},
+      typee = #{typee,jdbcType=INTEGER},
+      orderno = #{orderno,jdbcType=VARCHAR},
+      datee = #{datee,jdbcType=TIMESTAMP},
+      prevalue = #{prevalue,jdbcType=INTEGER},
+      curvalue = #{curvalue,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=INTEGER},
+      billmoney = #{billmoney,jdbcType=DECIMAL},
+      paymoney = #{paymoney,jdbcType=DECIMAL},
+      usermoney = #{usermoney,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- 自定义查询语句 -->
+  <select id="selectByWhereStr" parameterType="map" resultMap="BaseResultMap">
+      select * from py_userhistory 
+      <where>
+		<if test="whereStr != null">
+		    ${whereStr}
+		</if>          
+      </where>
+  </select>
+</mapper>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sy.mappdao.RdTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.sy.entity.RdTask" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="read_year" property="readYear" jdbcType="INTEGER" />
+    <result column="read_month" property="readMonth" jdbcType="INTEGER" />
+    <result column="volume_id" property="volumeId" jdbcType="INTEGER" />
+    <result column="emp_id" property="empId" jdbcType="INTEGER" />
+  </resultMap>
+   <resultMap id="MyBaseResultMap" type="com.sy.entity.RdTask" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="read_year" property="readYear" jdbcType="INTEGER" />
+    <result column="read_month" property="readMonth" jdbcType="INTEGER" />
+    <result column="volume_id" property="volumeId" jdbcType="INTEGER" />
+    <result column="emp_id" property="empId" jdbcType="INTEGER" />
+    <association property="syEmp" column="emp_id" resultMap="com.sy.mappdao.SyEmpMapper.BaseResultMap"></association>
+  	<association property="rdVolume" column="volume_id" resultMap="com.sy.mappdao.RdVolumeMapper.MyBaseResultMap"></association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, read_year, read_month, volume_id, emp_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sy.entity.RdTaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from rd_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rd_task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rd_task
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sy.entity.RdTaskExample" >
+    delete from rd_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sy.entity.RdTask" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into rd_task (read_year, read_month, volume_id, 
+      emp_id)
+    values (#{readYear,jdbcType=INTEGER}, #{readMonth,jdbcType=INTEGER}, #{volumeId,jdbcType=INTEGER}, 
+      #{empId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sy.entity.RdTask" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into rd_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="readYear != null" >
+        read_year,
+      </if>
+      <if test="readMonth != null" >
+        read_month,
+      </if>
+      <if test="volumeId != null" >
+        volume_id,
+      </if>
+      <if test="empId != null" >
+        emp_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="readYear != null" >
+        #{readYear,jdbcType=INTEGER},
+      </if>
+      <if test="readMonth != null" >
+        #{readMonth,jdbcType=INTEGER},
+      </if>
+      <if test="volumeId != null" >
+        #{volumeId,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null" >
+        #{empId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sy.entity.RdTaskExample" resultType="java.lang.Integer" >
+    select count(*) from rd_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rd_task
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.readYear != null" >
+        read_year = #{record.readYear,jdbcType=INTEGER},
+      </if>
+      <if test="record.readMonth != null" >
+        read_month = #{record.readMonth,jdbcType=INTEGER},
+      </if>
+      <if test="record.volumeId != null" >
+        volume_id = #{record.volumeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.empId != null" >
+        emp_id = #{record.empId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rd_task
+    set id = #{record.id,jdbcType=INTEGER},
+      read_year = #{record.readYear,jdbcType=INTEGER},
+      read_month = #{record.readMonth,jdbcType=INTEGER},
+      volume_id = #{record.volumeId,jdbcType=INTEGER},
+      emp_id = #{record.empId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sy.entity.RdTask" >
+    update rd_task
+    <set >
+      <if test="readYear != null" >
+        read_year = #{readYear,jdbcType=INTEGER},
+      </if>
+      <if test="readMonth != null" >
+        read_month = #{readMonth,jdbcType=INTEGER},
+      </if>
+      <if test="volumeId != null" >
+        volume_id = #{volumeId,jdbcType=INTEGER},
+      </if>
+      <if test="empId != null" >
+        emp_id = #{empId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sy.entity.RdTask" >
+    update rd_task
+    set read_year = #{readYear,jdbcType=INTEGER},
+      read_month = #{readMonth,jdbcType=INTEGER},
+      volume_id = #{volumeId,jdbcType=INTEGER},
+      emp_id = #{empId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="initTask" parameterType="map">
+  	insert into rd_task(read_year,read_month,volume_id,emp_id)
+	select extract(year from sysdate()) as read_year,
+		   extract(month from sysdate()) as read_month,
+           volume_id,
+           emp_id from rd_task a inner join rd_volume b on a.volume_id=b.id
+           where a.read_year=#{year} and a.read_month=#{month}
+  </insert>
+  <insert id="initTaskByNewVolume">
+  	insert into rd_task(read_year,read_month,volume_id)
+	select extract(year from sysdate()) as read_year,
+		   extract(month from sysdate()) as read_month,
+           id as volume_id
+    from rd_volume
+    where id not in 
+    	   (select volume_id from rd_task 
+    	   		where read_year=extract(year from sysdate()) 
+    	   		and read_month=extract(month from sysdate()) 
+    	   	)
+  </insert>
+
+  
+  
+  <!-- 抄表任务分配查询 -->
+  
+  <select id="queryToRdTask" resultMap="MyBaseResultMap">
+	select a.*,v.*,e.*,
+	(
+		select count(*) from rd_read where v.id=volume_id
+	) read_year,(
+		select count(*) from rd_read where v.id=volume_id and enter=0
+	) read_month
+	from rd_task t 
+	inner join sy_emp e on t.emp_id=e.emp_id
+	inner join rd_volume v on t.volume_id=v.id
+	inner join sy_area a on v.area_id=a.area_id
+  </select>
+  
+  
+</mapper>
